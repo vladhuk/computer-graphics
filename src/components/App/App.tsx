@@ -4,7 +4,7 @@ import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';
 import exampleImage from '../../assets/examples/example1.png';
-import DimensionsInputs from '../DimensionsInputs';
+import DimensionsInputs from '../DimensionsForm';
 import Figure from '../Figure';
 import Coord from '../../types/Coord';
 
@@ -28,27 +28,26 @@ const App: FunctionComponent = () => {
             {
               title: 'Cell length',
               value: cellLength,
+              min: 1,
               setValue: setCellLength,
             },
           ],
           [
-            { title: 'R', value: R, setValue: setR },
-            { title: 'L1', value: L1, setValue: setL1 },
-            { title: 'L2', value: L2, setValue: setL2 },
-            { title: 'L3', value: L3, setValue: setL3 },
-            { title: 'L4', value: L4, setValue: setL4 },
+            { title: 'R', value: R, min: 0, setValue: setR },
+            { title: 'L1', value: L1, min: 0, setValue: setL1 },
+            { title: 'L2', value: L2, min: 0, setValue: setL2 },
+            { title: 'L3', value: L3, min: 0, setValue: setL3 },
+            { title: 'L4', value: L4, min: 0, setValue: setL4 },
           ],
           [
             {
               title: 'Offset X',
               value: offset.x,
-              allowNegatives: true,
               setValue: (value) => setOffset({ x: value, y: offset.y }),
             },
             {
               title: 'Offset Y',
               value: offset.y,
-              allowNegatives: true,
               setValue: (value) => setOffset({ x: offset.x, y: value }),
             },
           ],
