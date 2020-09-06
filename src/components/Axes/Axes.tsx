@@ -7,7 +7,7 @@ interface Props {
   height: number;
 }
 
-const Axes: FunctionComponent<Props> = ({ width, height }: Props) => {
+const Axes: FunctionComponent<Props> = ({ width, height }) => {
   const getArrow = (start: Coord, end: Coord) => (
     <Arrow
       x={start.x}

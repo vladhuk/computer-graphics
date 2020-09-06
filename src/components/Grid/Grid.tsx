@@ -8,7 +8,7 @@ interface Props {
   spacing: number;
 }
 
-const Grid: FunctionComponent<Props> = ({ width, height, spacing }: Props) => {
+const Grid: FunctionComponent<Props> = ({ width, height, spacing }) => {
   const getLine = (start: Coord, end: Coord) => (
     <Line
       x={start.x}
