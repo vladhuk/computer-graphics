@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { Line } from 'react-konva';
 import Coord from '../../types/Coord';
 import OuterFigure from './elements/OuterFigure';
 import InnerFigure from './elements/InnerFigure';
@@ -17,6 +16,7 @@ const Figure: FunctionComponent<Props> = ({ center, R, L1, L2, L3, L4 }) => {
   return (
     <>
       <OuterFigure center={center} R={R} L1={L1} L3={L3} L4={L4} />
+      <InnerFigure center={center} R={R} L1={L1} L2={L2} />
     </>
   );
 };
