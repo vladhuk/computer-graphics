@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Line } from 'react-konva';
+import Coord from '../../types/Coord';
 
 interface Props {
   width: number;
@@ -8,16 +9,11 @@ interface Props {
 }
 
 const Grid: FunctionComponent<Props> = ({ width, height, spacing }: Props) => {
-  const getLine = (
-    xStart: number,
-    yStart: number,
-    xEnd: number,
-    yEnd: number
-  ) => (
+  const getLine = (start: Coord, end: Coord) => (
     <Line
-      x={xStart}
-      y={yStart}
-      points={[0, 0, xEnd, yEnd]}
+      x={start.x}
+      y={start.y}
+      points={[0, 0, end.x, end.y]}
       stroke="black"
       strokeWidth={0.3}
     />
@@ -25,11 +21,11 @@ const Grid: FunctionComponent<Props> = ({ width, height, spacing }: Props) => {
 
   const lines = [];
 
-  for (let i = spacing; i < width; i += spacing) {
-    lines.push(getLine(0, i, width, 0));
+  for (let startY = spacing; startY < width; startY += spacing) {
+    lines.push(getLine({ x: 0, y: startY }, { x: width, y: 0 }));
   }
-  for (let i = spacing; i < height; i += spacing) {
-    lines.push(getLine(i, 0, 0, height));
+  for (let startX = spacing; startX < height; startX += spacing) {
+    lines.push(getLine({ x: startX, y: 0 }, { x: 0, y: height }));
   }
 
   return <>{lines}</>;
