@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Line } from 'react-konva';
-import Coord from '../../types/Coord';
+import GridLine from './GridLine';
 
 interface Props {
   width: number;
@@ -9,23 +8,25 @@ interface Props {
 }
 
 const Grid: FunctionComponent<Props> = ({ width, height, cellLength }) => {
-  const getLine = (start: Coord, end: Coord) => (
-    <Line
-      x={start.x}
-      y={start.y}
-      points={[0, 0, end.x, end.y]}
-      stroke="black"
-      strokeWidth={0.3}
-    />
-  );
-
   const lines = [];
 
   for (let startY = cellLength; startY < width; startY += cellLength) {
-    lines.push(getLine({ x: 0, y: startY }, { x: width, y: 0 }));
+    lines.push(
+      <GridLine
+        key={`0_${startY}`}
+        start={{ x: 0, y: startY }}
+        end={{ x: width, y: 0 }}
+      />
+    );
   }
   for (let startX = cellLength; startX < height; startX += cellLength) {
-    lines.push(getLine({ x: startX, y: 0 }, { x: 0, y: height }));
+    lines.push(
+      <GridLine
+        key={`${startX}_0`}
+        start={{ x: startX, y: 0 }}
+        end={{ x: 0, y: height }}
+      />
+    );
   }
 
   return <>{lines}</>;
