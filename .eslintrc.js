@@ -20,12 +20,12 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
+        extensions: ['.ts', '.tsx', '.ts'],
       },
     },
   },
 
-  ignorePatterns: ['**/*.css', '**/*.scss', '**/*.svg'],
+  ignorePatterns: ['**/*.css', '**/*.png'],
 
   rules: {
     'prettier/prettier': [WARN],
