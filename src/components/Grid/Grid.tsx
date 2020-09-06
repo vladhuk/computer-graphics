@@ -5,10 +5,10 @@ import Coord from '../../types/Coord';
 interface Props {
   width: number;
   height: number;
-  spacing: number;
+  cellLength: number;
 }
 
-const Grid: FunctionComponent<Props> = ({ width, height, spacing }) => {
+const Grid: FunctionComponent<Props> = ({ width, height, cellLength }) => {
   const getLine = (start: Coord, end: Coord) => (
     <Line
       x={start.x}
@@ -21,10 +21,10 @@ const Grid: FunctionComponent<Props> = ({ width, height, spacing }) => {
 
   const lines = [];
 
-  for (let startY = spacing; startY < width; startY += spacing) {
+  for (let startY = cellLength; startY < width; startY += cellLength) {
     lines.push(getLine({ x: 0, y: startY }, { x: width, y: 0 }));
   }
-  for (let startX = spacing; startX < height; startX += spacing) {
+  for (let startX = cellLength; startX < height; startX += cellLength) {
     lines.push(getLine({ x: startX, y: 0 }, { x: 0, y: height }));
   }
 
