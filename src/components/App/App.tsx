@@ -9,11 +9,11 @@ import Figure from '../Figure';
 import Coord from '../../types/Coord';
 
 const App: FunctionComponent = () => {
-  const [R, setR] = useState(15);
-  const [L1, setL1] = useState(50);
-  const [L2, setL2] = useState(30);
-  const [L3, setL3] = useState(40);
-  const [L4, setL4] = useState(60);
+  const [R, setR] = useState(100);
+  const [L1, setL1] = useState(400);
+  const [L2, setL2] = useState(100);
+  const [L3, setL3] = useState(400);
+  const [L4, setL4] = useState(600);
   const [cellLength, setCellLength] = useState(25);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
 
@@ -47,8 +47,8 @@ const App: FunctionComponent = () => {
             },
             {
               title: 'Offset Y',
-              value: offset.y,
-              setValue: (value) => setOffset({ x: offset.x, y: value }),
+              value: -offset.y,
+              setValue: (value) => setOffset({ x: offset.x, y: -value }),
             },
           ],
         ]}
