@@ -43,12 +43,12 @@ const App: FunctionComponent = () => {
           ],
           [
             {
-              title: 'Offset X',
+              title: 'ΔX',
               value: offset.x,
               setValue: (value) => setOffset({ x: value, y: offset.y }),
             },
             {
-              title: 'Offset Y',
+              title: 'ΔY',
               value: -offset.y,
               setValue: (value) => setOffset({ x: offset.x, y: -value }),
             },
