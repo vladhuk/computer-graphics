@@ -20,6 +20,8 @@ const App: FunctionComponent = () => {
   const width = 800;
   const height = 800;
 
+  const center: Coord = { x: width / 2, y: height / 2 };
+
   return (
     <div className="d-flex justify-content-between my-3 mx-5">
       <DimensionsInputs
@@ -55,10 +57,15 @@ const App: FunctionComponent = () => {
       />
       <Stage width={width} height={height}>
         <Layer>
-          <Grid width={width} height={height} cellLength={cellLength} />
+          <Grid
+            width={width}
+            height={height}
+            center={center}
+            cellLength={cellLength}
+          />
           <Axes width={width} height={height} />
           <Figure
-            center={{ x: width / 2 + offset.x, y: height / 2 + offset.y }}
+            center={{ x: center.x + offset.x, y: center.y + offset.y }}
             R={R}
             L1={L1}
             L2={L2}
