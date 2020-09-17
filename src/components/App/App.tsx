@@ -9,6 +9,11 @@ import Figure from '../Figure';
 import Coord from '../../types/Coord';
 
 const App: FunctionComponent = () => {
+  const width = 800;
+  const height = 800;
+
+  const center: Coord = { x: width / 2, y: height / 2 };
+
   const [R, setR] = useState(75);
   const [L1, setL1] = useState(300);
   const [L2, setL2] = useState(75);
@@ -16,11 +21,8 @@ const App: FunctionComponent = () => {
   const [L4, setL4] = useState(450);
   const [cellLength, setCellLength] = useState(25);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
-
-  const width = 800;
-  const height = 800;
-
-  const center: Coord = { x: width / 2, y: height / 2 };
+  const [rotate, setRotate] = useState(0);
+  const [pivot, setPivot] = useState<Coord>(center);
 
   return (
     <div className="d-flex justify-content-between my-3 mx-5">
@@ -59,6 +61,26 @@ const App: FunctionComponent = () => {
                   title: 'ΔY',
                   value: -offset.y,
                   setValue: (value) => setOffset({ x: offset.x, y: -value }),
+                },
+              ],
+              [
+                {
+                  title: 'Rotate',
+                  value: rotate,
+                  unit: 'deg',
+                  setValue: setRotate,
+                },
+                {
+                  title: 'Pivot X',
+                  value: pivot.x - center.x,
+                  setValue: (value) =>
+                    setPivot({ x: value + center.x, y: pivot.y }),
+                },
+                {
+                  title: 'Pivot Y',
+                  value: -pivot.y + center.y,
+                  setValue: (value) =>
+                    setPivot({ x: pivot.x, y: -value + center.y }),
                 },
               ],
             ],
