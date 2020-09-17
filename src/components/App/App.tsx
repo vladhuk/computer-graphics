@@ -9,11 +9,11 @@ import Figure from '../Figure';
 import Coord from '../../types/Coord';
 
 const App: FunctionComponent = () => {
-  const [R, setR] = useState(100);
-  const [L1, setL1] = useState(400);
-  const [L2, setL2] = useState(100);
-  const [L3, setL3] = useState(400);
-  const [L4, setL4] = useState(600);
+  const [R, setR] = useState(75);
+  const [L1, setL1] = useState(300);
+  const [L2, setL2] = useState(75);
+  const [L3, setL3] = useState(300);
+  const [L4, setL4] = useState(450);
   const [cellLength, setCellLength] = useState(25);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
 
