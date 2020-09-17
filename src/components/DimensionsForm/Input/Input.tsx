@@ -6,12 +6,19 @@ export interface FormInput {
   title: string;
   value: number;
   min?: number;
+  unit?: string;
   setValue(value: number): void;
 }
 
 type Props = FormInput;
 
-const Input: FunctionComponent<Props> = ({ title, value, min, setValue }) => (
+const Input: FunctionComponent<Props> = ({
+  title,
+  value,
+  min,
+  unit,
+  setValue,
+}) => (
   <Form.Group as={Row} key={title}>
     <Form.Label column md={4}>
       {title}
@@ -31,7 +38,7 @@ const Input: FunctionComponent<Props> = ({ title, value, min, setValue }) => (
       />
     </Col>
     <Form.Label className="px-0" column>
-      px
+      {unit || 'px'}
     </Form.Label>
   </Form.Group>
 );
