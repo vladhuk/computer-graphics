@@ -25,34 +25,44 @@ const App: FunctionComponent = () => {
   return (
     <div className="d-flex justify-content-between my-3 mx-5">
       <DimensionsInputs
-        inputsGroups={[
-          [
-            {
-              title: 'Cell length',
-              value: cellLength,
-              min: 1,
-              setValue: setCellLength,
-            },
-          ],
-          [
-            { title: 'R', value: R, min: 0, setValue: setR },
-            { title: 'L1', value: L1, min: 0, setValue: setL1 },
-            { title: 'L2', value: L2, min: 0, setValue: setL2 },
-            { title: 'L3', value: L3, min: 0, setValue: setL3 },
-            { title: 'L4', value: L4, min: 0, setValue: setL4 },
-          ],
-          [
-            {
-              title: 'ΔX',
-              value: offset.x,
-              setValue: (value) => setOffset({ x: value, y: offset.y }),
-            },
-            {
-              title: 'ΔY',
-              value: -offset.y,
-              setValue: (value) => setOffset({ x: offset.x, y: -value }),
-            },
-          ],
+        tabs={[
+          {
+            title: 'Parameters',
+            inputsGroups: [
+              [
+                {
+                  title: 'Cell length',
+                  value: cellLength,
+                  min: 1,
+                  setValue: setCellLength,
+                },
+              ],
+              [
+                { title: 'R', value: R, min: 0, setValue: setR },
+                { title: 'L1', value: L1, min: 0, setValue: setL1 },
+                { title: 'L2', value: L2, min: 0, setValue: setL2 },
+                { title: 'L3', value: L3, min: 0, setValue: setL3 },
+                { title: 'L4', value: L4, min: 0, setValue: setL4 },
+              ],
+            ],
+          },
+          {
+            title: 'Euclid',
+            inputsGroups: [
+              [
+                {
+                  title: 'ΔX',
+                  value: offset.x,
+                  setValue: (value) => setOffset({ x: value, y: offset.y }),
+                },
+                {
+                  title: 'ΔY',
+                  value: -offset.y,
+                  setValue: (value) => setOffset({ x: offset.x, y: -value }),
+                },
+              ],
+            ],
+          },
         ]}
       />
       <Stage width={width} height={height}>
