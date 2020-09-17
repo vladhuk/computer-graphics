@@ -10,9 +10,7 @@ export interface FormInput {
   setValue(value: number): void;
 }
 
-type Props = FormInput;
-
-const Input: FunctionComponent<Props> = ({
+const Input: FunctionComponent<FormInput> = ({
   title,
   value,
   min,
