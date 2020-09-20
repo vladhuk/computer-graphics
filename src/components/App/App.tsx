@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Circle } from 'react-konva';
 import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';
@@ -7,6 +7,7 @@ import exampleImage from '../../assets/examples/example1.png';
 import DimensionsInputs from '../DimensionsForm';
 import Figure from '../Figure';
 import Coord from '../../types/Coord';
+import Pivot from '../Pivot';
 
 const App: FunctionComponent = () => {
   const width = 800;
@@ -96,13 +97,15 @@ const App: FunctionComponent = () => {
             cellLength={cellLength}
           />
           <Axes width={width} height={height} />
+          <Pivot pivot={pivot} />
           <Figure
-            center={{ x: center.x + offset.x, y: center.y + offset.y }}
+            center={center}
             R={R}
             L1={L1}
             L2={L2}
             L3={L3}
             L4={L4}
+            offset={offset}
           />
         </Layer>
       </Stage>

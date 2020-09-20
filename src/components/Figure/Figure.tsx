@@ -10,13 +10,24 @@ interface Props {
   L2: number;
   L3: number;
   L4: number;
+  offset: Coord;
 }
 
-const Figure: FunctionComponent<Props> = ({ center, R, L1, L2, L3, L4 }) => {
+const Figure: FunctionComponent<Props> = ({
+  center,
+  R,
+  L1,
+  L2,
+  L3,
+  L4,
+  offset,
+}) => {
+  const offsetCenter = { x: center.x + offset.x, y: center.y + offset.y };
+
   return (
     <>
-      <OuterFigure center={center} R={R} L1={L1} L3={L3} L4={L4} />
-      <InnerFigure center={center} R={R} L1={L1} L2={L2} />
+      <OuterFigure center={offsetCenter} R={R} L1={L1} L3={L3} L4={L4} />
+      <InnerFigure center={offsetCenter} R={R} L1={L1} L2={L2} />
     </>
   );
 };
