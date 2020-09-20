@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Stage, Layer, Circle } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';

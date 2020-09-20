@@ -22,7 +22,10 @@ const Figure: FunctionComponent<Props> = ({
   L4,
   offset,
 }) => {
-  const offsetCenter = { x: center.x + offset.x, y: center.y + offset.y };
+  const offsetCenter: Coord = {
+    x: center.x + offset.x,
+    y: center.y + offset.y,
+  };
 
   return (
     <>
