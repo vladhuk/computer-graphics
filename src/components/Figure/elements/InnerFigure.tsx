@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React, { FunctionComponent } from 'react';
-import { Line } from 'react-konva';
 import Coord from '../../../types/Coord';
+import CoordLine from '../../CoordLine';
 
 interface Props {
   center: Coord;
@@ -14,50 +13,47 @@ const InnerFigure: FunctionComponent<Props> = ({ center, R, L1, L2 }) => {
   const circleCenter: Coord = { x: center.x, y: center.y + L1 / 2 };
   const circleLineLength = 1;
 
-  const getY = (x: number, scale: number): number => {
+  const getCircleY = (x: number, scale: number): number => {
     return (
       Math.sqrt(Math.abs(R ** 2 - (x - circleCenter.x) ** 2)) * scale +
       circleCenter.y
     );
   };
 
-  const getLine = (x: number, scale: number) => {
-    const y = getY(x, scale);
-    return (
-      <Line
-        x={x}
-        y={y}
-        points={[0, 0, circleLineLength, getY(x + circleLineLength, scale) - y]}
-        stroke="black"
-      />
-    );
-  };
+  const getCircleLine = (x: number, scale: number) => (
+    <CoordLine
+      from={{ x, y: getCircleY(x, scale) }}
+      to={[
+        {
+          x: x + circleLineLength,
+          y: getCircleY(x + circleLineLength, scale),
+        },
+      ]}
+    />
+  );
 
   const circleLines = [];
 
   for (let x = center.x - R; x < center.x + R; x += circleLineLength) {
     if (x > center.x + L2 / 2 || x < center.x - L2 / 2) {
-      circleLines.push(getLine(x, -1));
+      circleLines.push(getCircleLine(x, -1));
     }
-    circleLines.push(getLine(x, 1));
+    circleLines.push(getCircleLine(x, 1));
   }
 
   const xStart = center.x - L2 / 2;
-  const yStart = getY(xStart, -1);
+  const yStart = getCircleY(xStart, -1);
   const L1ExcludeCircle = center.y + L1 / 2 - yStart;
 
   return (
     <>
-      <Line
-        x={xStart}
-        y={yStart}
-        points={[
-          0, 0, 
-          0, -L1 + L1ExcludeCircle - R / 2,
-          L2, -L1 + L1ExcludeCircle - R / 2,
-          L2, 0,
+      <CoordLine
+        from={{ x: xStart, y: yStart }}
+        to={[
+          { x: xStart, y: yStart - L1 + L1ExcludeCircle - R / 2 },
+          { x: xStart + L2, y: yStart - L1 + L1ExcludeCircle - R / 2 },
+          { x: xStart + L2, y: yStart },
         ]}
-        stroke="black"
       />
       {circleLines}
     </>

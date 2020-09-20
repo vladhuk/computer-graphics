@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React, { FunctionComponent } from 'react';
-import { Line } from 'react-konva';
 import Coord from '../../../types/Coord';
+import CoordLine from '../../CoordLine';
 
 interface Props {
   center: Coord;
@@ -12,33 +11,33 @@ interface Props {
 }
 
 const OuterFigure: FunctionComponent<Props> = ({ center, R, L1, L3, L4 }) => {
+  const start: Coord = {
+    x: center.x - L3 / 2,
+    y: center.y + L1 / 2,
+  };
+
   return (
-    <>
-      <Line
-        x={center.x - L3 / 2}
-        y={center.y + L1 / 2}
-        points={[
-          0, 0, 
-          0, -L1, 
-          -(L4 - L3) / 2, -L1,
-          -(L4 - L3) / 2, -L1 - R,
-          0, -L1 - R - R/2,
-          L3, -L1 - R - R/2,
-          L3 + (L4 - L3) / 2, -L1 - R,
-          L3 + (L4 - L3) / 2, -L1,
-          L3, -L1,
-          L3, 0,
-          L3 + (L4 - L3) / 2, 0,
-          L3 + (L4 - L3) / 2, R,
-          L3, R + R/2,
-          0, R + R/2,
-          -(L4 - L3) / 2, R,
-          -(L4 - L3) / 2, 0,
-        ]}
-        closed
-        stroke="black"
-      />
-    </>
+    <CoordLine
+      from={start}
+      to={[
+        { x: start.x, y: start.y - L1 },
+        { x: start.x - (L4 - L3) / 2, y: start.y - L1 },
+        { x: start.x - (L4 - L3) / 2, y: start.y - L1 - R },
+        { x: start.x, y: start.y - L1 - R - R / 2 },
+        { x: start.x + L3, y: start.y - L1 - R - R / 2 },
+        { x: start.x + L3 + (L4 - L3) / 2, y: start.y - L1 - R },
+        { x: start.x + L3 + (L4 - L3) / 2, y: start.y - L1 },
+        { x: start.x + L3, y: start.y - L1 },
+        { x: start.x + L3, y: start.y },
+        { x: start.x + L3 + (L4 - L3) / 2, y: start.y },
+        { x: start.x + L3 + (L4 - L3) / 2, y: start.y + R },
+        { x: start.x + L3, y: start.y + R + R / 2 },
+        { x: start.x, y: start.y + R + R / 2 },
+        { x: start.x - (L4 - L3) / 2, y: start.y + R },
+        { x: start.x - (L4 - L3) / 2, y: start.y },
+      ]}
+      closed
+    />
   );
 };
 
