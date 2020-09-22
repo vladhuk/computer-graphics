@@ -11,6 +11,8 @@ interface Props {
   L3: number;
   L4: number;
   offset: Coord;
+  pivot: Coord;
+  rotate: number;
 }
 
 const Figure: FunctionComponent<Props> = ({
@@ -21,6 +23,8 @@ const Figure: FunctionComponent<Props> = ({
   L3,
   L4,
   offset,
+  pivot,
+  rotate,
 }) => {
   const offsetCenter: Coord = {
     x: center.x + offset.x,
@@ -29,8 +33,23 @@ const Figure: FunctionComponent<Props> = ({
 
   return (
     <>
-      <OuterFigure center={offsetCenter} R={R} L1={L1} L3={L3} L4={L4} />
-      <InnerFigure center={offsetCenter} R={R} L1={L1} L2={L2} />
+      <OuterFigure
+        center={offsetCenter}
+        R={R}
+        L1={L1}
+        L3={L3}
+        L4={L4}
+        pivot={pivot}
+        rotate={rotate}
+      />
+      <InnerFigure
+        center={offsetCenter}
+        R={R}
+        L1={L1}
+        L2={L2}
+        pivot={pivot}
+        rotate={rotate}
+      />
     </>
   );
 };

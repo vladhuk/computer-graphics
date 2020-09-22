@@ -106,6 +106,8 @@ const App: FunctionComponent = () => {
             L3={L3}
             L4={L4}
             offset={offset}
+            pivot={pivot}
+            rotate={rotate}
           />
         </Layer>
       </Stage>
