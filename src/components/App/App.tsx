@@ -11,7 +11,7 @@ import Pivot from '../Pivot';
 import {
   bindOffsetPoint,
   bindRotatePoint,
-  bindScalePoint,
+  bindAffinePoint,
 } from '../../util/grapchicFunctions';
 import PointModifier from '../../types/PointModifier';
 
@@ -31,13 +31,13 @@ const App: FunctionComponent = () => {
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
   const [rotate, setRotate] = useState(0);
   const [pivot, setPivot] = useState<Coord>(center);
-  const [scale0, setScale0] = useState<Coord>({ x: 0, y: 0 });
-  const [scaleX, setScaleX] = useState<Coord>({ x: 1, y: 0 });
-  const [scaleY, setScaleY] = useState<Coord>({ x: 0, y: 1 });
+  const [affine0, setAffine0] = useState<Coord>({ x: 0, y: 0 });
+  const [affineX, setAffineX] = useState<Coord>({ x: 1, y: 0 });
+  const [affineY, setAffineY] = useState<Coord>({ x: 0, y: 1 });
 
-  const scalePoint = bindScalePoint(scale0, scaleX, scaleY, center);
+  const affinePoint = bindAffinePoint(affine0, affineX, affineY, center);
 
-  const gridModifiers: PointModifier[] = [scalePoint];
+  const gridModifiers: PointModifier[] = [affinePoint];
   const shapeModifiers: PointModifier[] = [
     bindOffsetPoint(offset),
     bindRotatePoint(rotate, pivot),
@@ -122,47 +122,47 @@ const App: FunctionComponent = () => {
               [
                 {
                   title: `0x`,
-                  value: scale0.x,
+                  value: affine0.x,
                   step,
-                  setValue: (value) => setScale0({ x: value, y: scale0.y }),
+                  setValue: (value) => setAffine0({ x: value, y: affine0.y }),
                 },
                 {
                   title: `0y`,
-                  value: scale0.y,
+                  value: affine0.y,
                   step,
-                  setValue: (value) => setScale0({ x: scale0.x, y: value }),
+                  setValue: (value) => setAffine0({ x: affine0.x, y: value }),
                 },
               ],
               [
                 {
                   title: `Xx`,
-                  value: scaleX.x,
+                  value: affineX.x,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setScaleX({ x: value, y: scaleX.y }),
+                  setValue: (value) => setAffineX({ x: value, y: affineX.y }),
                 },
                 {
                   title: `Xy`,
-                  value: scaleX.y,
+                  value: affineX.y,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setScaleX({ x: scaleX.x, y: value }),
+                  setValue: (value) => setAffineX({ x: affineX.x, y: value }),
                 },
               ],
               [
                 {
                   title: `Yx`,
-                  value: scaleY.x,
+                  value: affineY.x,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setScaleY({ x: value, y: scaleY.y }),
+                  setValue: (value) => setAffineY({ x: value, y: affineY.y }),
                 },
                 {
                   title: `Yy`,
-                  value: scaleY.y,
+                  value: affineY.y,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setScaleY({ x: scaleY.x, y: value }),
+                  setValue: (value) => setAffineY({ x: affineY.x, y: value }),
                 },
               ],
             ],
@@ -184,7 +184,7 @@ const App: FunctionComponent = () => {
             center={center}
             modifiers={gridModifiers}
           />
-          <Pivot pivot={scalePoint(pivot)} />
+          <Pivot pivot={affinePoint(pivot)} />
           <Shape
             center={center}
             R={R}

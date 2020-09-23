@@ -21,14 +21,14 @@ export function bindRotatePoint(degreess: number, pivot: Coord): PointModifier {
   });
 }
 
-export function bindScalePoint(
-  scale0: Coord,
-  scaleX: Coord,
-  scaleY: Coord,
+export function bindAffinePoint(
+  affine0: Coord,
+  affineX: Coord,
+  affineY: Coord,
   center: Coord
 ): PointModifier {
   return ({ x, y }) => ({
-    x: scale0.x + x * scaleX.x + y * scaleX.y - center.x * (scaleX.x - 1),
-    y: scale0.y + x * scaleY.x + y * scaleY.y - center.y * (scaleY.y - 1),
+    x: affine0.x + x * affineX.x + y * affineX.y - center.x * (affineX.x - 1),
+    y: affine0.y + x * affineY.x + y * affineY.y - center.y * (affineY.y - 1),
   });
 }
