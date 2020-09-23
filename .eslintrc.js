@@ -51,5 +51,11 @@ module.exports = {
 
     'react/jsx-filename-extension': OFF,
     'react/prop-types': OFF,
+    'react/jsx-props-no-spreading': [
+      WARN,
+      {
+        custom: 'ignore',
+      },
+    ],
   },
 };

@@ -9,7 +9,6 @@ const InputsGroup: FunctionComponent<Props> = ({ inputs }) => {
   return (
     <>
       {inputs.map(({ title, ...rest }) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
         <Input key={title} title={title} {...rest} />
       ))}
     </>
