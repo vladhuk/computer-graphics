@@ -1,5 +1,12 @@
 import Coord from '../types/Coord';
 
+export function offsetPoint(point: Coord, offset: Coord): Coord {
+  return {
+    x: point.x + offset.x,
+    y: point.y + offset.y,
+  };
+}
+
 export function degreesToRad(degrees: number): number {
   return degrees * (Math.PI / 180);
 }

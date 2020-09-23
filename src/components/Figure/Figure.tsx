@@ -3,7 +3,7 @@ import Coord from '../../types/Coord';
 import OuterFigure from './elements/OuterFigure';
 import InnerFigure from './elements/InnerFigure';
 import PointModifier from '../../types/PointModifier';
-import { bindRotatePoint } from '../../util/grapchicFunctions';
+import { bindRotatePoint, offsetPoint } from '../../util/grapchicFunctions';
 
 interface Props {
   center: Coord;
@@ -28,11 +28,7 @@ const Figure: FunctionComponent<Props> = ({
   pivot,
   rotate,
 }) => {
-  const offsetCenter: Coord = {
-    x: center.x + offset.x,
-    y: center.y + offset.y,
-  };
-
+  const offsetCenter = offsetPoint(center, offset);
   const pointModifiers: PointModifier[] = [bindRotatePoint(rotate, pivot)];
 
   return (
