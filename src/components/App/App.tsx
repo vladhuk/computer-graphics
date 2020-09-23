@@ -35,9 +35,9 @@ const App: FunctionComponent = () => {
 
   const gridModifiers: PointModifier[] = [bindScalePoint(scale, center)];
   const shapeModifiers: PointModifier[] = [
-    ...gridModifiers,
-    bindRotatePoint(rotate, pivot),
     bindOffsetPoint(offset),
+    bindRotatePoint(rotate, pivot),
+    ...gridModifiers,
   ];
 
   return (
@@ -142,7 +142,12 @@ const App: FunctionComponent = () => {
             cellLength={cellLength}
             modifiers={gridModifiers}
           />
-          <Axes width={width} height={height} center={center} />
+          <Axes
+            width={width}
+            height={height}
+            center={center}
+            modifiers={gridModifiers}
+          />
           <Pivot pivot={bindScalePoint(scale, center)(pivot)} />
           <Shape
             center={center}
