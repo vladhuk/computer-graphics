@@ -1,8 +1,12 @@
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
 
-export function getPoints(from: Coord, to: Coord[]): number[] {
-  return to.flatMap((value) => [value.x - from.x, value.y - from.y]);
+export function getPoints(from: Coord, to: Coord): number[] {
+  return [to.x - from.x, to.y - from.y];
+}
+
+export function getMultiplePoints(from: Coord, to: Coord[]): number[] {
+  return to.flatMap((value) => getPoints(from, value));
 }
 
 export function applyModifiers(

@@ -1,39 +1,36 @@
 import React, { FunctionComponent } from 'react';
-import { Line } from 'react-konva';
+import { Arrow } from 'react-konva';
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
 import { applyModifiers, getPoints } from './modifiableKonvaShapes.service';
 
 interface Props {
   from: Coord;
-  to: Coord[];
+  to: Coord;
   modifiers?: PointModifier[];
-  closed?: boolean;
   strokeWidth?: number;
+  pointerLength?: number;
+  pointerWidth?: number;
+  fill?: string;
 }
 
 const ModifiableArrow: FunctionComponent<Props> = ({
   from,
   to,
   modifiers,
-  closed,
-  strokeWidth,
+  ...rest
 }) => {
-  const startPoint = modifiers ? applyModifiers(from, modifiers) : from;
-
-  const modifiedEndPoints = modifiers
-    ? to.map((point) => applyModifiers(point, modifiers))
-    : to;
-  const points = getPoints(startPoint, modifiedEndPoints);
+  const points = modifiers
+    ? [from, to].map((point) => applyModifiers(point, modifiers))
+    : [from, to];
 
   return (
-    <Line
-      x={startPoint.x}
-      y={startPoint.y}
-      points={[0, 0, ...points]}
-      closed={closed}
+    <Arrow
+      x={points[0].x}
+      y={points[0].y}
+      points={[0, 0, ...getPoints(points[0], points[1])]}
       stroke="black"
-      strokeWidth={strokeWidth}
+      {...rest}
     />
   );
 };

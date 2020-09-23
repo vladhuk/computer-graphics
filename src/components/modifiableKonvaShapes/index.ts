@@ -1,2 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as ModifiableLine } from './ModifiableLine';
+export { default as ModifiableArrow } from './ModifiableArrow';
+export { default as ModifiableText } from './ModifiableText';

@@ -2,7 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { Line } from 'react-konva';
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
-import { applyModifiers, getPoints } from './modifiableKonvaShapes.service';
+import {
+  applyModifiers,
+  getMultiplePoints,
+} from './modifiableKonvaShapes.service';
 
 interface Props {
   from: Coord;
@@ -16,24 +19,22 @@ const ModifiableLine: FunctionComponent<Props> = ({
   from,
   to,
   modifiers,
-  closed,
-  strokeWidth,
+  ...rest
 }) => {
   const startPoint = modifiers ? applyModifiers(from, modifiers) : from;
 
   const modifiedEndPoints = modifiers
     ? to.map((point) => applyModifiers(point, modifiers))
     : to;
-  const points = getPoints(startPoint, modifiedEndPoints);
+  const points = getMultiplePoints(startPoint, modifiedEndPoints);
 
   return (
     <Line
       x={startPoint.x}
       y={startPoint.y}
       points={[0, 0, ...points]}
-      closed={closed}
       stroke="black"
-      strokeWidth={strokeWidth}
+      {...rest}
     />
   );
 };
