@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../../types/Coord';
-import { bindRotatePoint } from '../../../util/grapchicFunctions';
+import PointModifier from '../../../types/PointModifier';
 import CoordLine from '../../CoordLine';
 
 interface Props {
@@ -9,8 +9,7 @@ interface Props {
   L1: number;
   L3: number;
   L4: number;
-  pivot: Coord;
-  rotate: number;
+  pointModifiers?: PointModifier[];
 }
 
 const OuterFigure: FunctionComponent<Props> = ({
@@ -19,11 +18,8 @@ const OuterFigure: FunctionComponent<Props> = ({
   L1,
   L3,
   L4,
-  pivot,
-  rotate,
+  pointModifiers,
 }) => {
-  const rotatePoint = bindRotatePoint(rotate, pivot);
-
   const start: Coord = {
     x: center.x - L3 / 2,
     y: center.y + L1 / 2,
@@ -31,7 +27,7 @@ const OuterFigure: FunctionComponent<Props> = ({
 
   return (
     <CoordLine
-      from={rotatePoint(start)}
+      from={start}
       to={[
         { x: start.x, y: start.y - L1 },
         { x: start.x - (L4 - L3) / 2, y: start.y - L1 },
@@ -48,7 +44,8 @@ const OuterFigure: FunctionComponent<Props> = ({
         { x: start.x, y: start.y + R + R / 2 },
         { x: start.x - (L4 - L3) / 2, y: start.y + R },
         { x: start.x - (L4 - L3) / 2, y: start.y },
-      ].map(rotatePoint)}
+      ]}
+      modifiers={pointModifiers}
       closed
     />
   );

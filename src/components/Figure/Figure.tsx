@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react';
 import Coord from '../../types/Coord';
 import OuterFigure from './elements/OuterFigure';
 import InnerFigure from './elements/InnerFigure';
+import PointModifier from '../../types/PointModifier';
+import { bindRotatePoint } from '../../util/grapchicFunctions';
 
 interface Props {
   center: Coord;
@@ -31,6 +33,8 @@ const Figure: FunctionComponent<Props> = ({
     y: center.y + offset.y,
   };
 
+  const pointModifiers: PointModifier[] = [bindRotatePoint(rotate, pivot)];
+
   return (
     <>
       <OuterFigure
@@ -39,16 +43,14 @@ const Figure: FunctionComponent<Props> = ({
         L1={L1}
         L3={L3}
         L4={L4}
-        pivot={pivot}
-        rotate={rotate}
+        pointModifiers={pointModifiers}
       />
       <InnerFigure
         center={offsetCenter}
         R={R}
         L1={L1}
         L2={L2}
-        pivot={pivot}
-        rotate={rotate}
+        pointModifiers={pointModifiers}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../../types/Coord';
-import { bindRotatePoint } from '../../../util/grapchicFunctions';
+import PointModifier from '../../../types/PointModifier';
 import CoordLine from '../../CoordLine';
 
 interface Props {
@@ -8,8 +8,7 @@ interface Props {
   R: number;
   L1: number;
   L2: number;
-  pivot: Coord;
-  rotate: number;
+  pointModifiers?: PointModifier[];
 }
 
 const InnerFigure: FunctionComponent<Props> = ({
@@ -17,11 +16,8 @@ const InnerFigure: FunctionComponent<Props> = ({
   R,
   L1,
   L2,
-  pivot,
-  rotate,
+  pointModifiers,
 }) => {
-  const rotatePoint = bindRotatePoint(rotate, pivot);
-
   const circleCenter: Coord = { x: center.x, y: center.y + L1 / 2 };
   const circleLineLength = 1;
 
@@ -34,13 +30,14 @@ const InnerFigure: FunctionComponent<Props> = ({
 
   const getCircleLine = (x: number, scale: number) => (
     <CoordLine
-      from={rotatePoint({ x, y: getCircleY(x, scale) })}
+      from={{ x, y: getCircleY(x, scale) }}
       to={[
         {
           x: x + circleLineLength,
           y: getCircleY(x + circleLineLength, scale),
         },
-      ].map(rotatePoint)}
+      ]}
+      modifiers={pointModifiers}
     />
   );
 
@@ -60,12 +57,13 @@ const InnerFigure: FunctionComponent<Props> = ({
   return (
     <>
       <CoordLine
-        from={rotatePoint({ x: xStart, y: yStart })}
+        from={{ x: xStart, y: yStart }}
         to={[
           { x: xStart, y: yStart - L1 + L1ExcludeCircle - R / 2 },
           { x: xStart + L2, y: yStart - L1 + L1ExcludeCircle - R / 2 },
           { x: xStart + L2, y: yStart },
-        ].map(rotatePoint)}
+        ]}
+        modifiers={pointModifiers}
       />
       {circleLines}
     </>
