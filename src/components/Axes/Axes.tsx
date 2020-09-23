@@ -1,19 +1,26 @@
 import React, { FunctionComponent } from 'react';
-import { Arrow, Text } from 'react-konva';
 import Coord from '../../types/Coord';
+import PointModifier from '../../types/PointModifier';
+import { ModifiableArrow, ModifiableText } from '../modifiableKonvaShapes';
 
 interface Props {
   width: number;
   height: number;
+  center: Coord;
+  modifiers?: PointModifier[];
 }
 
-const Axes: FunctionComponent<Props> = ({ width, height }) => {
+const Axes: FunctionComponent<Props> = ({
+  width,
+  height,
+  center,
+  modifiers,
+}) => {
   const getArrow = (start: Coord, end: Coord) => (
-    <Arrow
-      x={start.x}
-      y={start.y}
-      points={[0, 0, end.x, end.y]}
-      stroke="black"
+    <ModifiableArrow
+      from={start}
+      to={end}
+      modifiers={modifiers}
       strokeWidth={0.5}
       pointerLength={15}
       pointerWidth={8}
@@ -21,11 +28,11 @@ const Axes: FunctionComponent<Props> = ({ width, height }) => {
     />
   );
 
-  const getText = (axeName: string, { x, y }: Coord) => (
-    <Text
+  const getText = (axeName: string, position: Coord) => (
+    <ModifiableText
+      position={position}
+      modifiers={modifiers}
       text={axeName}
-      x={x}
-      y={y}
       fontFamily="sans-serif"
       fontSize={25}
       fill="grey"
@@ -34,10 +41,10 @@ const Axes: FunctionComponent<Props> = ({ width, height }) => {
 
   return (
     <>
-      {getText('x', { x: width - 13, y: height / 2 - 14 })}
-      {getArrow({ x: 0, y: height / 2 }, { x: width - 15, y: 0 })}
-      {getText('y', { x: width / 2 - 6, y: -5 })}
-      {getArrow({ x: width / 2, y: height }, { x: 0, y: -height + 23 })}
+      {getText('x', { x: width - 13, y: center.y })}
+      {getArrow({ x: 0, y: center.y }, { x: width - 15, y: center.y })}
+      {getText('y', { x: center.x, y: -5 })}
+      {getArrow({ x: center.x, y: height }, { x: center.x, y: 23 })}
     </>
   );
 };
