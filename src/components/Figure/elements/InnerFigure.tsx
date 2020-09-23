@@ -8,7 +8,7 @@ interface Props {
   R: number;
   L1: number;
   L2: number;
-  pointModifiers?: PointModifier[];
+  modifiers?: PointModifier[];
 }
 
 const InnerFigure: FunctionComponent<Props> = ({
@@ -16,7 +16,7 @@ const InnerFigure: FunctionComponent<Props> = ({
   R,
   L1,
   L2,
-  pointModifiers,
+  modifiers,
 }) => {
   const circleCenter: Coord = { x: center.x, y: center.y + L1 / 2 };
   const circleLineLength = 1;
@@ -37,7 +37,7 @@ const InnerFigure: FunctionComponent<Props> = ({
           y: getCircleY(x + circleLineLength, scale),
         },
       ]}
-      modifiers={pointModifiers}
+      modifiers={modifiers}
     />
   );
 
@@ -63,7 +63,7 @@ const InnerFigure: FunctionComponent<Props> = ({
           { x: xStart + L2, y: yStart - L1 + L1ExcludeCircle - R / 2 },
           { x: xStart + L2, y: yStart },
         ]}
-        modifiers={pointModifiers}
+        modifiers={modifiers}
       />
       {circleLines}
     </>

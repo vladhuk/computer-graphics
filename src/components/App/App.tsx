@@ -8,7 +8,12 @@ import DimensionsInputs from '../DimensionsForm';
 import Figure from '../Figure';
 import Coord from '../../types/Coord';
 import Pivot from '../Pivot';
-import { bindScalePoint } from '../../util/grapchicFunctions';
+import {
+  bindOffsetPoint,
+  bindRotatePoint,
+  bindScalePoint,
+} from '../../util/grapchicFunctions';
+import PointModifier from '../../types/PointModifier';
 
 const App: FunctionComponent = () => {
   const width = 800;
@@ -27,6 +32,13 @@ const App: FunctionComponent = () => {
   const [rotate, setRotate] = useState(0);
   const [pivot, setPivot] = useState<Coord>(center);
   const [scale, setScale] = useState<Coord>({ x: 1, y: 1 });
+
+  const gridModifiers: PointModifier[] = [bindScalePoint(scale, center)];
+  const figureModifiers: PointModifier[] = [
+    ...gridModifiers,
+    bindRotatePoint(rotate, pivot),
+    bindOffsetPoint(offset),
+  ];
 
   return (
     <div className="d-flex justify-content-between my-3 mx-5">
@@ -128,9 +140,9 @@ const App: FunctionComponent = () => {
             height={height}
             center={center}
             cellLength={cellLength}
-            scale={scale}
+            modifiers={gridModifiers}
           />
-          <Axes width={width} height={height} />
+          <Axes width={width} height={height} center={center} />
           <Pivot pivot={bindScalePoint(scale, center)(pivot)} />
           <Figure
             center={center}
@@ -139,10 +151,7 @@ const App: FunctionComponent = () => {
             L2={L2}
             L3={L3}
             L4={L4}
-            offset={offset}
-            pivot={pivot}
-            rotate={rotate}
-            scale={scale}
+            modifiers={figureModifiers}
           />
         </Layer>
       </Stage>

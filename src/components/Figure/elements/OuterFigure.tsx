@@ -9,7 +9,7 @@ interface Props {
   L1: number;
   L3: number;
   L4: number;
-  pointModifiers?: PointModifier[];
+  modifiers?: PointModifier[];
 }
 
 const OuterFigure: FunctionComponent<Props> = ({
@@ -18,7 +18,7 @@ const OuterFigure: FunctionComponent<Props> = ({
   L1,
   L3,
   L4,
-  pointModifiers,
+  modifiers,
 }) => {
   const start: Coord = {
     x: center.x - L3 / 2,
@@ -45,7 +45,7 @@ const OuterFigure: FunctionComponent<Props> = ({
         { x: start.x - (L4 - L3) / 2, y: start.y + R },
         { x: start.x - (L4 - L3) / 2, y: start.y },
       ]}
-      modifiers={pointModifiers}
+      modifiers={modifiers}
       closed
     />
   );

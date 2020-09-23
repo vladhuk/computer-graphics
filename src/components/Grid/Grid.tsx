@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
-import { bindScalePoint } from '../../util/grapchicFunctions';
 import CoordLine from '../CoordLine';
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
   height: number;
   center: Coord;
   cellLength: number;
-  scale: Coord;
+  modifiers?: PointModifier[];
 }
 
 const Grid: FunctionComponent<Props> = ({
@@ -17,10 +16,8 @@ const Grid: FunctionComponent<Props> = ({
   height,
   center,
   cellLength,
-  scale,
+  modifiers,
 }) => {
-  const modifiers: PointModifier[] = [bindScalePoint(scale, center)];
-
   const getGridLine = (start: Coord): JSX.Element => {
     const end: Coord = {
       x: start.x || width,
