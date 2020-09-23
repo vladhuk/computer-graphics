@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Line } from 'react-konva';
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
-import { applyModifiers, getPoints } from './CoordLine.service';
+import { applyModifiers, getPoints } from './modifiableKonvaShapes.service';
 
 interface Props {
   from: Coord;
@@ -12,7 +12,7 @@ interface Props {
   strokeWidth?: number;
 }
 
-const CoordLine: FunctionComponent<Props> = ({
+const ModifiableArrow: FunctionComponent<Props> = ({
   from,
   to,
   modifiers,
@@ -38,4 +38,4 @@ const CoordLine: FunctionComponent<Props> = ({
   );
 };
 
-export default CoordLine;
+export default ModifiableArrow;

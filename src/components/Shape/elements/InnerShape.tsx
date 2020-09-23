@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../../types/Coord';
 import PointModifier from '../../../types/PointModifier';
-import CoordLine from '../../CoordLine';
+import { ModifiableLine } from '../../modifiableKonvaShapes';
 
 interface Props {
   center: Coord;
@@ -29,7 +29,7 @@ const InnerShape: FunctionComponent<Props> = ({
   };
 
   const getCircleLine = (x: number, scale: number) => (
-    <CoordLine
+    <ModifiableLine
       from={{ x, y: getCircleY(x, scale) }}
       to={[
         {
@@ -56,7 +56,7 @@ const InnerShape: FunctionComponent<Props> = ({
 
   return (
     <>
-      <CoordLine
+      <ModifiableLine
         from={{ x: xStart, y: yStart }}
         to={[
           { x: xStart, y: yStart - L1 + L1ExcludeCircle - R / 2 },

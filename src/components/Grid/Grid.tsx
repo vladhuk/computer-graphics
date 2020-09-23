@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
-import CoordLine from '../CoordLine';
+import { ModifiableLine } from '../modifiableKonvaShapes';
 
 interface Props {
   width: number;
@@ -25,7 +25,7 @@ const Grid: FunctionComponent<Props> = ({
     };
 
     return (
-      <CoordLine
+      <ModifiableLine
         key={`${start.x}_${start.y}`}
         from={start}
         to={[end]}

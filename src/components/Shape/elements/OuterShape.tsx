@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../../types/Coord';
 import PointModifier from '../../../types/PointModifier';
-import CoordLine from '../../CoordLine';
+import { ModifiableLine } from '../../modifiableKonvaShapes';
 
 interface Props {
   center: Coord;
@@ -26,7 +26,7 @@ const OuterShape: FunctionComponent<Props> = ({
   };
 
   return (
-    <CoordLine
+    <ModifiableLine
       from={start}
       to={[
         { x: start.x, y: start.y - L1 },
