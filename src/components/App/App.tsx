@@ -21,19 +21,23 @@ const App: FunctionComponent = () => {
 
   const center: Coord = { x: width / 2, y: height / 2 };
 
+  const [cellLength, setCellLength] = useState(25);
   const [step, setStep] = useState(5);
   const [R, setR] = useState(75);
   const [L1, setL1] = useState(300);
   const [L2, setL2] = useState(75);
   const [L3, setL3] = useState(300);
   const [L4, setL4] = useState(450);
-  const [cellLength, setCellLength] = useState(25);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
   const [rotate, setRotate] = useState(0);
   const [pivot, setPivot] = useState<Coord>(center);
-  const [scale, setScale] = useState<Coord>({ x: 1, y: 1 });
+  const [scale0, setScale0] = useState<Coord>({ x: 0, y: 0 });
+  const [scaleX, setScaleX] = useState<Coord>({ x: 1, y: 0 });
+  const [scaleY, setScaleY] = useState<Coord>({ x: 0, y: 1 });
 
-  const gridModifiers: PointModifier[] = [bindScalePoint(scale, center)];
+  const scalePoint = bindScalePoint(scale0, scaleX, scaleY, center);
+
+  const gridModifiers: PointModifier[] = [scalePoint];
   const shapeModifiers: PointModifier[] = [
     bindOffsetPoint(offset),
     bindRotatePoint(rotate, pivot),
@@ -117,16 +121,48 @@ const App: FunctionComponent = () => {
             inputsGroups: [
               [
                 {
-                  title: `Scale x`,
-                  value: scale.x,
-                  step: 0.1,
-                  setValue: (value) => setScale({ x: value, y: scale.y }),
+                  title: `Scale 0x`,
+                  value: scale0.x,
+                  step,
+                  setValue: (value) => setScale0({ x: value, y: scale0.y }),
                 },
                 {
-                  title: `Scale y`,
-                  value: scale.y,
+                  title: `Scale 0y`,
+                  value: scale0.y,
+                  step,
+                  setValue: (value) => setScale0({ x: scale0.x, y: value }),
+                },
+              ],
+              [
+                {
+                  title: `Scale Xx`,
+                  value: scaleX.x,
                   step: 0.1,
-                  setValue: (value) => setScale({ x: scale.x, y: value }),
+                  unit: ' ',
+                  setValue: (value) => setScaleX({ x: value, y: scaleX.y }),
+                },
+                {
+                  title: `Scale Xy`,
+                  value: scaleX.y,
+                  step: 0.1,
+                  unit: ' ',
+                  setValue: (value) => setScaleX({ x: scaleX.x, y: value }),
+                },
+              ],
+              [
+                {
+                  title: `Scale Yx`,
+                  value: scaleY.x,
+                  step: 0.1,
+                  unit: ' ',
+                  setValue: (value) => setScaleY({ x: value, y: scaleY.y }),
+                },
+                {
+                  title: `Scale Yy`,
+                  value: scaleY.y,
+                  step: 0.1,
+                  unit: ' ',
+                  setValue: (value) => setScaleY({ x: scaleY.x, y: value }),
                 },
               ],
             ],
@@ -148,7 +184,7 @@ const App: FunctionComponent = () => {
             center={center}
             modifiers={gridModifiers}
           />
-          <Pivot pivot={bindScalePoint(scale, center)(pivot)} />
+          <Pivot pivot={scalePoint(pivot)} />
           <Shape
             center={center}
             R={R}

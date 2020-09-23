@@ -21,9 +21,14 @@ export function bindRotatePoint(degreess: number, pivot: Coord): PointModifier {
   });
 }
 
-export function bindScalePoint(scale: Coord, center: Coord): PointModifier {
+export function bindScalePoint(
+  scale0: Coord,
+  scaleX: Coord,
+  scaleY: Coord,
+  center: Coord
+): PointModifier {
   return ({ x, y }) => ({
-    x: x * scale.x - center.x * (scale.x - 1),
-    y: y * scale.y - center.y * (scale.y - 1),
+    x: scale0.x + x * scaleX.x + y * scaleX.y - center.x * (scaleX.x - 1),
+    y: scale0.y + x * scaleY.x + y * scaleY.y - center.y * (scaleY.y - 1),
   });
 }
