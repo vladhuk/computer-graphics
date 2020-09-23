@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../types/Coord';
-import OuterFigure from './elements/OuterFigure';
-import InnerFigure from './elements/InnerFigure';
+import OuterShape from './elements/OuterShape';
+import InnerShape from './elements/InnerShape';
 import PointModifier from '../../types/PointModifier';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   modifiers?: PointModifier[];
 }
 
-const Figure: FunctionComponent<Props> = ({
+const Shape: FunctionComponent<Props> = ({
   center,
   R,
   L1,
@@ -24,7 +24,7 @@ const Figure: FunctionComponent<Props> = ({
   modifiers,
 }) => (
   <>
-    <OuterFigure
+    <OuterShape
       center={center}
       R={R}
       L1={L1}
@@ -32,8 +32,8 @@ const Figure: FunctionComponent<Props> = ({
       L4={L4}
       modifiers={modifiers}
     />
-    <InnerFigure center={center} R={R} L1={L1} L2={L2} modifiers={modifiers} />
+    <InnerShape center={center} R={R} L1={L1} L2={L2} modifiers={modifiers} />
   </>
 );
 
-export default Figure;
+export default Shape;

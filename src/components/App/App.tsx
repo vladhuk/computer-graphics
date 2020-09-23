@@ -5,7 +5,7 @@ import './App.css';
 import Axes from '../Axes';
 import exampleImage from '../../assets/examples/example1.png';
 import DimensionsInputs from '../DimensionsForm';
-import Figure from '../Figure';
+import Shape from '../Shape';
 import Coord from '../../types/Coord';
 import Pivot from '../Pivot';
 import {
@@ -34,7 +34,7 @@ const App: FunctionComponent = () => {
   const [scale, setScale] = useState<Coord>({ x: 1, y: 1 });
 
   const gridModifiers: PointModifier[] = [bindScalePoint(scale, center)];
-  const figureModifiers: PointModifier[] = [
+  const shapeModifiers: PointModifier[] = [
     ...gridModifiers,
     bindRotatePoint(rotate, pivot),
     bindOffsetPoint(offset),
@@ -144,14 +144,14 @@ const App: FunctionComponent = () => {
           />
           <Axes width={width} height={height} center={center} />
           <Pivot pivot={bindScalePoint(scale, center)(pivot)} />
-          <Figure
+          <Shape
             center={center}
             R={R}
             L1={L1}
             L2={L2}
             L3={L3}
             L4={L4}
-            modifiers={figureModifiers}
+            modifiers={shapeModifiers}
           />
         </Layer>
       </Stage>

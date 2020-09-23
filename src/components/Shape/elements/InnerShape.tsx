@@ -11,7 +11,7 @@ interface Props {
   modifiers?: PointModifier[];
 }
 
-const InnerFigure: FunctionComponent<Props> = ({
+const InnerShape: FunctionComponent<Props> = ({
   center,
   R,
   L1,
@@ -70,4 +70,4 @@ const InnerFigure: FunctionComponent<Props> = ({
   );
 };
 
-export default InnerFigure;
+export default InnerShape;

@@ -12,7 +12,7 @@ interface Props {
   modifiers?: PointModifier[];
 }
 
-const OuterFigure: FunctionComponent<Props> = ({
+const OuterShape: FunctionComponent<Props> = ({
   center,
   R,
   L1,
@@ -51,4 +51,4 @@ const OuterFigure: FunctionComponent<Props> = ({
   );
 };
 
-export default OuterFigure;
+export default OuterShape;
