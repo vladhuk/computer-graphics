@@ -8,6 +8,7 @@ import DimensionsInputs from '../DimensionsForm';
 import Figure from '../Figure';
 import Coord from '../../types/Coord';
 import Pivot from '../Pivot';
+import { bindScalePoint } from '../../util/grapchicFunctions';
 
 const App: FunctionComponent = () => {
   const width = 800;
@@ -25,6 +26,7 @@ const App: FunctionComponent = () => {
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
   const [rotate, setRotate] = useState(0);
   const [pivot, setPivot] = useState<Coord>(center);
+  const [scale, setScale] = useState<Coord>({ x: 1, y: 1 });
 
   return (
     <div className="d-flex justify-content-between my-3 mx-5">
@@ -98,6 +100,25 @@ const App: FunctionComponent = () => {
               ],
             ],
           },
+          {
+            title: 'Affine',
+            inputsGroups: [
+              [
+                {
+                  title: `Scale x`,
+                  value: scale.x,
+                  step: 0.1,
+                  setValue: (value) => setScale({ x: value, y: scale.y }),
+                },
+                {
+                  title: `Scale y`,
+                  value: scale.y,
+                  step: 0.1,
+                  setValue: (value) => setScale({ x: scale.x, y: value }),
+                },
+              ],
+            ],
+          },
         ]}
       />
       <Stage width={width} height={height}>
@@ -107,9 +128,10 @@ const App: FunctionComponent = () => {
             height={height}
             center={center}
             cellLength={cellLength}
+            scale={scale}
           />
           <Axes width={width} height={height} />
-          <Pivot pivot={pivot} />
+          <Pivot pivot={bindScalePoint(scale, center)(pivot)} />
           <Figure
             center={center}
             R={R}
@@ -120,6 +142,7 @@ const App: FunctionComponent = () => {
             offset={offset}
             pivot={pivot}
             rotate={rotate}
+            scale={scale}
           />
         </Layer>
       </Stage>

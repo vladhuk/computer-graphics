@@ -9,6 +9,7 @@ interface Props {
   to: Coord[];
   modifiers?: PointModifier[];
   closed?: boolean;
+  strokeWidth?: number;
 }
 
 const CoordLine: FunctionComponent<Props> = ({
@@ -16,6 +17,7 @@ const CoordLine: FunctionComponent<Props> = ({
   to,
   modifiers,
   closed,
+  strokeWidth,
 }) => {
   const startPoint = modifiers ? applyModifiers(from, modifiers) : from;
 
@@ -31,6 +33,7 @@ const CoordLine: FunctionComponent<Props> = ({
       points={[0, 0, ...points]}
       closed={closed}
       stroke="black"
+      strokeWidth={strokeWidth}
     />
   );
 };
