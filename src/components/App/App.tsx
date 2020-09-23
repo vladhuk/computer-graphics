@@ -15,6 +15,7 @@ const App: FunctionComponent = () => {
 
   const center: Coord = { x: width / 2, y: height / 2 };
 
+  const [step, setStep] = useState(5);
   const [R, setR] = useState(75);
   const [L1, setL1] = useState(300);
   const [L2, setL2] = useState(75);
@@ -39,13 +40,19 @@ const App: FunctionComponent = () => {
                   min: 1,
                   setValue: setCellLength,
                 },
+                {
+                  title: 'Input step',
+                  value: step,
+                  min: 1,
+                  setValue: setStep,
+                },
               ],
               [
-                { title: 'R', value: R, min: 0, setValue: setR },
-                { title: 'L1', value: L1, min: 0, setValue: setL1 },
-                { title: 'L2', value: L2, min: 0, setValue: setL2 },
-                { title: 'L3', value: L3, min: 0, setValue: setL3 },
-                { title: 'L4', value: L4, min: 0, setValue: setL4 },
+                { title: 'R', value: R, min: 0, step, setValue: setR },
+                { title: 'L1', value: L1, min: 0, step, setValue: setL1 },
+                { title: 'L2', value: L2, min: 0, step, setValue: setL2 },
+                { title: 'L3', value: L3, min: 0, step, setValue: setL3 },
+                { title: 'L4', value: L4, min: 0, step, setValue: setL4 },
               ],
             ],
           },
@@ -56,11 +63,13 @@ const App: FunctionComponent = () => {
                 {
                   title: 'ΔX',
                   value: offset.x,
+                  step,
                   setValue: (value) => setOffset({ x: value, y: offset.y }),
                 },
                 {
                   title: 'ΔY',
                   value: -offset.y,
+                  step,
                   setValue: (value) => setOffset({ x: offset.x, y: -value }),
                 },
               ],
@@ -68,18 +77,21 @@ const App: FunctionComponent = () => {
                 {
                   title: 'Rotate',
                   value: rotate,
+                  step,
                   unit: 'deg',
                   setValue: setRotate,
                 },
                 {
                   title: 'Pivot X',
                   value: pivot.x - center.x,
+                  step,
                   setValue: (value) =>
                     setPivot({ x: value + center.x, y: pivot.y }),
                 },
                 {
                   title: 'Pivot Y',
                   value: -pivot.y + center.y,
+                  step,
                   setValue: (value) =>
                     setPivot({ x: pivot.x, y: -value + center.y }),
                 },

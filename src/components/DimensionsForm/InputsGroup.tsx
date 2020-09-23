@@ -8,15 +8,9 @@ interface Props {
 const InputsGroup: FunctionComponent<Props> = ({ inputs }) => {
   return (
     <>
-      {inputs.map(({ title: inputTitle, value, min, unit, setValue }) => (
-        <Input
-          key={inputTitle}
-          title={inputTitle}
-          value={value}
-          min={min}
-          unit={unit}
-          setValue={setValue}
-        />
+      {inputs.map(({ title, ...rest }) => (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <Input key={title} title={title} {...rest} />
       ))}
     </>
   );

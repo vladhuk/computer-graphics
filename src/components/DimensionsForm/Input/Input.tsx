@@ -7,6 +7,7 @@ export interface FormInput {
   value: number;
   min?: number;
   unit?: string;
+  step?: number;
   setValue(value: number): void;
 }
 
@@ -15,6 +16,7 @@ const Input: FunctionComponent<FormInput> = ({
   value,
   min,
   unit,
+  step,
   setValue,
 }) => (
   <Form.Group as={Row} key={title}>
@@ -25,6 +27,7 @@ const Input: FunctionComponent<FormInput> = ({
       <Form.Control
         type="number"
         min={min}
+        step={step}
         required
         value={value}
         onChange={(event) => {
