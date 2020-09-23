@@ -121,13 +121,13 @@ const App: FunctionComponent = () => {
             inputsGroups: [
               [
                 {
-                  title: `Scale 0x`,
+                  title: `0x`,
                   value: scale0.x,
                   step,
                   setValue: (value) => setScale0({ x: value, y: scale0.y }),
                 },
                 {
-                  title: `Scale 0y`,
+                  title: `0y`,
                   value: scale0.y,
                   step,
                   setValue: (value) => setScale0({ x: scale0.x, y: value }),
@@ -135,14 +135,14 @@ const App: FunctionComponent = () => {
               ],
               [
                 {
-                  title: `Scale Xx`,
+                  title: `Xx`,
                   value: scaleX.x,
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) => setScaleX({ x: value, y: scaleX.y }),
                 },
                 {
-                  title: `Scale Xy`,
+                  title: `Xy`,
                   value: scaleX.y,
                   step: 0.1,
                   unit: ' ',
@@ -151,14 +151,14 @@ const App: FunctionComponent = () => {
               ],
               [
                 {
-                  title: `Scale Yx`,
+                  title: `Yx`,
                   value: scaleY.x,
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) => setScaleY({ x: value, y: scaleY.y }),
                 },
                 {
-                  title: `Scale Yy`,
+                  title: `Yy`,
                   value: scaleY.y,
                   step: 0.1,
                   unit: ' ',
