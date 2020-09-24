@@ -29,6 +29,6 @@ export function bindAffinePoint(
 ): PointModifier {
   return ({ x, y }) => ({
     x: affine0.x + x * affineX.x + y * affineX.y - center.x * (affineX.x - 1),
-    y: affine0.y + x * affineY.x + y * affineY.y - center.y * (affineY.y - 1),
+    y: -affine0.y + x * affineY.x + y * affineY.y - center.y * (affineY.y - 1),
   });
 }
