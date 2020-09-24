@@ -1,7 +1,7 @@
 import Affine from '../types/Affine';
 import Coord from '../types/Coord';
 import PointModifier from '../types/PointModifier';
-import Projective from '../types/Projective';
+import Projective, { ProjectiveCoord } from '../types/Projective';
 
 export function bindOffsetPoint(offset: Coord): PointModifier {
   return ({ x, y }) => ({
@@ -28,8 +28,8 @@ export function bindAffinePoint(
   center: Coord
 ): PointModifier {
   return ({ x, y }) => ({
-    x: r0.x + x * rX.x + y * rX.y - center.x * (rX.x - 1),
-    y: -r0.y + x * rY.x + y * rY.y - center.y * (rY.y - 1),
+    x: r0.x + x * rX.x - y * rY.x - center.x * (rX.x - 1) + center.y * rY.x,
+    y: -r0.y - x * rX.y + y * rY.y + center.x * rX.y - center.y * (rY.y - 1),
   });
 }
 
