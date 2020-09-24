@@ -271,8 +271,6 @@ const App: FunctionComponent = () => {
                       w0: value,
                     }),
                 },
-              ],
-              [
                 {
                   title: 'wx',
                   value: projective.w.x,
