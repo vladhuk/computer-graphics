@@ -14,6 +14,7 @@ import {
   bindAffinePoint,
 } from '../../util/grapchicFunctions';
 import PointModifier from '../../types/PointModifier';
+import Affine from '../../types/Affine';
 
 const App: FunctionComponent = () => {
   const width = 800;
@@ -31,11 +32,13 @@ const App: FunctionComponent = () => {
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
   const [rotate, setRotate] = useState(0);
   const [pivot, setPivot] = useState<Coord>(center);
-  const [affine0, setAffine0] = useState<Coord>({ x: 0, y: 0 });
-  const [affineX, setAffineX] = useState<Coord>({ x: 1, y: 0 });
-  const [affineY, setAffineY] = useState<Coord>({ x: 0, y: 1 });
+  const [affine, setAffine] = useState<Affine>({
+    r0: { x: 0, y: 0 },
+    rX: { x: 1, y: 0 },
+    rY: { x: 0, y: 1 },
+  });
 
-  const affinePoint = bindAffinePoint(affine0, affineX, affineY, center);
+  const affinePoint = bindAffinePoint(affine, center);
 
   const gridModifiers: PointModifier[] = [affinePoint];
   const shapeModifiers: PointModifier[] = [
@@ -45,7 +48,7 @@ const App: FunctionComponent = () => {
   ];
 
   return (
-    <div className="d-flex justify-content-between my-3 mx-5">
+    <div className="d-flex justify-conten`t-between my-3 mx-5">
       <DimensionsInputs
         tabs={[
           {
@@ -122,47 +125,53 @@ const App: FunctionComponent = () => {
               [
                 {
                   title: 'r0x',
-                  value: affine0.x,
+                  value: affine.r0.x,
                   step,
-                  setValue: (value) => setAffine0({ x: value, y: affine0.y }),
+                  setValue: (value) =>
+                    setAffine({ ...affine, r0: { x: value, y: affine.r0.y } }),
                 },
                 {
                   title: 'r0y',
-                  value: affine0.y,
+                  value: affine.r0.y,
                   step,
-                  setValue: (value) => setAffine0({ x: affine0.x, y: value }),
+                  setValue: (value) =>
+                    setAffine({ ...affine, r0: { x: affine.r0.x, y: value } }),
                 },
               ],
               [
                 {
                   title: 'rXx',
-                  value: affineX.x,
+                  value: affine.rX.x,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setAffineX({ x: value, y: affineX.y }),
+                  setValue: (value) =>
+                    setAffine({ ...affine, rX: { x: value, y: affine.rX.y } }),
                 },
                 {
                   title: 'rXy',
-                  value: affineX.y,
+                  value: affine.rX.y,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setAffineX({ x: affineX.x, y: value }),
+                  setValue: (value) =>
+                    setAffine({ ...affine, rX: { x: affine.rX.x, y: value } }),
                 },
               ],
               [
                 {
                   title: 'rYx',
-                  value: affineY.x,
+                  value: affine.rY.x,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setAffineY({ x: value, y: affineY.y }),
+                  setValue: (value) =>
+                    setAffine({ ...affine, rY: { x: value, y: affine.rY.y } }),
                 },
                 {
                   title: 'rYy',
-                  value: affineY.y,
+                  value: affine.rY.y,
                   step: 0.1,
                   unit: ' ',
-                  setValue: (value) => setAffineY({ x: affineY.x, y: value }),
+                  setValue: (value) =>
+                    setAffine({ ...affine, rY: { x: affine.rY.x, y: value } }),
                 },
               ],
             ],

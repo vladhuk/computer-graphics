@@ -1,3 +1,4 @@
+import Affine from '../types/Affine';
 import Coord from '../types/Coord';
 import PointModifier from '../types/PointModifier';
 
@@ -22,13 +23,11 @@ export function bindRotatePoint(degreess: number, pivot: Coord): PointModifier {
 }
 
 export function bindAffinePoint(
-  affine0: Coord,
-  affineX: Coord,
-  affineY: Coord,
+  { r0, rX, rY }: Affine,
   center: Coord
 ): PointModifier {
   return ({ x, y }) => ({
-    x: affine0.x + x * affineX.x + y * affineX.y - center.x * (affineX.x - 1),
-    y: -affine0.y + x * affineY.x + y * affineY.y - center.y * (affineY.y - 1),
+    x: r0.x + x * rX.x + y * rX.y - center.x * (rX.x - 1),
+    y: -r0.y + x * rY.x + y * rY.y - center.y * (rY.y - 1),
   });
 }
