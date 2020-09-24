@@ -7,14 +7,16 @@ import exampleImage from '../../assets/examples/example1.png';
 import DimensionsInputs from '../DimensionsForm';
 import Shape from '../Shape';
 import Coord from '../../types/Coord';
-import Pivot from '../Pivot';
 import {
   bindOffsetPoint,
   bindRotatePoint,
   bindAffinePoint,
+  bindProjectivePoint,
 } from '../../util/grapchicFunctions';
 import PointModifier from '../../types/PointModifier';
 import Affine from '../../types/Affine';
+import Projective from '../../types/Projective';
+import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
 
 const App: FunctionComponent = () => {
   const width = 800;
@@ -37,10 +39,16 @@ const App: FunctionComponent = () => {
     rX: { x: 1, y: 0 },
     rY: { x: 0, y: 1 },
   });
+  const [projective, setProjective] = useState<Projective>({
+    r0: { x: 0, y: 0, w: 0 },
+    rX: { x: 0, y: 0, w: 0 },
+    rY: { x: 0, y: 0, w: 0 },
+  });
 
   const affinePoint = bindAffinePoint(affine, center);
+  const projectivePoint = bindProjectivePoint(projective, center);
 
-  const gridModifiers: PointModifier[] = [affinePoint];
+  const gridModifiers: PointModifier[] = [affinePoint, projectivePoint];
   const shapeModifiers: PointModifier[] = [
     bindOffsetPoint(offset),
     bindRotatePoint(rotate, pivot),
@@ -85,13 +93,13 @@ const App: FunctionComponent = () => {
                   title: 'ΔX',
                   value: offset.x,
                   step,
-                  setValue: (value) => setOffset({ x: value, y: offset.y }),
+                  setValue: (value) => setOffset({ ...offset, x: value }),
                 },
                 {
                   title: 'ΔY',
                   value: -offset.y,
                   step,
-                  setValue: (value) => setOffset({ x: offset.x, y: -value }),
+                  setValue: (value) => setOffset({ ...offset, y: -value }),
                 },
               ],
               [
@@ -107,14 +115,14 @@ const App: FunctionComponent = () => {
                   value: pivot.x - center.x,
                   step,
                   setValue: (value) =>
-                    setPivot({ x: value + center.x, y: pivot.y }),
+                    setPivot({ ...pivot, x: value + center.x }),
                 },
                 {
                   title: 'Pivot Y',
                   value: -pivot.y + center.y,
                   step,
                   setValue: (value) =>
-                    setPivot({ x: pivot.x, y: -value + center.y }),
+                    setPivot({ ...pivot, y: -value + center.y }),
                 },
               ],
             ],
@@ -128,14 +136,14 @@ const App: FunctionComponent = () => {
                   value: affine.r0.x,
                   step,
                   setValue: (value) =>
-                    setAffine({ ...affine, r0: { x: value, y: affine.r0.y } }),
+                    setAffine({ ...affine, r0: { ...affine.r0, x: value } }),
                 },
                 {
                   title: 'r0y',
                   value: affine.r0.y,
                   step,
                   setValue: (value) =>
-                    setAffine({ ...affine, r0: { x: affine.r0.x, y: value } }),
+                    setAffine({ ...affine, r0: { ...affine.r0, y: value } }),
                 },
               ],
               [
@@ -145,7 +153,7 @@ const App: FunctionComponent = () => {
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
-                    setAffine({ ...affine, rX: { x: value, y: affine.rX.y } }),
+                    setAffine({ ...affine, rX: { ...affine.rX, x: value } }),
                 },
                 {
                   title: 'rXy',
@@ -153,7 +161,7 @@ const App: FunctionComponent = () => {
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
-                    setAffine({ ...affine, rX: { x: affine.rX.x, y: value } }),
+                    setAffine({ ...affine, rX: { ...affine.rX, y: value } }),
                 },
               ],
               [
@@ -163,7 +171,7 @@ const App: FunctionComponent = () => {
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
-                    setAffine({ ...affine, rY: { x: value, y: affine.rY.y } }),
+                    setAffine({ ...affine, rY: { ...affine.rY, x: value } }),
                 },
                 {
                   title: 'rYy',
@@ -171,7 +179,110 @@ const App: FunctionComponent = () => {
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
-                    setAffine({ ...affine, rY: { x: affine.rY.x, y: value } }),
+                    setAffine({ ...affine, rY: { ...affine.rY, y: value } }),
+                },
+              ],
+            ],
+          },
+          {
+            title: 'Projective',
+            inputsGroups: [
+              [
+                {
+                  title: 'r0x',
+                  value: projective.r0.x,
+                  step,
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      r0: { ...projective.r0, x: value },
+                    }),
+                },
+                {
+                  title: 'r0y',
+                  value: projective.r0.y,
+                  step,
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      r0: { ...projective.r0, y: value },
+                    }),
+                },
+                {
+                  title: 'r0w',
+                  value: projective.r0.w,
+                  step,
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      r0: { ...projective.r0, w: value },
+                    }),
+                },
+              ],
+              [
+                {
+                  title: 'rXx',
+                  value: projective.rX.x,
+                  step,
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      rX: { ...projective.rX, x: value },
+                    }),
+                },
+                {
+                  title: 'rXy',
+                  value: projective.rX.y,
+                  step,
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      rX: { ...projective.rX, y: value },
+                    }),
+                },
+                {
+                  title: 'rXw',
+                  value: projective.rX.w,
+                  step: 0.1,
+                  unit: ' ',
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      rX: { ...projective.rX, w: value },
+                    }),
+                },
+              ],
+              [
+                {
+                  title: 'rYx',
+                  value: projective.rY.x,
+                  step,
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      rY: { ...projective.rY, x: value },
+                    }),
+                },
+                {
+                  title: 'rYy',
+                  value: projective.rY.y,
+                  step,
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      rY: { ...projective.rY, y: value },
+                    }),
+                },
+                {
+                  title: 'rYw',
+                  value: projective.rY.w,
+                  step: 0.1,
+                  unit: ' ',
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      rY: { ...projective.rY, w: value },
+                    }),
                 },
               ],
             ],
@@ -193,7 +304,12 @@ const App: FunctionComponent = () => {
             center={center}
             modifiers={gridModifiers}
           />
-          <Pivot pivot={affinePoint(pivot)} />
+          <ModifiableCircle
+            position={pivot}
+            modifiers={gridModifiers}
+            radius={5}
+            fill="red"
+          />
           <Shape
             center={center}
             R={R}
