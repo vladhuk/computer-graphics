@@ -1,11 +1,9 @@
 import Coord from './Coord';
 
-export interface ProjectiveCoord extends Coord {
-  w: number;
-}
-
 export default interface Projective {
-  r0: ProjectiveCoord;
-  rX: ProjectiveCoord;
-  rY: ProjectiveCoord;
+  r0: Coord;
+  rX: Coord;
+  rY: Coord;
+  w0: number;
+  w: Coord;
 }

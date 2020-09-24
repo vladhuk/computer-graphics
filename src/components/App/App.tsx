@@ -40,9 +40,11 @@ const App: FunctionComponent = () => {
     rY: { x: 0, y: 1 },
   });
   const [projective, setProjective] = useState<Projective>({
-    r0: { x: 0, y: 0, w: 0 },
-    rX: { x: 0, y: 0, w: 0 },
-    rY: { x: 0, y: 0, w: 0 },
+    r0: { x: 0, y: 0 },
+    rX: { x: 1, y: 0 },
+    rY: { x: 0, y: 1 },
+    w0: 0,
+    w: { x: 1, y: 1 },
   });
 
   const affinePoint = bindAffinePoint(affine, center);
@@ -208,22 +210,13 @@ const App: FunctionComponent = () => {
                       r0: { ...projective.r0, y: value },
                     }),
                 },
-                {
-                  title: 'r0w',
-                  value: projective.r0.w,
-                  step,
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      r0: { ...projective.r0, w: value },
-                    }),
-                },
               ],
               [
                 {
                   title: 'rXx',
                   value: projective.rX.x,
-                  step,
+                  step: 0.1,
+                  unit: ' ',
                   setValue: (value) =>
                     setProjective({
                       ...projective,
@@ -233,22 +226,12 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rXy',
                   value: projective.rX.y,
-                  step,
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      rX: { ...projective.rX, y: value },
-                    }),
-                },
-                {
-                  title: 'rXw',
-                  value: projective.rX.w,
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
                       ...projective,
-                      rX: { ...projective.rX, w: value },
+                      rX: { ...projective.rX, y: value },
                     }),
                 },
               ],
@@ -256,7 +239,8 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rYx',
                   value: projective.rY.x,
-                  step,
+                  step: 0.1,
+                  unit: ' ',
                   setValue: (value) =>
                     setProjective({
                       ...projective,
@@ -266,22 +250,49 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rYy',
                   value: projective.rY.y,
-                  step,
+                  step: 0.1,
+                  unit: ' ',
                   setValue: (value) =>
                     setProjective({
                       ...projective,
                       rY: { ...projective.rY, y: value },
                     }),
                 },
+              ],
+              [
                 {
-                  title: 'rYw',
-                  value: projective.rY.w,
+                  title: 'w0',
+                  value: projective.w0,
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
                       ...projective,
-                      rY: { ...projective.rY, w: value },
+                      w0: value,
+                    }),
+                },
+              ],
+              [
+                {
+                  title: 'wx',
+                  value: projective.w.x,
+                  step: 0.1,
+                  unit: ' ',
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      w: { ...projective.w, x: value },
+                    }),
+                },
+                {
+                  title: 'wy',
+                  value: projective.w.y,
+                  step: 0.1,
+                  unit: ' ',
+                  setValue: (value) =>
+                    setProjective({
+                      ...projective,
+                      w: { ...projective.w, y: value },
                     }),
                 },
               ],
