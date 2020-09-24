@@ -121,13 +121,13 @@ const App: FunctionComponent = () => {
             inputsGroups: [
               [
                 {
-                  title: `0x`,
+                  title: 'r0x',
                   value: affine0.x,
                   step,
                   setValue: (value) => setAffine0({ x: value, y: affine0.y }),
                 },
                 {
-                  title: `0y`,
+                  title: 'r0y',
                   value: affine0.y,
                   step,
                   setValue: (value) => setAffine0({ x: affine0.x, y: value }),
@@ -135,14 +135,14 @@ const App: FunctionComponent = () => {
               ],
               [
                 {
-                  title: `Xx`,
+                  title: 'rXx',
                   value: affineX.x,
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) => setAffineX({ x: value, y: affineX.y }),
                 },
                 {
-                  title: `Xy`,
+                  title: 'rXy',
                   value: affineX.y,
                   step: 0.1,
                   unit: ' ',
@@ -151,14 +151,14 @@ const App: FunctionComponent = () => {
               ],
               [
                 {
-                  title: `Yx`,
+                  title: 'rYx',
                   value: affineY.x,
                   step: 0.1,
                   unit: ' ',
                   setValue: (value) => setAffineY({ x: value, y: affineY.y }),
                 },
                 {
-                  title: `Yy`,
+                  title: 'rYy',
                   value: affineY.y,
                   step: 0.1,
                   unit: ' ',
