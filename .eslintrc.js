@@ -30,7 +30,7 @@ module.exports = {
   rules: {
     'prettier/prettier': [WARN],
 
-    'no-use-before-define': WARN,
+    'no-use-before-define': [WARN, { functions: false }],
     'no-unused-expressions': OFF,
 
     '@typescript-eslint/no-unused-expressions': 'error',
