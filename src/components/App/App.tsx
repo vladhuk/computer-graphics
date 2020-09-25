@@ -9,9 +9,9 @@ import Shape from '../Shape';
 import Coord from '../../types/Coord';
 import {
   bindOffsetPoint,
-  bindRotatePoint,
-  bindAffinePoint,
-  bindProjectivePoint,
+  bindAffinePointWithOffset,
+  bindProjectivePointWithOffset,
+  bindRotatePointByDegreesWithPivot,
 } from '../../util/grapchicFunctions';
 import PointModifier from '../../types/PointModifier';
 import Affine from '../../types/Affine';
@@ -32,7 +32,7 @@ const App: FunctionComponent = () => {
   const [L3, setL3] = useState(300);
   const [L4, setL4] = useState(450);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
-  const [rotate, setRotate] = useState(0);
+  const [rotateDegrees, setRotateDegrees] = useState(0);
   const [pivot, setPivot] = useState<Coord>(center);
   const [affine, setAffine] = useState<Affine>({
     r0: { x: 0, y: 0 },
@@ -43,17 +43,24 @@ const App: FunctionComponent = () => {
     r0: { x: 0, y: 0 },
     rX: { x: 1, y: 0 },
     rY: { x: 0, y: 1 },
-    w0: 0,
-    w: { x: 1, y: 1 },
+    w0: 1,
+    w: { x: 0, y: 0 },
   });
+  // const [projective, setProjective] = useState<Projective>({
+  //   r0: { x: 0, y: 0 },
+  //   rX: { x: 1000, y: 0 },
+  //   rY: { x: 0, y: 1000 },
+  //   w0: 1000,
+  //   w: { x: 1, y: 1 },
+  // });
 
-  const affinePoint = bindAffinePoint(affine, center);
-  const projectivePoint = bindProjectivePoint(projective, center);
-
-  const gridModifiers: PointModifier[] = [affinePoint, projectivePoint];
+  const gridModifiers: PointModifier[] = [
+    bindAffinePointWithOffset(affine, center),
+    bindProjectivePointWithOffset(projective, center),
+  ];
   const shapeModifiers: PointModifier[] = [
     bindOffsetPoint(offset),
-    bindRotatePoint(rotate, pivot),
+    bindRotatePointByDegreesWithPivot(rotateDegrees, pivot),
     ...gridModifiers,
   ];
 
@@ -107,10 +114,10 @@ const App: FunctionComponent = () => {
               [
                 {
                   title: 'Rotate',
-                  value: rotate,
+                  value: rotateDegrees,
                   step,
                   unit: 'deg',
-                  setValue: setRotate,
+                  setValue: setRotateDegrees,
                 },
                 {
                   title: 'Pivot X',
@@ -274,7 +281,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'wx',
                   value: projective.w.x,
-                  step: 0.1,
+                  step: 0.0001,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
@@ -285,7 +292,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'wy',
                   value: projective.w.y,
-                  step: 0.1,
+                  step: 0.0001,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({

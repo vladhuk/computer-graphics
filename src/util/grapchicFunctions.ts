@@ -14,31 +14,76 @@ export function degreesToRad(degrees: number): number {
   return degrees * (Math.PI / 180);
 }
 
-export function bindRotatePoint(degreess: number, pivot: Coord): PointModifier {
+function bindCalculateWithOffset(
+  func: PointModifier,
+  offset: Coord
+): PointModifier {
+  return (point) => {
+    const basePoint = {
+      x: point.x - offset.x,
+      y: point.y - offset.y,
+    };
+
+    const modifiedPoint = func(basePoint);
+
+    return {
+      x: modifiedPoint.x + offset.x,
+      y: modifiedPoint.y + offset.y,
+    };
+  };
+}
+
+export function bindRotatePointByDegreesWithPivot(
+  degreess: number,
+  pivot: Coord
+): PointModifier {
   const rad = degreesToRad(degreess);
+  const rotate = bindRotatePointByRad(rad);
 
+  return bindCalculateWithOffset(rotate, pivot);
+}
+
+function bindRotatePointByRad(rad: number): PointModifier {
   return ({ x, y }) => ({
-    x: (x - pivot.x) * Math.cos(rad) - (y - pivot.y) * Math.sin(rad) + pivot.x,
-    y: (x - pivot.x) * Math.sin(rad) + (y - pivot.y) * Math.cos(rad) + pivot.y,
+    x: x * Math.cos(rad) - y * Math.sin(rad),
+    y: x * Math.sin(rad) + y * Math.cos(rad),
   });
 }
 
-export function bindAffinePoint(
-  { r0, rX, rY }: Affine,
-  center: Coord
+export function bindAffinePointWithOffset(
+  affinePoint: Affine,
+  offset: Coord
 ): PointModifier {
+  const affine = bindAffinePoint(affinePoint);
+
+  return bindCalculateWithOffset(affine, offset);
+}
+
+function bindAffinePoint({ r0, rX, rY }: Affine): PointModifier {
   return ({ x, y }) => ({
-    x: r0.x + x * rX.x - y * rY.x - center.x * (rX.x - 1) + center.y * rY.x,
-    y: -r0.y - x * rX.y + y * rY.y + center.x * rX.y - center.y * (rY.y - 1),
+    x: r0.x + x * rX.x - y * rY.x,
+    y: r0.y - x * rX.y + y * rY.y,
   });
 }
 
-export function bindProjectivePoint(
-  { r0, rX, rY, w0, w }: Projective,
-  center: Coord
+export function bindProjectivePointWithOffset(
+  projectivePoint: Projective,
+  offset: Coord
 ): PointModifier {
+  const projective = bindProjectivePoint(projectivePoint);
+
+  return bindCalculateWithOffset(projective, offset);
+}
+
+export function bindProjectivePoint({
+  r0,
+  rX,
+  rY,
+  w0,
+  w,
+}: Projective): PointModifier {
   return ({ x, y }) => ({
-    x,
-    y,
+    x: (r0.x + x * rX.x - y * rY.x) / (w0 + x * w.x - y * w.y),
+    y: (r0.y - x * rX.y + y * rY.y) / (w0 + x * w.x - y * w.y),
   });
 }
