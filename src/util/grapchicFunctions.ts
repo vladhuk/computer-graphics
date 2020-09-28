@@ -62,7 +62,7 @@ export function bindAffinePointWithOffset(
 function bindAffinePoint({ r0, rX, rY }: Affine): PointModifier {
   return ({ x, y }) => ({
     x: r0.x + x * rX.x - y * rY.x,
-    y: r0.y - x * rX.y + y * rY.y,
+    y: -r0.y - x * rX.y + y * rY.y,
   });
 }
 
@@ -84,6 +84,6 @@ export function bindProjectivePoint({
 }: Projective): PointModifier {
   return ({ x, y }) => ({
     x: (r0.x + x * rX.x - y * rY.x) / (w0 + x * w.x - y * w.y),
-    y: (r0.y - x * rX.y + y * rY.y) / (w0 + x * w.x - y * w.y),
+    y: (-r0.y - x * rX.y + y * rY.y) / (w0 + x * w.x - y * w.y),
   });
 }
