@@ -3,7 +3,7 @@ import { AccordionCollapse, Tab, Tabs } from 'react-bootstrap';
 import FormTabContent from './FormTabContent';
 import { FormInput } from './Input';
 
-interface FormTab {
+export interface FormTab {
   title: string;
   inputsGroups: FormInput[][];
 }

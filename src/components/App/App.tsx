@@ -5,7 +5,7 @@ import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';
 import exampleImage from '../../assets/examples/example1.png';
-import DimensionsInputs from '../DimensionsForm';
+import DimensionsInputs, { FormTab } from '../DimensionsForm';
 import Shape from '../Shape';
 import Coord from '../../types/Coord';
 import {
@@ -64,243 +64,241 @@ const App: FunctionComponent = () => {
     ...gridModifiers,
   ];
 
+  const tabs: FormTab[] = [
+    {
+      title: 'Parameters',
+      inputsGroups: [
+        [
+          {
+            title: 'Cell length',
+            value: cellLength,
+            min: 1,
+            setValue: setCellLength,
+          },
+          {
+            title: 'Input step',
+            value: step,
+            min: 1,
+            setValue: setStep,
+          },
+        ],
+        [
+          { title: 'R', value: R, min: 0, step, setValue: setR },
+          { title: 'L1', value: L1, min: 0, step, setValue: setL1 },
+          { title: 'L2', value: L2, min: 0, step, setValue: setL2 },
+          { title: 'L3', value: L3, min: 0, step, setValue: setL3 },
+          { title: 'L4', value: L4, min: 0, step, setValue: setL4 },
+        ],
+      ],
+    },
+    {
+      title: 'Euclid',
+      inputsGroups: [
+        [
+          {
+            title: 'ΔX',
+            value: offset.x,
+            step,
+            setValue: (value) => setOffset({ ...offset, x: value }),
+          },
+          {
+            title: 'ΔY',
+            value: -offset.y,
+            step,
+            setValue: (value) => setOffset({ ...offset, y: -value }),
+          },
+        ],
+        [
+          {
+            title: 'Rotate',
+            value: rotateDegrees,
+            step,
+            unit: 'deg',
+            setValue: setRotateDegrees,
+          },
+          {
+            title: 'Pivot X',
+            value: pivot.x - center.x,
+            step,
+            setValue: (value) => setPivot({ ...pivot, x: value + center.x }),
+          },
+          {
+            title: 'Pivot Y',
+            value: -pivot.y + center.y,
+            step,
+            setValue: (value) => setPivot({ ...pivot, y: -value + center.y }),
+          },
+        ],
+      ],
+    },
+    {
+      title: 'Affine',
+      inputsGroups: [
+        [
+          {
+            title: 'r0x',
+            value: affine.r0.x,
+            step,
+            setValue: (value) =>
+              setAffine({ ...affine, r0: { ...affine.r0, x: value } }),
+          },
+          {
+            title: 'r0y',
+            value: affine.r0.y,
+            step,
+            setValue: (value) =>
+              setAffine({ ...affine, r0: { ...affine.r0, y: value } }),
+          },
+        ],
+        [
+          {
+            title: 'rXx',
+            value: affine.rX.x,
+            step,
+            setValue: (value) =>
+              setAffine({ ...affine, rX: { ...affine.rX, x: value } }),
+          },
+          {
+            title: 'rXy',
+            value: affine.rX.y,
+            step,
+            setValue: (value) =>
+              setAffine({ ...affine, rX: { ...affine.rX, y: value } }),
+          },
+        ],
+        [
+          {
+            title: 'rYx',
+            value: affine.rY.x,
+            step,
+            setValue: (value) =>
+              setAffine({ ...affine, rY: { ...affine.rY, x: value } }),
+          },
+          {
+            title: 'rYy',
+            value: affine.rY.y,
+            step,
+            setValue: (value) =>
+              setAffine({ ...affine, rY: { ...affine.rY, y: value } }),
+          },
+        ],
+      ],
+    },
+    {
+      title: 'Projective',
+      inputsGroups: [
+        [
+          {
+            title: 'r0x',
+            value: projective.r0.x,
+            step,
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                r0: { ...projective.r0, x: value },
+              }),
+          },
+          {
+            title: 'r0y',
+            value: projective.r0.y,
+            step,
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                r0: { ...projective.r0, y: value },
+              }),
+          },
+        ],
+        [
+          {
+            title: 'rXx',
+            value: projective.rX.x,
+            step,
+            unit: ' ',
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                rX: { ...projective.rX, x: value },
+              }),
+          },
+          {
+            title: 'rXy',
+            value: projective.rX.y,
+            step,
+            unit: ' ',
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                rX: { ...projective.rX, y: value },
+              }),
+          },
+        ],
+        [
+          {
+            title: 'rYx',
+            value: projective.rY.x,
+            step,
+            unit: ' ',
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                rY: { ...projective.rY, x: value },
+              }),
+          },
+          {
+            title: 'rYy',
+            value: projective.rY.y,
+            step,
+            unit: ' ',
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                rY: { ...projective.rY, y: value },
+              }),
+          },
+        ],
+        [
+          {
+            title: 'w0',
+            value: projective.w0,
+            step,
+            unit: ' ',
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                w0: value,
+              }),
+          },
+          {
+            title: 'wx',
+            value: projective.w.x,
+            step: 0.1,
+            unit: ' ',
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                w: { ...projective.w, x: value },
+              }),
+          },
+          {
+            title: 'wy',
+            value: projective.w.y,
+            step: 0.1,
+            unit: ' ',
+            setValue: (value) =>
+              setProjective({
+                ...projective,
+                w: { ...projective.w, y: value },
+              }),
+          },
+        ],
+      ],
+    },
+  ];
+
   return (
     <div className="d-flex justify-conten`t-between my-3 mx-5">
-      <DimensionsInputs
-        tabs={[
-          {
-            title: 'Parameters',
-            inputsGroups: [
-              [
-                {
-                  title: 'Cell length',
-                  value: cellLength,
-                  min: 1,
-                  setValue: setCellLength,
-                },
-                {
-                  title: 'Input step',
-                  value: step,
-                  min: 1,
-                  setValue: setStep,
-                },
-              ],
-              [
-                { title: 'R', value: R, min: 0, step, setValue: setR },
-                { title: 'L1', value: L1, min: 0, step, setValue: setL1 },
-                { title: 'L2', value: L2, min: 0, step, setValue: setL2 },
-                { title: 'L3', value: L3, min: 0, step, setValue: setL3 },
-                { title: 'L4', value: L4, min: 0, step, setValue: setL4 },
-              ],
-            ],
-          },
-          {
-            title: 'Euclid',
-            inputsGroups: [
-              [
-                {
-                  title: 'ΔX',
-                  value: offset.x,
-                  step,
-                  setValue: (value) => setOffset({ ...offset, x: value }),
-                },
-                {
-                  title: 'ΔY',
-                  value: -offset.y,
-                  step,
-                  setValue: (value) => setOffset({ ...offset, y: -value }),
-                },
-              ],
-              [
-                {
-                  title: 'Rotate',
-                  value: rotateDegrees,
-                  step,
-                  unit: 'deg',
-                  setValue: setRotateDegrees,
-                },
-                {
-                  title: 'Pivot X',
-                  value: pivot.x - center.x,
-                  step,
-                  setValue: (value) =>
-                    setPivot({ ...pivot, x: value + center.x }),
-                },
-                {
-                  title: 'Pivot Y',
-                  value: -pivot.y + center.y,
-                  step,
-                  setValue: (value) =>
-                    setPivot({ ...pivot, y: -value + center.y }),
-                },
-              ],
-            ],
-          },
-          {
-            title: 'Affine',
-            inputsGroups: [
-              [
-                {
-                  title: 'r0x',
-                  value: affine.r0.x,
-                  step,
-                  setValue: (value) =>
-                    setAffine({ ...affine, r0: { ...affine.r0, x: value } }),
-                },
-                {
-                  title: 'r0y',
-                  value: affine.r0.y,
-                  step,
-                  setValue: (value) =>
-                    setAffine({ ...affine, r0: { ...affine.r0, y: value } }),
-                },
-              ],
-              [
-                {
-                  title: 'rXx',
-                  value: affine.rX.x,
-                  step,
-                  setValue: (value) =>
-                    setAffine({ ...affine, rX: { ...affine.rX, x: value } }),
-                },
-                {
-                  title: 'rXy',
-                  value: affine.rX.y,
-                  step,
-                  setValue: (value) =>
-                    setAffine({ ...affine, rX: { ...affine.rX, y: value } }),
-                },
-              ],
-              [
-                {
-                  title: 'rYx',
-                  value: affine.rY.x,
-                  step,
-                  setValue: (value) =>
-                    setAffine({ ...affine, rY: { ...affine.rY, x: value } }),
-                },
-                {
-                  title: 'rYy',
-                  value: affine.rY.y,
-                  step,
-                  setValue: (value) =>
-                    setAffine({ ...affine, rY: { ...affine.rY, y: value } }),
-                },
-              ],
-            ],
-          },
-          {
-            title: 'Projective',
-            inputsGroups: [
-              [
-                {
-                  title: 'r0x',
-                  value: projective.r0.x,
-                  step,
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      r0: { ...projective.r0, x: value },
-                    }),
-                },
-                {
-                  title: 'r0y',
-                  value: projective.r0.y,
-                  step,
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      r0: { ...projective.r0, y: value },
-                    }),
-                },
-              ],
-              [
-                {
-                  title: 'rXx',
-                  value: projective.rX.x,
-                  step,
-                  unit: ' ',
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      rX: { ...projective.rX, x: value },
-                    }),
-                },
-                {
-                  title: 'rXy',
-                  value: projective.rX.y,
-                  step,
-                  unit: ' ',
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      rX: { ...projective.rX, y: value },
-                    }),
-                },
-              ],
-              [
-                {
-                  title: 'rYx',
-                  value: projective.rY.x,
-                  step,
-                  unit: ' ',
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      rY: { ...projective.rY, x: value },
-                    }),
-                },
-                {
-                  title: 'rYy',
-                  value: projective.rY.y,
-                  step,
-                  unit: ' ',
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      rY: { ...projective.rY, y: value },
-                    }),
-                },
-              ],
-              [
-                {
-                  title: 'w0',
-                  value: projective.w0,
-                  step,
-                  unit: ' ',
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      w0: value,
-                    }),
-                },
-                {
-                  title: 'wx',
-                  value: projective.w.x,
-                  step: 0.1,
-                  unit: ' ',
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      w: { ...projective.w, x: value },
-                    }),
-                },
-                {
-                  title: 'wy',
-                  value: projective.w.y,
-                  step: 0.1,
-                  unit: ' ',
-                  setValue: (value) =>
-                    setProjective({
-                      ...projective,
-                      w: { ...projective.w, y: value },
-                    }),
-                },
-              ],
-            ],
-          },
-        ]}
-      />
+      <DimensionsInputs tabs={tabs} />
       <Col>
         <Stage width={width} height={height}>
           <Layer>
