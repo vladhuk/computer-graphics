@@ -11,6 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended', // Disable base rules
     'plugin:@typescript-eslint/recommended', // Enable ts rules
     'prettier',
+    'prettier/react',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
