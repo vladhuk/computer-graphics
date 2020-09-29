@@ -36,20 +36,26 @@ const App: FunctionComponent = () => {
   const [pivot, setPivot] = useState<Coord>(center);
   const [affine, setAffine] = useState<Affine>({
     r0: { x: 0, y: 0 },
-    rX: { x: 1, y: 0 },
-    rY: { x: 0, y: 1 },
+    rX: { x: center.x, y: 0 },
+    rY: { x: 0, y: center.y },
   });
   const [projective, setProjective] = useState<Projective>({
     r0: { x: 0, y: 0 },
-    rX: { x: 1, y: 0 },
-    rY: { x: 0, y: 1 },
-    w0: 1,
-    w: { x: 0, y: 0 },
+    rX: { x: 800, y: 0 },
+    rY: { x: 0, y: 800 },
+    w0: 800,
+    w: { x: 1, y: 1 },
   });
 
+  const normalizedAffine: Affine = {
+    r0: affine.r0,
+    rX: { x: affine.rX.x / center.x, y: affine.rX.y / center.y },
+    rY: { x: affine.rY.x / center.x, y: affine.rY.y / center.y },
+  };
+
   const gridModifiers: PointModifier[] = [
-    bindAffinePointWithOffset(affine, center),
-    bindProjectivePointWithOffset(projective, center),
+    bindAffinePointWithOffset(normalizedAffine, center),
+    // bindProjectivePointWithOffset(projective, center),
   ];
   const shapeModifiers: PointModifier[] = [
     bindOffsetPoint(offset),
@@ -152,16 +158,14 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rXx',
                   value: affine.rX.x,
-                  step: 0.1,
-                  unit: ' ',
+                  step,
                   setValue: (value) =>
                     setAffine({ ...affine, rX: { ...affine.rX, x: value } }),
                 },
                 {
                   title: 'rXy',
                   value: affine.rX.y,
-                  step: 0.1,
-                  unit: ' ',
+                  step,
                   setValue: (value) =>
                     setAffine({ ...affine, rX: { ...affine.rX, y: value } }),
                 },
@@ -170,16 +174,14 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rYx',
                   value: affine.rY.x,
-                  step: 0.1,
-                  unit: ' ',
+                  step,
                   setValue: (value) =>
                     setAffine({ ...affine, rY: { ...affine.rY, x: value } }),
                 },
                 {
                   title: 'rYy',
                   value: affine.rY.y,
-                  step: 0.1,
-                  unit: ' ',
+                  step,
                   setValue: (value) =>
                     setAffine({ ...affine, rY: { ...affine.rY, y: value } }),
                 },
@@ -215,7 +217,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rXx',
                   value: projective.rX.x,
-                  step: 0.1,
+                  step,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
@@ -226,7 +228,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rXy',
                   value: projective.rX.y,
-                  step: 0.1,
+                  step,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
@@ -239,7 +241,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rYx',
                   value: projective.rY.x,
-                  step: 0.1,
+                  step,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
@@ -250,7 +252,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'rYy',
                   value: projective.rY.y,
-                  step: 0.1,
+                  step,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
@@ -263,7 +265,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'w0',
                   value: projective.w0,
-                  step: 0.1,
+                  step,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
@@ -274,7 +276,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'wx',
                   value: projective.w.x,
-                  step: 0.0001,
+                  step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({
@@ -285,7 +287,7 @@ const App: FunctionComponent = () => {
                 {
                   title: 'wy',
                   value: projective.w.y,
-                  step: 0.0001,
+                  step: 0.1,
                   unit: ' ',
                   setValue: (value) =>
                     setProjective({

@@ -83,7 +83,8 @@ export function bindProjectivePoint({
   w,
 }: Projective): PointModifier {
   return ({ x, y }) => ({
-    x: (r0.x + x * rX.x - y * rY.x) / (w0 + x * w.x - y * w.y),
-    y: (-r0.y - x * rX.y + y * rY.y) / (w0 + x * w.x - y * w.y),
+    x: (r0.x * w0 + x * rX.x * w.x - y * rY.x * w.y) / (w0 + x * w.x - y * w.y),
+    y:
+      (-r0.y * w0 - x * rX.y * w.x + y * rY.y * w.y) / (w0 + x * w.x - y * w.y),
   });
 }
