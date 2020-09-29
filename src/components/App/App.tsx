@@ -46,13 +46,6 @@ const App: FunctionComponent = () => {
     w0: 1,
     w: { x: 0, y: 0 },
   });
-  // const [projective, setProjective] = useState<Projective>({
-  //   r0: { x: 0, y: 0 },
-  //   rX: { x: 1000, y: 0 },
-  //   rY: { x: 0, y: 1000 },
-  //   w0: 1000,
-  //   w: { x: 1, y: 1 },
-  // });
 
   const gridModifiers: PointModifier[] = [
     bindAffinePointWithOffset(affine, center),
