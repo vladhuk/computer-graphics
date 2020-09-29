@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Stage, Layer } from 'react-konva';
+import { Col } from 'react-bootstrap';
 import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';
@@ -300,38 +301,43 @@ const App: FunctionComponent = () => {
           },
         ]}
       />
-      <Stage width={width} height={height}>
-        <Layer>
-          <Grid
-            width={width}
-            height={height}
-            center={center}
-            cellLength={cellLength}
-            modifiers={gridModifiers}
-          />
-          <Axes
-            width={width}
-            height={height}
-            center={center}
-            modifiers={gridModifiers}
-          />
-          <ModifiableCircle
-            position={pivot}
-            modifiers={gridModifiers}
-            radius={5}
-            fill="red"
-          />
-          <Shape
-            center={center}
-            R={R}
-            L1={L1}
-            L2={L2}
-            L3={L3}
-            L4={L4}
-            modifiers={shapeModifiers}
-          />
-        </Layer>
-      </Stage>
+      <Col>
+        <Stage width={width} height={height}>
+          <Layer>
+            <Grid
+              width={width}
+              height={height}
+              center={center}
+              cellLength={cellLength}
+              modifiers={gridModifiers}
+            />
+            <Axes
+              width={width}
+              height={height}
+              center={center}
+              modifiers={gridModifiers}
+            />
+            <ModifiableCircle
+              position={pivot}
+              modifiers={gridModifiers}
+              radius={5}
+              fill="red"
+            />
+            <Shape
+              center={center}
+              R={R}
+              L1={L1}
+              L2={L2}
+              L3={L3}
+              L4={L4}
+              modifiers={shapeModifiers}
+            />
+          </Layer>
+        </Stage>
+        <Col md={2} className="border rounded-bottom bg-light ml-2 text-center">
+          {width}✕{height}
+        </Col>
+      </Col>
       <img src={exampleImage} alt="example" style={{ height }} />
     </div>
   );
