@@ -62,12 +62,24 @@ const App: FunctionComponent = () => {
     }),
     [projective]
   );
-  const axesModifiers = useMemo<PointModifier[]>(
+  const normalizedProjectiveForAxes = useMemo<Affine>(
+    () => ({
+      ...projective,
+      rX: { x: projective.rX.x / center.x, y: projective.rX.y / center.y },
+      rY: { x: projective.rY.x / center.x, y: projective.rY.y / center.y },
+    }),
+    [projective]
+  );
+
+  const defaultAxesModifiers = useMemo<PointModifier[]>(
     () => [bindAffinePointWithOffset(normalizedAffine, center)],
     [normalizedAffine]
   );
+  const [axesModifiers, setAxesModifiers] = useState<PointModifier[]>(
+    defaultAxesModifiers
+  );
   const [gridModifiers, setGridModifiers] = useState<PointModifier[]>(
-    axesModifiers
+    defaultAxesModifiers
   );
   const shapeModifiers = useMemo<PointModifier[]>(
     () => [
@@ -306,17 +318,23 @@ const App: FunctionComponent = () => {
   useEffect(() => {
     if (currentTabName === tabs.projective.title) {
       setGridModifiers([
-        ...axesModifiers,
+        ...defaultAxesModifiers,
         bindProjectivePointWithOffset(normalizedProjective, center),
       ]);
+      setAxesModifiers([
+        ...defaultAxesModifiers,
+        bindAffinePointWithOffset(normalizedProjectiveForAxes, center),
+      ]);
     } else {
-      setGridModifiers(axesModifiers);
+      setAxesModifiers(defaultAxesModifiers);
+      setGridModifiers(defaultAxesModifiers);
     }
   }, [
-    axesModifiers,
+    defaultAxesModifiers,
     currentTabName,
     normalizedProjective,
     tabs.projective.title,
+    normalizedProjectiveForAxes,
   ]);
 
   return (
