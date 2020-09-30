@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { Col } from 'react-bootstrap';
 import Grid from '../Grid';
@@ -19,12 +19,12 @@ import Affine from '../../types/Affine';
 import Projective from '../../types/Projective';
 import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
 
+const width = 800;
+const height = 800;
+const center: Coord = { x: width / 2, y: height / 2 };
+
 const App: FunctionComponent = () => {
-  const width = 800;
-  const height = 800;
-
-  const center: Coord = { x: width / 2, y: height / 2 };
-
+  const [currentTabName, setCurrentTabName] = useState<string | null>();
   const [cellLength, setCellLength] = useState(25);
   const [step, setStep] = useState(5);
   const [R, setR] = useState(75);
@@ -47,25 +47,32 @@ const App: FunctionComponent = () => {
     w0: 800,
     w: { x: 1, y: 1 },
   });
+  const normalizedAffine = useMemo<Affine>(
+    () => ({
+      r0: affine.r0,
+      rX: { x: affine.rX.x / center.x, y: affine.rX.y / center.y },
+      rY: { x: affine.rY.x / center.x, y: affine.rY.y / center.y },
+    }),
+    [affine]
+  );
+  const axesModifiers = useMemo<PointModifier[]>(
+    () => [bindAffinePointWithOffset(normalizedAffine, center)],
+    [normalizedAffine]
+  );
+  const [gridModifiers, setGridModifiers] = useState<PointModifier[]>(
+    axesModifiers
+  );
+  const shapeModifiers = useMemo<PointModifier[]>(
+    () => [
+      bindOffsetPoint(offset),
+      bindRotatePointByDegreesWithPivot(rotateDegrees, pivot),
+      ...gridModifiers,
+    ],
+    [gridModifiers, offset, pivot, rotateDegrees]
+  );
 
-  const normalizedAffine: Affine = {
-    r0: affine.r0,
-    rX: { x: affine.rX.x / center.x, y: affine.rX.y / center.y },
-    rY: { x: affine.rY.x / center.x, y: affine.rY.y / center.y },
-  };
-
-  const gridModifiers: PointModifier[] = [
-    bindAffinePointWithOffset(normalizedAffine, center),
-    // bindProjectivePointWithOffset(projective, center),
-  ];
-  const shapeModifiers: PointModifier[] = [
-    bindOffsetPoint(offset),
-    bindRotatePointByDegreesWithPivot(rotateDegrees, pivot),
-    ...gridModifiers,
-  ];
-
-  const tabs: FormTab[] = [
-    {
+  const tabs: Record<string, FormTab> = {
+    parameters: {
       title: 'Parameters',
       inputsGroups: [
         [
@@ -91,7 +98,7 @@ const App: FunctionComponent = () => {
         ],
       ],
     },
-    {
+    euclid: {
       title: 'Euclid',
       inputsGroups: [
         [
@@ -131,7 +138,7 @@ const App: FunctionComponent = () => {
         ],
       ],
     },
-    {
+    affine: {
       title: 'Affine',
       inputsGroups: [
         [
@@ -184,7 +191,7 @@ const App: FunctionComponent = () => {
         ],
       ],
     },
-    {
+    projective: {
       title: 'Projective',
       inputsGroups: [
         [
@@ -294,11 +301,25 @@ const App: FunctionComponent = () => {
         ],
       ],
     },
-  ];
+  };
+
+  useEffect(() => {
+    if (currentTabName === tabs.projective.title) {
+      setGridModifiers([
+        ...axesModifiers,
+        bindProjectivePointWithOffset(projective, center),
+      ]);
+    } else {
+      setGridModifiers(axesModifiers);
+    }
+  }, [axesModifiers, currentTabName, projective, tabs.projective.title]);
 
   return (
     <div className="d-flex justify-conten`t-between my-3 mx-5">
-      <DimensionsInputs tabs={tabs} />
+      <DimensionsInputs
+        tabs={Object.values(tabs)}
+        onSelect={setCurrentTabName}
+      />
       <Col>
         <Stage width={width} height={height}>
           <Layer>
@@ -313,7 +334,7 @@ const App: FunctionComponent = () => {
               width={width}
               height={height}
               center={center}
-              modifiers={gridModifiers}
+              modifiers={axesModifiers}
             />
             <ModifiableCircle
               position={pivot}
