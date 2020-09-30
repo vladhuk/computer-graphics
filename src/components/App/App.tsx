@@ -40,20 +40,27 @@ const App: FunctionComponent = () => {
     rX: { x: center.x, y: 0 },
     rY: { x: 0, y: center.y },
   });
+  const normalizedAffine = useMemo<Affine>(
+    () => ({
+      ...affine,
+      rX: { x: affine.rX.x / center.x, y: affine.rX.y / center.y },
+      rY: { x: affine.rY.x / center.x, y: affine.rY.y / center.y },
+    }),
+    [affine]
+  );
   const [projective, setProjective] = useState<Projective>({
     r0: { x: 0, y: 0 },
     rX: { x: 800, y: 0 },
     rY: { x: 0, y: 800 },
     w0: 800,
-    w: { x: 1, y: 1 },
+    w: { x: 400, y: 400 },
   });
-  const normalizedAffine = useMemo<Affine>(
+  const normalizedProjective = useMemo<Projective>(
     () => ({
-      r0: affine.r0,
-      rX: { x: affine.rX.x / center.x, y: affine.rX.y / center.y },
-      rY: { x: affine.rY.x / center.x, y: affine.rY.y / center.y },
+      ...projective,
+      w: { x: projective.w.x / center.x, y: projective.w.y / center.y },
     }),
-    [affine]
+    [projective]
   );
   const axesModifiers = useMemo<PointModifier[]>(
     () => [bindAffinePointWithOffset(normalizedAffine, center)],
@@ -221,7 +228,6 @@ const App: FunctionComponent = () => {
             title: 'rXx',
             value: projective.rX.x,
             step,
-            unit: ' ',
             setValue: (value) =>
               setProjective({
                 ...projective,
@@ -232,7 +238,6 @@ const App: FunctionComponent = () => {
             title: 'rXy',
             value: projective.rX.y,
             step,
-            unit: ' ',
             setValue: (value) =>
               setProjective({
                 ...projective,
@@ -245,7 +250,6 @@ const App: FunctionComponent = () => {
             title: 'rYx',
             value: projective.rY.x,
             step,
-            unit: ' ',
             setValue: (value) =>
               setProjective({
                 ...projective,
@@ -256,7 +260,6 @@ const App: FunctionComponent = () => {
             title: 'rYy',
             value: projective.rY.y,
             step,
-            unit: ' ',
             setValue: (value) =>
               setProjective({
                 ...projective,
@@ -269,7 +272,6 @@ const App: FunctionComponent = () => {
             title: 'w0',
             value: projective.w0,
             step,
-            unit: ' ',
             setValue: (value) =>
               setProjective({
                 ...projective,
@@ -279,8 +281,7 @@ const App: FunctionComponent = () => {
           {
             title: 'wx',
             value: projective.w.x,
-            step: 0.1,
-            unit: ' ',
+            step,
             setValue: (value) =>
               setProjective({
                 ...projective,
@@ -290,8 +291,7 @@ const App: FunctionComponent = () => {
           {
             title: 'wy',
             value: projective.w.y,
-            step: 0.1,
-            unit: ' ',
+            step,
             setValue: (value) =>
               setProjective({
                 ...projective,
@@ -307,12 +307,17 @@ const App: FunctionComponent = () => {
     if (currentTabName === tabs.projective.title) {
       setGridModifiers([
         ...axesModifiers,
-        bindProjectivePointWithOffset(projective, center),
+        bindProjectivePointWithOffset(normalizedProjective, center),
       ]);
     } else {
       setGridModifiers(axesModifiers);
     }
-  }, [axesModifiers, currentTabName, projective, tabs.projective.title]);
+  }, [
+    axesModifiers,
+    currentTabName,
+    normalizedProjective,
+    tabs.projective.title,
+  ]);
 
   return (
     <div className="d-flex justify-conten`t-between my-3 mx-5">
