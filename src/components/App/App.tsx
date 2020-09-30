@@ -18,10 +18,13 @@ import PointModifier from '../../types/PointModifier';
 import Affine from '../../types/Affine';
 import Projective from '../../types/Projective';
 import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
+import { bindNormalizeVectorValueToCenter } from './App.service';
 
 const width = 800;
 const height = 800;
 const center: Coord = { x: width / 2, y: height / 2 };
+
+const normalizeVectorValue = bindNormalizeVectorValueToCenter(center);
 
 const App: FunctionComponent = () => {
   const [currentTabName, setCurrentTabName] = useState<string | null>();
@@ -43,8 +46,8 @@ const App: FunctionComponent = () => {
   const normalizedAffine = useMemo<Affine>(
     () => ({
       ...affine,
-      rX: { x: affine.rX.x / center.x, y: affine.rX.y / center.y },
-      rY: { x: affine.rY.x / center.x, y: affine.rY.y / center.y },
+      rX: normalizeVectorValue(affine.rX),
+      rY: normalizeVectorValue(affine.rY),
     }),
     [affine]
   );
@@ -53,20 +56,20 @@ const App: FunctionComponent = () => {
     rX: { x: 800, y: 0 },
     rY: { x: 0, y: 800 },
     w0: 800,
-    w: { x: 400, y: 400 },
+    w: { x: center.x, y: center.y },
   });
   const normalizedProjective = useMemo<Projective>(
     () => ({
       ...projective,
-      w: { x: projective.w.x / center.x, y: projective.w.y / center.y },
+      w: normalizeVectorValue(projective.w),
     }),
     [projective]
   );
   const normalizedProjectiveForAxes = useMemo<Affine>(
     () => ({
       ...projective,
-      rX: { x: projective.rX.x / center.x, y: projective.rX.y / center.y },
-      rY: { x: projective.rY.x / center.x, y: projective.rY.y / center.y },
+      rX: normalizeVectorValue(projective.rX),
+      rY: normalizeVectorValue(projective.rY),
     }),
     [projective]
   );
