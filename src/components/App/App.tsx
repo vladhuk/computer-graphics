@@ -19,6 +19,7 @@ import { bindNormalizeVectorValueToCenter } from './App.service';
 import Lab1 from '../labsPages/Lab1';
 import Header from '../Header';
 import Lab2 from '../labsPages/Lab2';
+import Pivot from '../Pivot';
 
 const canvasWidth = 800;
 const canvasHeight = 800;
@@ -345,12 +346,7 @@ const App: FunctionComponent = () => {
         center={canvasCenter}
         modifiers={axesModifiers}
       />
-      <ModifiableCircle
-        position={pivot}
-        modifiers={gridModifiers}
-        radius={5}
-        fill="red"
-      />
+      <Pivot position={pivot} modifiers={gridModifiers} />
     </>
   );
 
