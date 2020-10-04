@@ -10,15 +10,21 @@ export interface FormTab {
 
 interface Props {
   tabs: FormTab[];
+  defaultTab?: string;
   onSelect?: (tabName: string | null) => void;
 }
 
-const DimensionsForm: FunctionComponent<Props> = ({ tabs, onSelect }) => {
+const DimensionsForm: FunctionComponent<Props> = ({
+  tabs,
+  defaultTab,
+  onSelect,
+}) => {
   return (
     <div className="col-3">
       {/* eslint-disable-next-line */}
       <Tabs transition={AccordionCollapse as any}
         onSelect={onSelect}
+        defaultActiveKey={defaultTab}
         className="border rounded-top justify-content-around"
       >
         {tabs.map(({ title, inputsGroups }) => (
