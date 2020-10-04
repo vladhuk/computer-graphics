@@ -18,6 +18,7 @@ import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
 import { bindNormalizeVectorValueToCenter } from './App.service';
 import Lab1 from '../labsPages/Lab1';
 import Header from '../Header';
+import Lab2 from '../labsPages/Lab2';
 
 const canvasWidth = 800;
 const canvasHeight = 800;
@@ -353,18 +354,19 @@ const App: FunctionComponent = () => {
     </>
   );
 
-  const lab1 = (
-    <Lab1
-      tabs={Object.values(linearTransformationTabs)}
-      onSelectTab={setCurrentTabName}
-      canvasCenter={canvasCenter}
-      canvasWidth={canvasWidth}
-      canvasHeight={canvasHeight}
-      step={step}
-      shapeModifiers={shapeModifiers}
-      defaultCanvasElements={defaultCanvasElements}
-    />
-  );
+  const defaultLabProps = {
+    tabs: Object.values(linearTransformationTabs),
+    onSelectTab: setCurrentTabName,
+    canvasCenter,
+    canvasWidth,
+    canvasHeight,
+    step,
+    shapeModifiers,
+    defaultCanvasElements,
+  };
+
+  const lab1 = <Lab1 {...defaultLabProps} />;
+  const lab2 = <Lab2 {...defaultLabProps} />;
 
   return (
     <>
@@ -373,6 +375,9 @@ const App: FunctionComponent = () => {
         <Switch>
           <Route exact path="/lab1">
             {lab1}
+          </Route>
+          <Route exact path="/lab2">
+            {lab2}
           </Route>
           <Redirect exact from="/" to="/lab1" />
         </Switch>
