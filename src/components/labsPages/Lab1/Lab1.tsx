@@ -34,10 +34,12 @@ const Lab1: FunctionComponent<Props> = ({
   const [L3, setL3] = useState(300);
   const [L4, setL4] = useState(450);
 
+  const tabName = 'Shape';
+
   const allTabs: FormTab[] = [
     ...tabs,
     {
-      title: 'Shape',
+      title: tabName,
       inputsGroups: [
         [
           { title: 'R', value: R, min: 0, step, setValue: setR },
@@ -52,7 +54,11 @@ const Lab1: FunctionComponent<Props> = ({
 
   return (
     <PageWrapper>
-      <DimensionsForm tabs={allTabs} onSelect={onSelectTab} />
+      <DimensionsForm
+        tabs={allTabs}
+        defaultTab={tabName}
+        onSelect={onSelectTab}
+      />
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         {defaultCanvasElements}
         <Shape
