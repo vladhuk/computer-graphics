@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import Coord from '../../types/Coord';
+import Coord from '../../../../types/Coord';
 import OuterShape from './elements/OuterShape';
 import InnerShape from './elements/InnerShape';
-import PointModifier from '../../types/PointModifier';
+import PointModifier from '../../../../types/PointModifier';
 
 interface Props {
   center: Coord;
