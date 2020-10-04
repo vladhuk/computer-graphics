@@ -45,8 +45,8 @@ export function bindRotatePointByDegreesWithPivot(
 
 function bindRotatePointByRad(rad: number): PointModifier {
   return ({ x, y }) => ({
-    x: x * Math.cos(rad) - y * Math.sin(rad),
-    y: x * Math.sin(rad) + y * Math.cos(rad),
+    x: x * Math.cos(-rad) + y * Math.sin(rad),
+    y: x * Math.sin(-rad) + y * Math.cos(-rad),
   });
 }
 
