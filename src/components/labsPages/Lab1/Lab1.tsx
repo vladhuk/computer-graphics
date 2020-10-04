@@ -10,9 +10,9 @@ import DimensionsForm, { FormTab } from '../../DimensionsForm';
 interface Props {
   tabs: FormTab[];
   onSelectTab: (tabName: string | null) => void;
-  center: Coord;
-  width: number;
-  height: number;
+  canvasCenter: Coord;
+  canvasWidth: number;
+  canvasHeight: number;
   step?: number;
   shapeModifiers?: PointModifier[];
   defaultCanvasElements?: JSX.Element;
@@ -21,9 +21,9 @@ interface Props {
 const Lab1: FunctionComponent<Props> = ({
   tabs,
   onSelectTab,
-  center,
-  width,
-  height,
+  canvasCenter,
+  canvasWidth,
+  canvasHeight,
   step,
   shapeModifiers,
   defaultCanvasElements,
@@ -53,10 +53,10 @@ const Lab1: FunctionComponent<Props> = ({
   return (
     <PageWrapper>
       <DimensionsForm tabs={allTabs} onSelect={onSelectTab} />
-      <CustomCanvas width={width} height={height}>
+      <CustomCanvas width={canvasWidth} height={canvasHeight}>
         {defaultCanvasElements}
         <Shape
-          center={center}
+          center={canvasCenter}
           R={R}
           L1={L1}
           L2={L2}
@@ -65,7 +65,7 @@ const Lab1: FunctionComponent<Props> = ({
           modifiers={shapeModifiers}
         />
       </CustomCanvas>
-      <img src={exampleImage} alt="example" style={{ height }} />
+      <img src={exampleImage} alt="example" style={{ height: canvasHeight }} />
     </PageWrapper>
   );
 };

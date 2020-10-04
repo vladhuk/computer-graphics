@@ -19,11 +19,11 @@ import { bindNormalizeVectorValueToCenter } from './App.service';
 import Lab1 from '../labsPages/Lab1';
 import Header from '../Header';
 
-const width = 800;
-const height = 800;
-const center: Coord = { x: width / 2, y: height / 2 };
+const canvasWidth = 800;
+const canvasHeight = 800;
+const canvasCenter: Coord = { x: canvasWidth / 2, y: canvasHeight / 2 };
 
-const normalizeVectorValue = bindNormalizeVectorValueToCenter(center);
+const normalizeVectorValue = bindNormalizeVectorValueToCenter(canvasCenter);
 
 const App: FunctionComponent = () => {
   const [currentTabName, setCurrentTabName] = useState<string | null>();
@@ -31,11 +31,11 @@ const App: FunctionComponent = () => {
   const [step, setStep] = useState(5);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
   const [rotateDegrees, setRotateDegrees] = useState(0);
-  const [pivot, setPivot] = useState<Coord>(center);
+  const [pivot, setPivot] = useState<Coord>(canvasCenter);
   const [affine, setAffine] = useState<Affine>({
     r0: { x: 0, y: 0 },
-    rX: { x: center.x, y: 0 },
-    rY: { x: 0, y: center.y },
+    rX: { x: canvasCenter.x, y: 0 },
+    rY: { x: 0, y: canvasCenter.y },
   });
   const normalizedAffine = useMemo<Affine>(
     () => ({
@@ -50,7 +50,7 @@ const App: FunctionComponent = () => {
     rX: { x: 800, y: 0 },
     rY: { x: 0, y: 800 },
     w0: 800,
-    w: { x: center.x, y: center.y },
+    w: { x: canvasCenter.x, y: canvasCenter.y },
   });
   const normalizedProjective = useMemo<Projective>(
     () => ({
@@ -69,7 +69,7 @@ const App: FunctionComponent = () => {
   );
 
   const defaultAxesModifiers = useMemo<PointModifier[]>(
-    () => [bindAffinePointWithOffset(normalizedAffine, center)],
+    () => [bindAffinePointWithOffset(normalizedAffine, canvasCenter)],
     [normalizedAffine]
   );
   const [axesModifiers, setAxesModifiers] = useState<PointModifier[]>(
@@ -134,15 +134,17 @@ const App: FunctionComponent = () => {
           },
           {
             title: 'Pivot X',
-            value: pivot.x - center.x,
+            value: pivot.x - canvasCenter.x,
             step,
-            setValue: (value) => setPivot({ ...pivot, x: value + center.x }),
+            setValue: (value) =>
+              setPivot({ ...pivot, x: value + canvasCenter.x }),
           },
           {
             title: 'Pivot Y',
-            value: -pivot.y + center.y,
+            value: -pivot.y + canvasCenter.y,
             step,
-            setValue: (value) => setPivot({ ...pivot, y: -value + center.y }),
+            setValue: (value) =>
+              setPivot({ ...pivot, y: -value + canvasCenter.y }),
           },
         ],
       ],
@@ -309,11 +311,11 @@ const App: FunctionComponent = () => {
     if (currentTabName === linearTransformationTabs.projective.title) {
       setGridModifiers([
         ...defaultAxesModifiers,
-        bindProjectivePointWithOffset(normalizedProjective, center),
+        bindProjectivePointWithOffset(normalizedProjective, canvasCenter),
       ]);
       setAxesModifiers([
         ...defaultAxesModifiers,
-        bindAffinePointWithOffset(normalizedProjectiveForAxes, center),
+        bindAffinePointWithOffset(normalizedProjectiveForAxes, canvasCenter),
       ]);
     } else {
       setAxesModifiers(defaultAxesModifiers);
@@ -330,16 +332,16 @@ const App: FunctionComponent = () => {
   const defaultCanvasElements = (
     <>
       <Grid
-        width={width}
-        height={height}
-        center={center}
+        width={canvasWidth}
+        height={canvasHeight}
+        center={canvasCenter}
         cellLength={cellLength}
         modifiers={gridModifiers}
       />
       <Axes
-        width={width}
-        height={height}
-        center={center}
+        width={canvasWidth}
+        height={canvasHeight}
+        center={canvasCenter}
         modifiers={axesModifiers}
       />
       <ModifiableCircle
@@ -355,9 +357,9 @@ const App: FunctionComponent = () => {
     <Lab1
       tabs={Object.values(linearTransformationTabs)}
       onSelectTab={setCurrentTabName}
-      center={center}
-      width={width}
-      height={height}
+      canvasCenter={canvasCenter}
+      canvasWidth={canvasWidth}
+      canvasHeight={canvasHeight}
       step={step}
       shapeModifiers={shapeModifiers}
       defaultCanvasElements={defaultCanvasElements}
