@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';
@@ -16,6 +17,7 @@ import Projective from '../../types/Projective';
 import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
 import { bindNormalizeVectorValueToCenter } from './App.service';
 import Lab1 from '../labsPages/Lab1';
+import Header from '../Header';
 
 const width = 800;
 const height = 800;
@@ -349,7 +351,7 @@ const App: FunctionComponent = () => {
     </>
   );
 
-  return (
+  const lab1 = (
     <Lab1
       tabs={Object.values(linearTransformationTabs)}
       onSelectTab={setCurrentTabName}
@@ -360,6 +362,20 @@ const App: FunctionComponent = () => {
       shapeModifiers={shapeModifiers}
       defaultCanvasElements={defaultCanvasElements}
     />
+  );
+
+  return (
+    <>
+      <Header />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/lab1">
+            {lab1}
+          </Route>
+          <Redirect exact from="/" to="/lab1" />
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 };
 
