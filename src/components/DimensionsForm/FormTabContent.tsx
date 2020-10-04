@@ -9,7 +9,7 @@ interface Props {
 
 const FormTabContent: FunctionComponent<Props> = ({ inputsGroups }) => {
   return (
-    <Form className="border border-top-0 rounded p-2 bg-light">
+    <Form className="border border-top-0 rounded-bottom p-2 bg-light">
       {inputsGroups.map((inputs, groupIndex) => (
         <>
           <InputsGroup inputs={inputs} />
