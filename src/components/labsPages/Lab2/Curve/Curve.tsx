@@ -17,21 +17,19 @@ const Curve: FunctionComponent<Props> = ({ a, center, modifiers }) => {
   const firstBranchPoints: Coord[] = [];
   const secondBranchPoints: Coord[] = [];
 
-  for (let i = 0; i < 180; i += 1) {
+  for (let i = 0; i <= 180; i += 1) {
     const point = calculateDescartesFoliumPoint(i);
     if (
       firstBranchPoints.length < 90 ||
       (Math.abs(point.x) < center.x * 2 && Math.abs(point.y) < center.y * 2)
     ) {
-      if (i < 135) {
+      if (i <= 135) {
         firstBranchPoints.push(point);
       } else {
         secondBranchPoints.push(point);
       }
     }
   }
-
-  secondBranchPoints.push(firstBranchPoints[0]);
 
   const curveModifiers = [bindOffsetPoint(center), ...(modifiers || [])];
 
