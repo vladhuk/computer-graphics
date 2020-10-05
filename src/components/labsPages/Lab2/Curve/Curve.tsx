@@ -14,24 +14,38 @@ interface Props {
 const Curve: FunctionComponent<Props> = ({ a, center, modifiers }) => {
   const calculateDescartesFoliumPoint = bindCalculateDescartesFoliumPoint(a);
 
-  const points: Coord[] = [];
+  const firstBranchPoints: Coord[] = [];
+  const secondBranchPoints: Coord[] = [];
 
-  for (let i = 0; i < 360; i += 1) {
+  for (let i = 0; i < 180; i += 1) {
     const point = calculateDescartesFoliumPoint(i);
-    if (points.length < 90 || Math.abs(point.x) < points[45].x * 2) {
-      points.push(point);
+    if (
+      firstBranchPoints.length < 90 ||
+      (Math.abs(point.x) < center.x * 2 && Math.abs(point.y) < center.y * 2)
+    ) {
+      if (i < 135) {
+        firstBranchPoints.push(point);
+      } else {
+        secondBranchPoints.push(point);
+      }
     }
   }
+
+  secondBranchPoints.push(firstBranchPoints[0]);
 
   const curveModifiers = [bindOffsetPoint(center), ...(modifiers || [])];
 
   return (
     <>
       <ModifiableLine
-        from={points[0]}
-        to={points.slice(1)}
+        from={firstBranchPoints[0]}
+        to={firstBranchPoints.slice(1)}
         modifiers={curveModifiers}
-        closed
+      />
+      <ModifiableLine
+        from={secondBranchPoints[0]}
+        to={secondBranchPoints.slice(1)}
+        modifiers={curveModifiers}
       />
     </>
   );
