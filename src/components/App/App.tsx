@@ -14,7 +14,6 @@ import {
 import PointModifier from '../../types/PointModifier';
 import Affine from '../../types/Affine';
 import Projective from '../../types/Projective';
-import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
 import { bindNormalizeVectorValueToCenter } from './App.service';
 import Lab1 from '../labsPages/Lab1';
 import Header from '../Header';
