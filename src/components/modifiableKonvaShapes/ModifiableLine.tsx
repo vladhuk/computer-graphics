@@ -13,12 +13,14 @@ interface Props {
   modifiers?: PointModifier[];
   closed?: boolean;
   strokeWidth?: number;
+  color?: string;
 }
 
 const ModifiableLine: FunctionComponent<Props> = ({
   from,
   to,
   modifiers,
+  color,
   ...rest
 }) => {
   const startPoint = modifiers ? applyModifiers(from, modifiers) : from;
@@ -33,7 +35,7 @@ const ModifiableLine: FunctionComponent<Props> = ({
       x={startPoint.x}
       y={startPoint.y}
       points={[0, 0, ...points]}
-      stroke="black"
+      stroke={color || 'black'}
       {...rest}
     />
   );
