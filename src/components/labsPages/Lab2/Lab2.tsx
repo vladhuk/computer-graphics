@@ -6,6 +6,7 @@ import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
 import exampleImage from '../../../assets/examples/example2.png';
 import Curve from './Curve';
+import Asymptote from './Asymptote';
 
 interface Props {
   tabs: FormTab[];
@@ -50,6 +51,12 @@ const Lab2: FunctionComponent<Props> = ({
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         {defaultCanvasElements}
         <Curve modifiers={shapeModifiers} center={canvasCenter} a={a} />
+        <Asymptote
+          a={a}
+          center={canvasCenter}
+          color="red"
+          modifiers={shapeModifiers}
+        />
       </CustomCanvas>
       <img
         src={exampleImage}
