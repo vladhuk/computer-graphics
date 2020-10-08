@@ -4,11 +4,11 @@ import PointModifier from '../../types/PointModifier';
 import { ModifiableArrow, ModifiableText } from '../modifiableKonvaShapes';
 
 interface Props {
-  center: Coord;
+  maxCoord: Coord;
   modifiers?: PointModifier[];
 }
 
-const Axes: FunctionComponent<Props> = ({ center, modifiers }) => {
+const Axes: FunctionComponent<Props> = ({ maxCoord, modifiers }) => {
   const getArrow = (start: Coord, end: Coord) => (
     <ModifiableArrow
       from={start}
@@ -34,10 +34,10 @@ const Axes: FunctionComponent<Props> = ({ center, modifiers }) => {
 
   return (
     <>
-      {getText('x', { x: center.x - 13, y: 0 })}
-      {getArrow({ x: -center.x, y: 0 }, { x: center.x - 15, y: 0 })}
-      {getText('y', { x: 2, y: center.y })}
-      {getArrow({ x: 0, y: -center.y }, { x: 0, y: center.y - 23 })}
+      {getText('x', { x: maxCoord.x - 13, y: 0 })}
+      {getArrow({ x: -maxCoord.x, y: 0 }, { x: maxCoord.x - 15, y: 0 })}
+      {getText('y', { x: 2, y: maxCoord.y })}
+      {getArrow({ x: 0, y: -maxCoord.y }, { x: 0, y: maxCoord.y - 23 })}
     </>
   );
 };

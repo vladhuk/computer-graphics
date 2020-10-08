@@ -15,7 +15,7 @@ import {
 import PointModifier from '../../types/PointModifier';
 import Affine from '../../types/Affine';
 import Projective from '../../types/Projective';
-import { bindNormalizeVectorValueToCenter } from './App.service';
+import { bindNormalizeVectorValueToAxesMaxCoord } from './App.service';
 import Lab1 from '../labsPages/Lab1';
 import Header from '../Header';
 import Lab2 from '../labsPages/Lab2';
@@ -25,7 +25,9 @@ const canvasWidth = 800;
 const canvasHeight = 800;
 const canvasCenter: Coord = { x: canvasWidth / 2, y: canvasHeight / 2 };
 
-const normalizeVectorValue = bindNormalizeVectorValueToCenter(canvasCenter);
+const normalizeVectorValue = bindNormalizeVectorValueToAxesMaxCoord(
+  canvasCenter
+);
 
 const App: FunctionComponent = () => {
   const [currentTabName, setCurrentTabName] = useState<string | null>();
@@ -336,11 +338,11 @@ const App: FunctionComponent = () => {
   const defaultCanvasElements = (
     <>
       <Grid
-        center={canvasCenter}
+        maxCoord={canvasCenter}
         cellLength={cellLength}
         modifiers={gridModifiers}
       />
-      <Axes center={canvasCenter} modifiers={axesModifiers} />
+      <Axes maxCoord={canvasCenter} modifiers={axesModifiers} />
       <Pivot position={pivot} modifiers={gridModifiers} />
     </>
   );
@@ -348,7 +350,7 @@ const App: FunctionComponent = () => {
   const defaultLabProps = {
     tabs: Object.values(linearTransformationTabs),
     onSelectTab: setCurrentTabName,
-    canvasCenter,
+    maxCoord: canvasCenter,
     canvasWidth,
     canvasHeight,
     step,

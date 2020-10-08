@@ -6,11 +6,11 @@ import { bindCalculateDescartesFoliumPoint } from './Curve.service';
 
 interface Props {
   a: number;
-  center: Coord;
+  maxCoord: Coord;
   modifiers?: PointModifier[];
 }
 
-const Curve: FunctionComponent<Props> = ({ a, center, modifiers }) => {
+const Curve: FunctionComponent<Props> = ({ a, maxCoord, modifiers }) => {
   const calculateDescartesFoliumPoint = bindCalculateDescartesFoliumPoint(a);
 
   const firstBranchPoints: Coord[] = [];
@@ -20,7 +20,7 @@ const Curve: FunctionComponent<Props> = ({ a, center, modifiers }) => {
     const point = calculateDescartesFoliumPoint(i);
     if (
       firstBranchPoints.length < 90 ||
-      (Math.abs(point.x) < center.x * 2 && Math.abs(point.y) < center.y * 2)
+      (Math.abs(point.x) < maxCoord.x * 2 && Math.abs(point.y) < maxCoord.y * 2)
     ) {
       if (i <= 135) {
         firstBranchPoints.push(point);

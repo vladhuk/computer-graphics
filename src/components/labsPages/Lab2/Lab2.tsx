@@ -11,7 +11,7 @@ import Asymptote from './Asymptote';
 interface Props {
   tabs: FormTab[];
   onSelectTab: (tabName: string | null) => void;
-  canvasCenter: Coord;
+  maxCoord: Coord;
   canvasWidth: number;
   canvasHeight: number;
   step?: number;
@@ -22,7 +22,7 @@ interface Props {
 const Lab2: FunctionComponent<Props> = ({
   tabs,
   onSelectTab,
-  canvasCenter,
+  maxCoord,
   canvasWidth,
   canvasHeight,
   step,
@@ -50,10 +50,10 @@ const Lab2: FunctionComponent<Props> = ({
       />
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         {defaultCanvasElements}
-        <Curve modifiers={shapeModifiers} center={canvasCenter} a={a} />
+        <Curve modifiers={shapeModifiers} maxCoord={maxCoord} a={a} />
         <Asymptote
           a={a}
-          center={canvasCenter}
+          maxCoord={maxCoord}
           color="red"
           modifiers={shapeModifiers}
         />

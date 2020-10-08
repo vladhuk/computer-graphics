@@ -5,14 +5,14 @@ import { ModifiableLine } from '../../../modifiableKonvaShapes';
 import { bindGetAnotherCoordParam } from './Asymptote.service';
 
 interface Props {
-  center: Coord;
+  maxCoord: Coord;
   a: number;
   color?: string;
   modifiers?: PointModifier[];
 }
 
 const Asymptote: FunctionComponent<Props> = ({
-  center,
+  maxCoord,
   a,
   color,
   modifiers,
@@ -21,8 +21,8 @@ const Asymptote: FunctionComponent<Props> = ({
 
   return (
     <ModifiableLine
-      from={{ x: -center.x, y: getAnotherCoordParam(-center.x) }}
-      to={[{ x: getAnotherCoordParam(-center.y), y: -center.y }]}
+      from={{ x: -maxCoord.x, y: getAnotherCoordParam(-maxCoord.x) }}
+      to={[{ x: getAnotherCoordParam(-maxCoord.y), y: -maxCoord.y }]}
       color={color}
       modifiers={modifiers}
       strokeWidth={1}
