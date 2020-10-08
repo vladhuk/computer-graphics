@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../../../types/Coord';
 import PointModifier from '../../../../types/PointModifier';
-import { bindOffsetPoint } from '../../../../util/grapchicFunctions';
 import { ModifiableLine } from '../../../modifiableKonvaShapes';
 import { bindCalculateDescartesFoliumPoint } from './Curve.service';
 
@@ -31,19 +30,17 @@ const Curve: FunctionComponent<Props> = ({ a, center, modifiers }) => {
     }
   }
 
-  const curveModifiers = [bindOffsetPoint(center), ...(modifiers || [])];
-
   return (
     <>
       <ModifiableLine
         from={firstBranchPoints[0]}
         to={firstBranchPoints.slice(1)}
-        modifiers={curveModifiers}
+        modifiers={modifiers}
       />
       <ModifiableLine
         from={secondBranchPoints[0]}
         to={secondBranchPoints.slice(1)}
-        modifiers={curveModifiers}
+        modifiers={modifiers}
       />
     </>
   );

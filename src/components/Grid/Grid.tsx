@@ -4,24 +4,16 @@ import PointModifier from '../../types/PointModifier';
 import { ModifiableLine } from '../modifiableKonvaShapes';
 
 interface Props {
-  width: number;
-  height: number;
   center: Coord;
   cellLength: number;
   modifiers?: PointModifier[];
 }
 
-const Grid: FunctionComponent<Props> = ({
-  width,
-  height,
-  center,
-  cellLength,
-  modifiers,
-}) => {
+const Grid: FunctionComponent<Props> = ({ center, cellLength, modifiers }) => {
   const getGridLine = (start: Coord): JSX.Element => {
     const end: Coord = {
-      x: start.x || width,
-      y: start.y || height,
+      x: start.x === -center.x ? center.x : start.x,
+      y: start.y === -center.y ? center.y : start.y,
     };
 
     return (
@@ -37,23 +29,15 @@ const Grid: FunctionComponent<Props> = ({
 
   const lines = [];
 
-  lines.push(getGridLine({ x: 0, y: center.y }));
-  lines.push(getGridLine({ x: center.x, y: 0 }));
-  for (
-    let startY = center.y + cellLength;
-    startY < width;
-    startY += cellLength
-  ) {
-    lines.push(getGridLine({ x: 0, y: startY }));
-    lines.push(getGridLine({ x: 0, y: height - startY }));
+  lines.push(getGridLine({ x: -center.x, y: 0 }));
+  lines.push(getGridLine({ x: 0, y: -center.y }));
+  for (let startY = cellLength; startY < center.y; startY += cellLength) {
+    lines.push(getGridLine({ x: -center.x, y: startY }));
+    lines.push(getGridLine({ x: -center.x, y: -startY }));
   }
-  for (
-    let startX = center.x + cellLength;
-    startX < height;
-    startX += cellLength
-  ) {
-    lines.push(getGridLine({ x: startX, y: 0 }));
-    lines.push(getGridLine({ x: width - startX, y: 0 }));
+  for (let startX = cellLength; startX < center.x; startX += cellLength) {
+    lines.push(getGridLine({ x: startX, y: -center.y }));
+    lines.push(getGridLine({ x: -startX, y: -center.y }));
   }
 
   return <>{lines}</>;

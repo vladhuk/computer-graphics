@@ -11,7 +11,7 @@ export function bindCalculateDescartesFoliumPoint(
 
     return {
       x: (3 * a * t) / (1 + t ** 3),
-      y: -(3 * a * t ** 2) / (1 + t ** 3),
+      y: (3 * a * t ** 2) / (1 + t ** 3),
     };
   };
 }

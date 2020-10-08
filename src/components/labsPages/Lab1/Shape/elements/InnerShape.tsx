@@ -4,21 +4,14 @@ import PointModifier from '../../../../../types/PointModifier';
 import { ModifiableLine } from '../../../../modifiableKonvaShapes';
 
 interface Props {
-  center: Coord;
   R: number;
   L1: number;
   L2: number;
   modifiers?: PointModifier[];
 }
 
-const InnerShape: FunctionComponent<Props> = ({
-  center,
-  R,
-  L1,
-  L2,
-  modifiers,
-}) => {
-  const circleCenter: Coord = { x: center.x, y: center.y + L1 / 2 };
+const InnerShape: FunctionComponent<Props> = ({ R, L1, L2, modifiers }) => {
+  const circleCenter: Coord = { x: 0, y: -L1 / 2 };
   const circleLineLength = 1;
 
   const getCircleY = (x: number, scale: number): number => {
@@ -43,24 +36,24 @@ const InnerShape: FunctionComponent<Props> = ({
 
   const circleLines = [];
 
-  for (let x = center.x - R; x < center.x + R; x += circleLineLength) {
-    if (x > center.x + L2 / 2 || x < center.x - L2 / 2) {
-      circleLines.push(getCircleLine(x, -1));
+  for (let x = -R; x < R; x += circleLineLength) {
+    if (x > L2 / 2 || x < -L2 / 2) {
+      circleLines.push(getCircleLine(x, 1));
     }
-    circleLines.push(getCircleLine(x, 1));
+    circleLines.push(getCircleLine(x, -1));
   }
 
-  const xStart = center.x - L2 / 2;
-  const yStart = getCircleY(xStart, -1);
-  const L1ExcludeCircle = center.y + L1 / 2 - yStart;
+  const xStart = -L2 / 2;
+  const yStart = getCircleY(xStart, 1);
+  const L1ExcludeCircle = L1 / 2 + yStart;
 
   return (
     <>
       <ModifiableLine
         from={{ x: xStart, y: yStart }}
         to={[
-          { x: xStart, y: yStart - L1 + L1ExcludeCircle - R / 2 },
-          { x: xStart + L2, y: yStart - L1 + L1ExcludeCircle - R / 2 },
+          { x: xStart, y: yStart + L1 - L1ExcludeCircle + R / 2 },
+          { x: xStart + L2, y: yStart + L1 - L1ExcludeCircle + R / 2 },
           { x: xStart + L2, y: yStart },
         ]}
         modifiers={modifiers}

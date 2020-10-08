@@ -3,14 +3,12 @@ import exampleImage from '../../../assets/examples/example1.png';
 import CustomCanvas from '../../CustomCanvas';
 import PageWrapper from '../../PageWraper';
 import Shape from './Shape';
-import Coord from '../../../types/Coord';
 import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
 
 interface Props {
   tabs: FormTab[];
   onSelectTab: (tabName: string | null) => void;
-  canvasCenter: Coord;
   canvasWidth: number;
   canvasHeight: number;
   step?: number;
@@ -21,7 +19,6 @@ interface Props {
 const Lab1: FunctionComponent<Props> = ({
   tabs,
   onSelectTab,
-  canvasCenter,
   canvasWidth,
   canvasHeight,
   step,
@@ -62,7 +59,6 @@ const Lab1: FunctionComponent<Props> = ({
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         {defaultCanvasElements}
         <Shape
-          center={canvasCenter}
           R={R}
           L1={L1}
           L2={L2}

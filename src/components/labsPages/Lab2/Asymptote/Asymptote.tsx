@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../../../types/Coord';
 import PointModifier from '../../../../types/PointModifier';
-import { bindOffsetPoint } from '../../../../util/grapchicFunctions';
 import { ModifiableLine } from '../../../modifiableKonvaShapes';
 import { bindGetAnotherCoordParam } from './Asymptote.service';
 
@@ -20,14 +19,12 @@ const Asymptote: FunctionComponent<Props> = ({
 }) => {
   const getAnotherCoordParam = bindGetAnotherCoordParam(a);
 
-  const curveModifiers = [bindOffsetPoint(center), ...(modifiers || [])];
-
   return (
     <ModifiableLine
-      from={{ x: -center.x, y: -getAnotherCoordParam(-center.x) }}
-      to={[{ x: getAnotherCoordParam(-center.y), y: center.y }]}
+      from={{ x: -center.x, y: getAnotherCoordParam(-center.x) }}
+      to={[{ x: getAnotherCoordParam(-center.y), y: -center.y }]}
       color={color}
-      modifiers={curveModifiers}
+      modifiers={modifiers}
       strokeWidth={1}
     />
   );

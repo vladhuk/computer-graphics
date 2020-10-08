@@ -5,7 +5,7 @@ import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
 
 interface Props {
   position: Coord;
-  modifiers: PointModifier[];
+  modifiers?: PointModifier[];
 }
 
 const Pivot: FunctionComponent<Props> = ({ position, modifiers }) => (

@@ -7,9 +7,10 @@ import { FormTab } from '../DimensionsForm';
 import Coord from '../../types/Coord';
 import {
   bindOffsetPoint,
-  bindAffinePointWithOffset,
-  bindProjectivePointWithOffset,
   bindRotatePointByDegreesWithPivot,
+  bindInvertY,
+  bindAffinePoint,
+  bindProjectivePoint,
 } from '../../util/grapchicFunctions';
 import PointModifier from '../../types/PointModifier';
 import Affine from '../../types/Affine';
@@ -32,7 +33,7 @@ const App: FunctionComponent = () => {
   const [step, setStep] = useState(5);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
   const [rotateDegrees, setRotateDegrees] = useState(0);
-  const [pivot, setPivot] = useState<Coord>(canvasCenter);
+  const [pivot, setPivot] = useState<Coord>({ x: 0, y: 0 });
   const [affine, setAffine] = useState<Affine>({
     r0: { x: 0, y: 0 },
     rX: { x: canvasCenter.x, y: 0 },
@@ -70,7 +71,11 @@ const App: FunctionComponent = () => {
   );
 
   const defaultAxesModifiers = useMemo<PointModifier[]>(
-    () => [bindAffinePointWithOffset(normalizedAffine, canvasCenter)],
+    () => [
+      bindAffinePoint(normalizedAffine),
+      bindInvertY(),
+      bindOffsetPoint(canvasCenter),
+    ],
     [normalizedAffine]
   );
   const [axesModifiers, setAxesModifiers] = useState<PointModifier[]>(
@@ -120,9 +125,9 @@ const App: FunctionComponent = () => {
           },
           {
             title: 'ΔY',
-            value: -offset.y,
+            value: offset.y,
             step,
-            setValue: (value) => setOffset({ ...offset, y: -value }),
+            setValue: (value) => setOffset({ ...offset, y: value }),
           },
         ],
         [
@@ -135,17 +140,15 @@ const App: FunctionComponent = () => {
           },
           {
             title: 'Pivot X',
-            value: pivot.x - canvasCenter.x,
+            value: pivot.x,
             step,
-            setValue: (value) =>
-              setPivot({ ...pivot, x: value + canvasCenter.x }),
+            setValue: (value) => setPivot({ ...pivot, x: value }),
           },
           {
             title: 'Pivot Y',
-            value: -pivot.y + canvasCenter.y,
+            value: pivot.y,
             step,
-            setValue: (value) =>
-              setPivot({ ...pivot, y: -value + canvasCenter.y }),
+            setValue: (value) => setPivot({ ...pivot, y: value }),
           },
         ],
       ],
@@ -310,13 +313,13 @@ const App: FunctionComponent = () => {
 
   useEffect(() => {
     if (currentTabName === linearTransformationTabs.projective.title) {
-      setGridModifiers([
-        ...defaultAxesModifiers,
-        bindProjectivePointWithOffset(normalizedProjective, canvasCenter),
-      ]);
       setAxesModifiers([
+        bindAffinePoint(normalizedProjectiveForAxes),
         ...defaultAxesModifiers,
-        bindAffinePointWithOffset(normalizedProjectiveForAxes, canvasCenter),
+      ]);
+      setGridModifiers([
+        bindProjectivePoint(normalizedProjective),
+        ...defaultAxesModifiers,
       ]);
     } else {
       setAxesModifiers(defaultAxesModifiers);
@@ -333,18 +336,11 @@ const App: FunctionComponent = () => {
   const defaultCanvasElements = (
     <>
       <Grid
-        width={canvasWidth}
-        height={canvasHeight}
         center={canvasCenter}
         cellLength={cellLength}
         modifiers={gridModifiers}
       />
-      <Axes
-        width={canvasWidth}
-        height={canvasHeight}
-        center={canvasCenter}
-        modifiers={axesModifiers}
-      />
+      <Axes center={canvasCenter} modifiers={axesModifiers} />
       <Pivot position={pivot} modifiers={gridModifiers} />
     </>
   );
