@@ -8,7 +8,9 @@ import exampleImage from '../../../assets/examples/example2.png';
 import Curve from './Curve';
 import Asymptote from './Asymptote';
 import DescartesFolium from './DescartesFolium';
-import Tangent from './TangentAndNormal';
+import Tangent from './Tangent';
+import Normal from './Normal';
+import { bindRotatePointByDeegrees } from '../../../util/grapchicFunctions';
 
 interface Props {
   tabs: FormTab[];
@@ -34,12 +36,18 @@ const Lab2: FunctionComponent<Props> = ({
   defaultCanvasElements,
 }) => {
   const [a, setA] = useState(150);
-  const [tangentX, setTangentX] = useState(0);
+  const [x0, setX0] = useState(0);
 
   const descartesFolium = new DescartesFolium(a);
 
   // Prefered rotation for Descartes Folium is 135deg
   useEffect(() => setRotateDegrees(135), [setRotateDegrees]);
+
+  // For elements, which needs 135 deg rotation
+  const rotateModifiers: PointModifier[] = [
+    bindRotatePointByDeegrees(-135),
+    ...(shapeModifiers || []),
+  ];
 
   const tabName = 'Curve';
 
@@ -49,7 +57,7 @@ const Lab2: FunctionComponent<Props> = ({
       title: tabName,
       inputsGroups: [
         [{ title: 'a', value: a, step, setValue: setA }],
-        [{ title: 'Tangent X', value: tangentX, step, setValue: setTangentX }],
+        [{ title: 'x0', value: x0, step, setValue: setX0 }],
       ],
     },
   ];
@@ -58,6 +66,12 @@ const Lab2: FunctionComponent<Props> = ({
     descartesFolium,
     maxCoord,
     modifiers: shapeModifiers,
+  };
+
+  const defaultPropsForAdditionalLines = {
+    ...defaultProps,
+    x: x0,
+    modifiers: rotateModifiers,
   };
 
   return (
@@ -71,12 +85,8 @@ const Lab2: FunctionComponent<Props> = ({
         {defaultCanvasElements}
         <Curve {...defaultProps} />
         <Asymptote color="red" {...defaultProps} />
-        <Tangent
-          x0={tangentX}
-          tangentColor="skyblue"
-          normalColor="hotpink"
-          {...defaultProps}
-        />
+        <Tangent color="skyblue" {...defaultPropsForAdditionalLines} />
+        <Normal color="hotpink" {...defaultPropsForAdditionalLines} />
       </CustomCanvas>
       <img
         src={exampleImage}

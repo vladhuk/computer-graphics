@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import PointModifier from '../../../../types/PointModifier';
-import ModifiableCircle from '../../../modifiableKonvaShapes/ModifiableCircle';
-import DescartesFolium from '../DescartesFolium';
+import PointModifier from '../../../types/PointModifier';
+import ModifiableCircle from '../../modifiableKonvaShapes/ModifiableCircle';
+import DescartesFolium from './DescartesFolium';
 
 interface Props {
-  x0: number;
+  x: number;
   descartesFolium: DescartesFolium;
   invert?: boolean;
   modifiers?: PointModifier[];
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const TangentAndNormalPivot: FunctionComponent<Props> = ({
-  x0,
+  x,
   descartesFolium,
   invert,
   modifiers,
@@ -22,9 +22,9 @@ const TangentAndNormalPivot: FunctionComponent<Props> = ({
 
   return (
     <ModifiableCircle
-      position={{ x: x0, y: descartesFolium.calculateY(x0) * scale }}
-      modifiers={modifiers}
+      position={{ x, y: descartesFolium.calculateY(x) * scale }}
       radius={5}
+      modifiers={modifiers}
       fill={color}
     />
   );
