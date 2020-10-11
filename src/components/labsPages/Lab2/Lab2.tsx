@@ -8,7 +8,7 @@ import exampleImage from '../../../assets/examples/example2.png';
 import Curve from './Curve';
 import Asymptote from './Asymptote';
 import DescartesFolium from './DescartesFolium';
-import Tangent from './Tangent';
+import Tangent from './TangentAndNormal';
 
 interface Props {
   tabs: FormTab[];
@@ -71,7 +71,12 @@ const Lab2: FunctionComponent<Props> = ({
         {defaultCanvasElements}
         <Curve {...defaultProps} />
         <Asymptote color="red" {...defaultProps} />
-        <Tangent tangentX={tangentX} color="skyblue" {...defaultProps} />
+        <Tangent
+          x0={tangentX}
+          tangentColor="skyblue"
+          normalColor="hotpink"
+          {...defaultProps}
+        />
       </CustomCanvas>
       <img
         src={exampleImage}

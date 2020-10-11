@@ -51,8 +51,13 @@ export default class DescartesFolium {
     return x * Math.sqrt((this.l + x) / (this.l - 3 * x));
   }
 
-  bindGetTangentLineY(x0: number): (x: number) => number {
+  bindGetTangentY(x0: number): (x: number) => number {
     return (x) =>
       this.calculateDerivativeY(x0) * (x - x0) + this.calculateY(x0);
+  }
+
+  bindGetNormalY(x0: number): (x: number) => number {
+    return (x) =>
+      -(1 / this.calculateDerivativeY(x0)) * (x - x0) + this.calculateY(x0);
   }
 }

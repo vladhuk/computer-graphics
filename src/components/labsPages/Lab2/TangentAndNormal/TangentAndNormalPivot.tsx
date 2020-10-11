@@ -4,15 +4,15 @@ import ModifiableCircle from '../../../modifiableKonvaShapes/ModifiableCircle';
 import DescartesFolium from '../DescartesFolium';
 
 interface Props {
-  x: number;
+  x0: number;
   descartesFolium: DescartesFolium;
   invert?: boolean;
   modifiers?: PointModifier[];
   color?: string;
 }
 
-const TangentLinePivot: FunctionComponent<Props> = ({
-  x,
+const TangentAndNormalPivot: FunctionComponent<Props> = ({
+  x0,
   descartesFolium,
   invert,
   modifiers,
@@ -22,7 +22,7 @@ const TangentLinePivot: FunctionComponent<Props> = ({
 
   return (
     <ModifiableCircle
-      position={{ x, y: descartesFolium.calculateY(x) * scale }}
+      position={{ x: x0, y: descartesFolium.calculateY(x0) * scale }}
       modifiers={modifiers}
       radius={5}
       fill={color}
@@ -30,4 +30,4 @@ const TangentLinePivot: FunctionComponent<Props> = ({
   );
 };
 
-export default TangentLinePivot;
+export default TangentAndNormalPivot;

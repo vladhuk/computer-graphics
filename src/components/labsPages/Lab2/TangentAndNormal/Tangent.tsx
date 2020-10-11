@@ -13,7 +13,7 @@ interface Props {
   modifiers?: PointModifier[];
 }
 
-const TangentLine: FunctionComponent<Props> = ({
+const Tangent: FunctionComponent<Props> = ({
   maxCoord,
   descartesFolium,
   x0,
@@ -21,7 +21,7 @@ const TangentLine: FunctionComponent<Props> = ({
   modifiers,
   ...lineProps
 }) => {
-  const getTangentLineY = descartesFolium.bindGetTangentLineY(x0);
+  const getTangentLineY = descartesFolium.bindGetTangentY(x0);
   const scale = invert ? -1 : 1;
 
   return (
@@ -42,4 +42,4 @@ const TangentLine: FunctionComponent<Props> = ({
   );
 };
 
-export default TangentLine;
+export default Tangent;
