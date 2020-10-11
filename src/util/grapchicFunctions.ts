@@ -34,24 +34,25 @@ function bindCalculateWithOffset(
 }
 
 export function bindRotatePointByDegreesWithPivot(
-  degreess: number,
+  degrees: number,
   pivot: Coord
 ): PointModifier {
-  const rad = degreesToRad(degreess);
-  const rotate = bindRotatePointByRad(rad);
+  const rotate = bindRotatePointByDeegrees(degrees);
 
   return bindCalculateWithOffset(rotate, pivot);
 }
 
-export function degreesToRad(degrees: number): number {
-  return degrees * (Math.PI / 180);
-}
+export function bindRotatePointByDeegrees(degrees: number): PointModifier {
+  const rad = degreesToRad(degrees);
 
-function bindRotatePointByRad(rad: number): PointModifier {
   return ({ x, y }) => ({
     x: x * Math.cos(rad) - y * Math.sin(rad),
     y: x * Math.sin(rad) + y * Math.cos(rad),
   });
+}
+
+export function degreesToRad(degrees: number): number {
+  return degrees * (Math.PI / 180);
 }
 
 export function bindAffinePoint({ r0, rX, rY }: Affine): PointModifier {

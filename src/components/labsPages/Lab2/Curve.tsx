@@ -1,23 +1,25 @@
 import React, { FunctionComponent } from 'react';
-import Coord from '../../../../types/Coord';
-import PointModifier from '../../../../types/PointModifier';
-import { ModifiableLine } from '../../../modifiableKonvaShapes';
-import { bindCalculateDescartesFoliumPoint } from './Curve.service';
+import Coord from '../../../types/Coord';
+import PointModifier from '../../../types/PointModifier';
+import { ModifiableLine } from '../../modifiableKonvaShapes';
+import DescartesFolium from './DescartesFolium';
 
 interface Props {
-  a: number;
+  descartesFolium: DescartesFolium;
   maxCoord: Coord;
   modifiers?: PointModifier[];
 }
 
-const Curve: FunctionComponent<Props> = ({ a, maxCoord, modifiers }) => {
-  const calculateDescartesFoliumPoint = bindCalculateDescartesFoliumPoint(a);
-
+const Curve: FunctionComponent<Props> = ({
+  descartesFolium,
+  maxCoord,
+  modifiers,
+}) => {
   const firstBranchPoints: Coord[] = [];
   const secondBranchPoints: Coord[] = [];
 
   for (let i = 0; i <= 180; i += 1) {
-    const point = calculateDescartesFoliumPoint(i);
+    const point = descartesFolium.getPoint(i);
     if (
       firstBranchPoints.length < 90 ||
       (Math.abs(point.x) < maxCoord.x * 2 && Math.abs(point.y) < maxCoord.y * 2)
