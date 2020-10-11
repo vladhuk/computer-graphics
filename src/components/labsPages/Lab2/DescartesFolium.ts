@@ -52,12 +52,16 @@ export default class DescartesFolium {
   }
 
   bindGetTangentY(x0: number): (x: number) => number {
-    return (x) =>
-      this.calculateDerivativeY(x0) * (x - x0) + this.calculateY(x0);
+    const fx0 = this.calculateY(x0);
+    const dfx0 = this.calculateDerivativeY(x0);
+
+    return (x) => dfx0 * (x - x0) + fx0;
   }
 
   bindGetNormalY(x0: number): (x: number) => number {
-    return (x) =>
-      -(1 / this.calculateDerivativeY(x0)) * (x - x0) + this.calculateY(x0);
+    const fx0 = this.calculateY(x0);
+    const dfx0 = this.calculateDerivativeY(x0);
+
+    return (x) => -(1 / dfx0) * (x - x0) + fx0;
   }
 }
