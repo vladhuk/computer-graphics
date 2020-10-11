@@ -64,4 +64,8 @@ export default class DescartesFolium {
 
     return (x) => -(1 / dfx0) * (x - x0) + fx0;
   }
+
+  calculateS(): number {
+    return (3 / 2) * this.a ** 2;
+  }
 }

@@ -11,6 +11,8 @@ import DescartesFolium from './DescartesFolium';
 import Tangent from './Tangent';
 import Normal from './Normal';
 import { bindRotatePointByDeegrees } from '../../../util/grapchicFunctions';
+import InfoBlock, { InfoRecord } from '../../InfoBlock';
+import LeftSideWrapper from '../../LeftSideWrapper';
 
 interface Props {
   tabs: FormTab[];
@@ -62,6 +64,19 @@ const Lab2: FunctionComponent<Props> = ({
     },
   ];
 
+  const infoRecords: InfoRecord[] = [
+    {
+      title: 'S<OCAB>',
+      value: descartesFolium.calculateS(),
+      unit: 'px',
+    },
+    {
+      title: 'S<OVU>',
+      value: descartesFolium.calculateS(),
+      unit: 'px',
+    },
+  ];
+
   const defaultProps = {
     descartesFolium,
     maxCoord,
@@ -76,11 +91,14 @@ const Lab2: FunctionComponent<Props> = ({
 
   return (
     <PageWrapper>
-      <DimensionsForm
-        tabs={allTabs}
-        defaultTab={tabName}
-        onSelect={onSelectTab}
-      />
+      <LeftSideWrapper>
+        <DimensionsForm
+          tabs={allTabs}
+          defaultTab={tabName}
+          onSelect={onSelectTab}
+        />
+        <InfoBlock records={infoRecords} />
+      </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         {defaultCanvasElements}
         <Curve {...defaultProps} />

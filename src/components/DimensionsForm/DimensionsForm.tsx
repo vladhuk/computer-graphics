@@ -20,25 +20,24 @@ const DimensionsForm: FunctionComponent<Props> = ({
   onSelect,
 }) => {
   return (
-    <div className="col-3">
-      {/* eslint-disable-next-line */}
-      <Tabs transition={AccordionCollapse as any}
-        onSelect={onSelect}
-        defaultActiveKey={defaultTab}
-        className="border rounded-top justify-content-around"
-      >
-        {tabs.map(({ title, inputsGroups }) => (
-          <Tab
-            key={title}
-            eventKey={title}
-            title={title}
-            tabClassName="border rounded my-1"
-          >
-            <FormTabContent key={title} inputsGroups={inputsGroups} />
-          </Tab>
-        ))}
-      </Tabs>
-    </div>
+    <Tabs
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transition={AccordionCollapse as any}
+      onSelect={onSelect}
+      defaultActiveKey={defaultTab}
+      className="border rounded-top justify-content-around"
+    >
+      {tabs.map(({ title, inputsGroups }) => (
+        <Tab
+          key={title}
+          eventKey={title}
+          title={title}
+          tabClassName="border rounded my-1"
+        >
+          <FormTabContent key={title} inputsGroups={inputsGroups} />
+        </Tab>
+      ))}
+    </Tabs>
   );
 };
 

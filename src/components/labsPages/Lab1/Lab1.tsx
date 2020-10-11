@@ -5,6 +5,7 @@ import PageWrapper from '../../PageWraper';
 import Shape from './Shape';
 import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
+import LeftSideWrapper from '../../LeftSideWrapper';
 
 interface Props {
   tabs: FormTab[];
@@ -51,11 +52,13 @@ const Lab1: FunctionComponent<Props> = ({
 
   return (
     <PageWrapper>
-      <DimensionsForm
-        tabs={allTabs}
-        defaultTab={tabName}
-        onSelect={onSelectTab}
-      />
+      <LeftSideWrapper>
+        <DimensionsForm
+          tabs={allTabs}
+          defaultTab={tabName}
+          onSelect={onSelectTab}
+        />
+      </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         {defaultCanvasElements}
         <Shape
