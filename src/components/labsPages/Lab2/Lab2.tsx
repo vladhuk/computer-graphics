@@ -68,12 +68,12 @@ const Lab2: FunctionComponent<Props> = ({
     {
       title: 'S<OCAB>',
       value: descartesFolium.calculateS(),
-      unit: 'px',
+      unit: 'px²',
     },
     {
       title: 'S<OVU>',
       value: descartesFolium.calculateS(),
-      unit: 'px',
+      unit: 'px²',
     },
   ];
 
