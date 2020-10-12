@@ -44,6 +44,13 @@ export default class DescartesFolium {
     );
   }
 
+  calculateSecondDerivativeY(x: number): number {
+    return (
+      (4 * this.l ** 3 * Math.sqrt((this.l + x) / (this.l - 3 * x))) /
+      ((this.l - 3 * x) ** 2 * (this.l + x) ** 2)
+    );
+  }
+
   /**
    * When folium is rotated on 135 deg
    */
@@ -67,5 +74,12 @@ export default class DescartesFolium {
 
   calculateS(): number {
     return (3 / 2) * this.a ** 2;
+  }
+
+  calculateCurvatureR(x: number): number {
+    return (
+      (1 + this.calculateDerivativeY(x) ** 2) ** (3 / 2) /
+      Math.abs(this.calculateSecondDerivativeY(x))
+    );
   }
 }

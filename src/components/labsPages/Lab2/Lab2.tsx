@@ -75,6 +75,11 @@ const Lab2: FunctionComponent<Props> = ({
       value: descartesFolium.calculateS(),
       unit: 'px²',
     },
+    {
+      title: 'Curvature radius',
+      value: descartesFolium.calculateCurvatureR(x0).toFixed(1),
+      unit: 'px',
+    },
   ];
 
   const defaultProps = {
