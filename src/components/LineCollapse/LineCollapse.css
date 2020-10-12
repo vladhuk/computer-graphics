@@ -1,0 +1,14 @@
+.collapse-button {
+  width: 1rem;
+  height: 1rem;
+  outline: none !important;
+  transition: 0.15s;
+}
+
+.collapse-button:hover {
+  filter: brightness(97%);
+}
+
+.collapse-button:active {
+  filter: brightness(93%);
+}
