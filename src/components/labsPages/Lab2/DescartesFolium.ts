@@ -80,14 +80,13 @@ export default class DescartesFolium {
     return (3 / 2) * this.a ** 2;
   }
 
-  // TODO: Fix
   calculateCurvatureR(phi: number): number {
     const dPoint = this.getDerivativePoint(phi);
     const ddPoint = this.getSecondDerivativePoint(phi);
 
     return (
-      Math.abs(dPoint.x * ddPoint.y - dPoint.y * ddPoint.x) /
-      (dPoint.x ** 2 + dPoint.y ** 2) ** 1.5
+      (dPoint.x ** 2 + dPoint.y ** 2) ** 1.5 /
+      Math.abs(dPoint.x * ddPoint.y - dPoint.y * ddPoint.x)
     );
   }
 }
