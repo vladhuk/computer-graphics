@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState } from 'react';
-import { Collapse, Form, Row } from 'react-bootstrap';
+import React, { FunctionComponent } from 'react';
+import { Form, Row } from 'react-bootstrap';
 import LineCollapse from '../LineCollapse';
 
 export interface InfoRecord {
