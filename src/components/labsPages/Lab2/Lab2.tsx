@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import CustomCanvas from '../../CustomCanvas';
 import PageWrapper from '../../PageWraper';
 import Coord from '../../../types/Coord';
@@ -10,14 +10,12 @@ import Asymptote from './Asymptote';
 import DescartesFolium from './DescartesFolium';
 import Tangent from './Tangent';
 import Normal from './Normal';
-import { bindRotatePointByDeegrees } from '../../../util/grapchicFunctions';
 import InfoBlock, { InfoRecord } from '../../InfoBlock';
 import LeftSideWrapper from '../../LeftSideWrapper';
 
 interface Props {
   tabs: FormTab[];
   onSelectTab(tabName: string | null): void;
-  setRotateDegrees(degrees: number): void;
   maxCoord: Coord;
   canvasWidth: number;
   canvasHeight: number;
@@ -29,7 +27,6 @@ interface Props {
 const Lab2: FunctionComponent<Props> = ({
   tabs,
   onSelectTab,
-  setRotateDegrees,
   maxCoord,
   canvasWidth,
   canvasHeight,
@@ -38,18 +35,9 @@ const Lab2: FunctionComponent<Props> = ({
   defaultCanvasElements,
 }) => {
   const [a, setA] = useState(150);
-  const [x0, setX0] = useState(0);
+  const [phi0, setPhi0] = useState(0);
 
   const descartesFolium = new DescartesFolium(a);
-
-  // Prefered rotation for Descartes Folium is 135deg
-  useEffect(() => setRotateDegrees(135), [setRotateDegrees]);
-
-  // For elements, which needs 135 deg rotation
-  const rotateModifiers: PointModifier[] = [
-    bindRotatePointByDeegrees(-135),
-    ...(shapeModifiers || []),
-  ];
 
   const tabName = 'Curve';
 
@@ -59,7 +47,7 @@ const Lab2: FunctionComponent<Props> = ({
       title: tabName,
       inputsGroups: [
         [{ title: 'a', value: a, step, setValue: setA }],
-        [{ title: 'x0', value: x0, step, setValue: setX0 }],
+        [{ title: 'phi0', value: phi0, step, unit: 'deg', setValue: setPhi0 }],
       ],
     },
   ];
@@ -77,7 +65,7 @@ const Lab2: FunctionComponent<Props> = ({
     },
     {
       title: 'Curvature radius',
-      value: descartesFolium.calculateCurvatureR(x0).toFixed(1),
+      value: descartesFolium.calculateCurvatureR(phi0).toFixed(1),
       unit: 'px',
     },
   ];
@@ -85,13 +73,8 @@ const Lab2: FunctionComponent<Props> = ({
   const defaultProps = {
     descartesFolium,
     maxCoord,
+    phi: phi0,
     modifiers: shapeModifiers,
-  };
-
-  const defaultPropsForAdditionalLines = {
-    ...defaultProps,
-    x: x0,
-    modifiers: rotateModifiers,
   };
 
   return (
@@ -108,8 +91,8 @@ const Lab2: FunctionComponent<Props> = ({
         {defaultCanvasElements}
         <Curve {...defaultProps} />
         <Asymptote color="red" {...defaultProps} />
-        <Tangent color="skyblue" {...defaultPropsForAdditionalLines} />
-        <Normal color="hotpink" {...defaultPropsForAdditionalLines} />
+        <Tangent color="skyblue" {...defaultProps} />
+        <Normal color="hotpink" {...defaultProps} />
       </CustomCanvas>
       <img
         src={exampleImage}

@@ -31,55 +31,63 @@ export default class DescartesFolium {
     };
   }
 
-  private static getT(degrees: number): number {
-    return Math.tan(degreesToRad(degrees));
+  private static getT(phi: number): number {
+    return Math.tan(degreesToRad(phi));
   }
 
-  calculateDerivativeY(x: number): number {
-    return (
-      (2 * this.l * x) /
-        ((this.l - 3 * x) *
-          (Math.sqrt(this.l - 3 * x) * Math.sqrt(this.l + x))) +
-      Math.sqrt((this.l + x) / (this.l - 3 * x))
-    );
+  getDerivativePoint(phi: number): Coord {
+    const t = DescartesFolium.getT(phi);
+
+    return {
+      x:
+        (-9 * this.a * t ** 3) / (t ** 3 + 1) ** 2 +
+        3 * (this.a / (t ** 3 + 1)),
+      y:
+        (-9 * this.a * t ** 4) / (t ** 3 + 1) ** 2 +
+        6 * ((this.a * t) / (t ** 3 + 1)),
+    };
   }
 
-  calculateSecondDerivativeY(x: number): number {
-    return (
-      (4 * this.l ** 3 * Math.sqrt((this.l + x) / (this.l - 3 * x))) /
-      ((this.l - 3 * x) ** 2 * (this.l + x) ** 2)
-    );
+  getSecondDerivativePoint(phi: number): Coord {
+    const t = DescartesFolium.getT(phi);
+
+    return {
+      x:
+        (54 * this.a * t ** 5) / (t ** 3 + 1) ** 3 -
+        36 * this.a * (t ** 2 / (t ** 3 + 1) ** 2),
+      y:
+        (54 * this.a * t ** 6) / (t ** 3 + 1) ** 3 -
+        54 * this.a * (t ** 3 / (t ** 3 + 1) ** 2) +
+        (6 * this.a) / (t ** 3 + 1),
+    };
   }
 
-  /**
-   * When folium is rotated on 135 deg
-   */
-  calculateY(x: number): number {
-    return x * Math.sqrt((this.l + x) / (this.l - 3 * x));
+  bindGetTangentY(phi0: number): (x: number) => number {
+    const point = this.getPoint(phi0);
+    const dPoint = this.getDerivativePoint(phi0);
+
+    return (x) => (dPoint.y / dPoint.x) * (x - point.x) + point.y;
   }
 
-  bindGetTangentY(x0: number): (x: number) => number {
-    const fx0 = this.calculateY(x0);
-    const dfx0 = this.calculateDerivativeY(x0);
+  bindGetNormalY(phi0: number): (x: number) => number {
+    const point = this.getPoint(phi0);
+    const dPoint = this.getDerivativePoint(phi0);
 
-    return (x) => dfx0 * (x - x0) + fx0;
-  }
-
-  bindGetNormalY(x0: number): (x: number) => number {
-    const fx0 = this.calculateY(x0);
-    const dfx0 = this.calculateDerivativeY(x0);
-
-    return (x) => -(1 / dfx0) * (x - x0) + fx0;
+    return (x) => -(dPoint.x / dPoint.y) * (x - point.x) + point.y;
   }
 
   calculateS(): number {
     return (3 / 2) * this.a ** 2;
   }
 
-  calculateCurvatureR(x: number): number {
+  // TODO: Fix
+  calculateCurvatureR(phi: number): number {
+    const dPoint = this.getDerivativePoint(phi);
+    const ddPoint = this.getSecondDerivativePoint(phi);
+
     return (
-      (1 + this.calculateDerivativeY(x) ** 2) ** (3 / 2) /
-      Math.abs(this.calculateSecondDerivativeY(x))
+      Math.abs(dPoint.x * ddPoint.y - dPoint.y * ddPoint.x) /
+      (dPoint.x ** 2 + dPoint.y ** 2) ** 1.5
     );
   }
 }

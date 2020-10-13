@@ -11,7 +11,7 @@ interface Props {
   modifiers?: PointModifier[];
 }
 
-const X0Line: FunctionComponent<Props> = ({
+const Phi0Line: FunctionComponent<Props> = ({
   maxCoord,
   f,
   invert,
@@ -38,4 +38,4 @@ const X0Line: FunctionComponent<Props> = ({
   );
 };
 
-export default X0Line;
+export default Phi0Line;

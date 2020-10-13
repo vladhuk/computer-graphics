@@ -350,7 +350,6 @@ const App: FunctionComponent = () => {
   const defaultLabProps = {
     tabs: Object.values(linearTransformationTabs),
     onSelectTab: setCurrentTabName,
-    setRotateDegrees,
     maxCoord: canvasCenter,
     canvasWidth,
     canvasHeight,
