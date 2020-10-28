@@ -1,19 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { Line } from 'react-konva';
 import Coord from '../../types/Coord';
-import PointModifier from '../../types/PointModifier';
+import { ModifiableLinearShape } from '../../types/ModifiableShape';
 import {
   applyModifiers,
   getMultiplePoints,
 } from './modifiableKonvaShapes.service';
 
-interface Props {
+interface Props extends ModifiableLinearShape {
   from: Coord;
   to: Coord[];
-  modifiers?: PointModifier[];
-  closed?: boolean;
-  strokeWidth?: number;
-  color?: string;
 }
 
 const ModifiableLine: FunctionComponent<Props> = ({

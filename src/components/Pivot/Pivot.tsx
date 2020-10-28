@@ -13,7 +13,7 @@ const Pivot: FunctionComponent<Props> = ({ position, modifiers }) => (
     position={position}
     modifiers={modifiers}
     radius={5}
-    fill="red"
+    color="red"
   />
 );
 

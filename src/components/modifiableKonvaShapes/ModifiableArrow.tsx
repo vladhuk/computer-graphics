@@ -1,23 +1,21 @@
 import React, { FunctionComponent } from 'react';
 import { Arrow } from 'react-konva';
 import Coord from '../../types/Coord';
-import PointModifier from '../../types/PointModifier';
+import { ModifiableLinearShape } from '../../types/ModifiableShape';
 import { applyModifiers, getPoints } from './modifiableKonvaShapes.service';
 
-interface Props {
+interface Props extends ModifiableLinearShape {
   from: Coord;
   to: Coord;
-  modifiers?: PointModifier[];
-  strokeWidth?: number;
   pointerLength?: number;
   pointerWidth?: number;
-  fill?: string;
 }
 
 const ModifiableArrow: FunctionComponent<Props> = ({
   from,
   to,
   modifiers,
+  color,
   ...rest
 }) => {
   const points = modifiers
@@ -29,7 +27,8 @@ const ModifiableArrow: FunctionComponent<Props> = ({
       x={points[0].x}
       y={points[0].y}
       points={[0, 0, ...getPoints(points[0], points[1])]}
-      stroke="black"
+      stroke={color}
+      fill={color}
       {...rest}
     />
   );

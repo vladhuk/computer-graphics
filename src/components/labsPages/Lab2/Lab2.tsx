@@ -94,11 +94,9 @@ const Lab2: FunctionComponent<Props> = ({
         <Tangent color="skyblue" {...defaultProps} />
         <Normal color="hotpink" {...defaultProps} />
       </CustomCanvas>
-      <img
-        src={exampleImage}
-        alt="example"
-        style={{ width: '100%', height: '100%' }}
-      />
+      <div>
+        <img src={exampleImage} alt="example" style={{ width: '100%' }} />
+      </div>
     </PageWrapper>
   );
 };

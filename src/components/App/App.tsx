@@ -20,6 +20,7 @@ import Lab1 from '../labsPages/Lab1';
 import Header from '../Header';
 import Lab2 from '../labsPages/Lab2';
 import Pivot from '../Pivot';
+import Lab3 from '../labsPages/Lab3/Lab3';
 
 const canvasWidth = 800;
 const canvasHeight = 800;
@@ -360,6 +361,7 @@ const App: FunctionComponent = () => {
 
   const lab1 = <Lab1 {...defaultLabProps} />;
   const lab2 = <Lab2 {...defaultLabProps} />;
+  const lab3 = <Lab3 {...defaultLabProps} />;
 
   return (
     <>
@@ -371,6 +373,9 @@ const App: FunctionComponent = () => {
           </Route>
           <Route exact path="/lab2">
             {lab2}
+          </Route>
+          <Route exact path="/lab3">
+            {lab3}
           </Route>
           <Redirect exact from="/" to="/lab1" />
         </Switch>

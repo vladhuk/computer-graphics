@@ -14,10 +14,10 @@ const Axes: FunctionComponent<Props> = ({ maxCoord, modifiers }) => {
       from={start}
       to={end}
       modifiers={modifiers}
-      strokeWidth={0.6}
+      strokeWidth={0.9}
       pointerLength={15}
       pointerWidth={8}
-      fill="grey"
+      color="grey"
     />
   );
 
@@ -28,7 +28,7 @@ const Axes: FunctionComponent<Props> = ({ maxCoord, modifiers }) => {
       text={axeName}
       fontFamily="sans-serif"
       fontSize={25}
-      fill="grey"
+      color="grey"
     />
   );
 
