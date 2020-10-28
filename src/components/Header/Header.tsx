@@ -6,6 +6,7 @@ const Header: FunctionComponent = () => (
     <Nav>
       <Nav.Link href="/lab1">Lab 1</Nav.Link>
       <Nav.Link href="/lab2">Lab 2</Nav.Link>
+      <Nav.Link href="/lab3">Lab 3</Nav.Link>
     </Nav>
   </Navbar>
 );
