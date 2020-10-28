@@ -70,7 +70,9 @@ const Lab1: FunctionComponent<Props> = ({
           modifiers={shapeModifiers}
         />
       </CustomCanvas>
-      <img src={exampleImage} alt="example" style={{ height: canvasHeight }} />
+      <div>
+        <img src={exampleImage} alt="example" style={{ width: '100%' }} />
+      </div>
     </PageWrapper>
   );
 };
