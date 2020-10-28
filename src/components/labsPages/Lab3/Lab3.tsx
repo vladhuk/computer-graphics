@@ -9,6 +9,7 @@ import Picture from './Picture';
 
 interface Props {
   tabs: FormTab[];
+  onSelectTab(tabName: string | null): void;
   canvasWidth: number;
   canvasHeight: number;
   shapeModifiers?: PointModifier[];
@@ -17,25 +18,24 @@ interface Props {
 
 const Lab3: FunctionComponent<Props> = ({
   tabs,
+  onSelectTab,
   canvasWidth,
   canvasHeight,
   shapeModifiers,
   defaultCanvasElements,
-}) => {
-  return (
-    <PageWrapper>
-      <LeftSideWrapper>
-        <DimensionsForm tabs={tabs} />
-      </LeftSideWrapper>
-      <CustomCanvas width={canvasWidth} height={canvasHeight}>
-        {defaultCanvasElements}
-        <Picture modifiers={shapeModifiers} />
-      </CustomCanvas>
-      <div>
-        <img src={exampleImage} alt="example" style={{ width: '100%' }} />
-      </div>
-    </PageWrapper>
-  );
-};
+}) => (
+  <PageWrapper>
+    <LeftSideWrapper>
+      <DimensionsForm tabs={tabs} onSelect={onSelectTab} />
+    </LeftSideWrapper>
+    <CustomCanvas width={canvasWidth} height={canvasHeight}>
+      {defaultCanvasElements}
+      <Picture modifiers={shapeModifiers} />
+    </CustomCanvas>
+    <div>
+      <img src={exampleImage} alt="example" style={{ width: '100%' }} />
+    </div>
+  </PageWrapper>
+);
 
 export default Lab3;
