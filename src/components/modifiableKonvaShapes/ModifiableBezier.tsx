@@ -37,6 +37,8 @@ const ModifiableBezier: FunctionComponent<Props> = ({
       )
     : to;
 
+  const bezierLines: BesierLine[] = [];
+
   const firstLine: BesierLine = {
     start: startPoint,
     points: [
@@ -46,28 +48,22 @@ const ModifiableBezier: FunctionComponent<Props> = ({
     ],
   };
 
-  const bezierLines: BesierLine[] = modifiedEndPoints.slice(1).reduce(
-    (acc, current) => {
-      const prevLine = acc[acc.length - 1];
+  const otherLines = modifiedEndPoints.slice(1).map((current, i) => {
+    const prevLinePoints = modifiedEndPoints[i];
+    const prevEndPoint = prevLinePoints[prevLinePoints.length - 1];
 
-      const prevEndPoint: Coord = {
-        x: prevLine.points[prevLine.points.length - 2],
-        y: prevLine.points[prevLine.points.length - 1],
-      };
+    return {
+      start: prevEndPoint,
+      points: [
+        0,
+        0,
+        ...fixBezierOrder(getMultiplePoints(prevEndPoint, current)),
+      ],
+    };
+  });
 
-      const line: BesierLine = {
-        start: prevEndPoint,
-        points: [
-          0,
-          0,
-          ...fixBezierOrder(getMultiplePoints(prevEndPoint, current)),
-        ],
-      };
-
-      return [...acc, line];
-    },
-    [firstLine]
-  );
+  bezierLines.push(firstLine);
+  bezierLines.push(...otherLines);
 
   if (closed) {
     const prevLinePoints = modifiedEndPoints[modifiedEndPoints.length - 1];
