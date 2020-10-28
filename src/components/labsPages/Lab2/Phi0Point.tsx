@@ -18,7 +18,7 @@ const Phi0Point: FunctionComponent<Props> = ({
     position={position}
     radius={5}
     modifiers={modifiers}
-    fill={color}
+    color={color}
   />
 );
 

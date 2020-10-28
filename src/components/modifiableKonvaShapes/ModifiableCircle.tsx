@@ -1,24 +1,23 @@
 import React, { FunctionComponent } from 'react';
 import { Circle } from 'react-konva';
 import Coord from '../../types/Coord';
-import PointModifier from '../../types/PointModifier';
+import { ModifiableShape } from '../../types/ModifiableShape';
 import { applyModifiers } from './modifiableKonvaShapes.service';
 
-interface Props {
+interface Props extends ModifiableShape {
   position: Coord;
   radius: number;
-  modifiers?: PointModifier[];
-  fill?: string;
 }
 
 const ModifiableCircle: FunctionComponent<Props> = ({
   position,
   modifiers,
+  color,
   ...rest
 }) => {
   const { x, y } = modifiers ? applyModifiers(position, modifiers) : position;
 
-  return <Circle x={x} y={y} {...rest} />;
+  return <Circle x={x} y={y} fill={color} {...rest} />;
 };
 
 export default ModifiableCircle;
