@@ -60,7 +60,6 @@ const Lab1: FunctionComponent<Props> = ({
         />
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
-        {defaultCanvasElements}
         <Shape
           R={R}
           L1={L1}
@@ -69,6 +68,7 @@ const Lab1: FunctionComponent<Props> = ({
           L4={L4}
           modifiers={shapeModifiers}
         />
+        {defaultCanvasElements}
       </CustomCanvas>
       <div>
         <img src={exampleImage} alt="example" style={{ width: '100%' }} />

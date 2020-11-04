@@ -88,11 +88,11 @@ const Lab2: FunctionComponent<Props> = ({
         <InfoBlock records={infoRecords} />
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
-        {defaultCanvasElements}
         <Curve {...defaultProps} />
         <Asymptote color="red" {...defaultProps} />
         <Tangent color="skyblue" {...defaultProps} />
         <Normal color="hotpink" {...defaultProps} />
+        {defaultCanvasElements}
       </CustomCanvas>
       <div>
         <img src={exampleImage} alt="example" style={{ width: '100%' }} />

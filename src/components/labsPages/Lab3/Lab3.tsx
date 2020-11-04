@@ -29,8 +29,8 @@ const Lab3: FunctionComponent<Props> = ({
       <DimensionsForm tabs={tabs} onSelect={onSelectTab} />
     </LeftSideWrapper>
     <CustomCanvas width={canvasWidth} height={canvasHeight}>
-      {defaultCanvasElements}
       <Picture modifiers={shapeModifiers} />
+      {defaultCanvasElements}
     </CustomCanvas>
     <div>
       <img src={exampleImage} alt="example" style={{ width: '100%' }} />
