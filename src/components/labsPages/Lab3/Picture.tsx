@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../../types/Coord';
 import PointModifier from '../../../types/PointModifier';
-import ModifiableBezier from '../../modifiableKonvaShapes/ModifiableBezier';
+import { ModifiableBezier } from '../../modifiableKonvaShapes';
 
 interface Props {
   modifiers?: PointModifier[];
