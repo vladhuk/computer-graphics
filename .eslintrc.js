@@ -33,6 +33,11 @@ module.exports = {
 
     'no-use-before-define': [WARN, { functions: false }],
     'no-unused-expressions': OFF,
+    'lines-between-class-members': [
+      WARN,
+      'always',
+      { exceptAfterSingleLine: true },
+    ],
 
     '@typescript-eslint/no-unused-expressions': 'error',
 
