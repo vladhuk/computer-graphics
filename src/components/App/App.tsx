@@ -367,7 +367,7 @@ const App: FunctionComponent = () => {
         dndOptions={
           new ModifiableDndOptions({
             draggable: isEnableDragging,
-            onDragEnd: setPivot,
+            onDragMove: setPivot,
             modifiers: dndModifiers,
           })
         }
