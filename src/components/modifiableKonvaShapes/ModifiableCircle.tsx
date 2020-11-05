@@ -26,6 +26,7 @@ const ModifiableCircle: FunctionComponent<Props> = ({
       draggable={dndOptions?.getDraggable()}
       onDragStart={dndOptions?.getOnDragStart()}
       onDragEnd={dndOptions?.getOnDragEnd()}
+      onDragMove={dndOptions?.getOnDragMove()}
       {...rest}
     />
   );
