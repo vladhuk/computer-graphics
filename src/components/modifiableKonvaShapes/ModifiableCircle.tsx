@@ -13,11 +13,22 @@ const ModifiableCircle: FunctionComponent<Props> = ({
   position,
   modifiers,
   color,
+  dndOptions,
   ...rest
 }) => {
   const { x, y } = modifiers ? applyModifiers(position, modifiers) : position;
 
-  return <Circle x={x} y={y} fill={color} {...rest} />;
+  return (
+    <Circle
+      x={x}
+      y={y}
+      fill={color}
+      draggable={dndOptions?.getDraggable()}
+      onDragStart={dndOptions?.getOnDragStart()}
+      onDragEnd={dndOptions?.getOnDragEnd()}
+      {...rest}
+    />
+  );
 };
 
 export default ModifiableCircle;

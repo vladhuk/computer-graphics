@@ -21,6 +21,7 @@ import Header from '../Header';
 import Lab2 from '../labsPages/Lab2';
 import Pivot from '../Pivot';
 import Lab3 from '../labsPages/Lab3/Lab3';
+import ModifiableDndOptions from '../modifiableKonvaShapes/ModifiableDndOptions';
 
 const canvasWidth = 800;
 const canvasHeight = 800;
@@ -32,6 +33,7 @@ const normalizeVectorValue = bindNormalizeVectorValueToAxesMaxCoord(
 
 const App: FunctionComponent = () => {
   const [currentTabName, setCurrentTabName] = useState<string | null>();
+  const [isEnableDragging, setEnabledDragging] = useState(true);
   const [cellLength, setCellLength] = useState(25);
   const [step, setStep] = useState(5);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
@@ -95,6 +97,10 @@ const App: FunctionComponent = () => {
     ],
     [gridModifiers, offset, pivot, rotateDegrees]
   );
+  const dndModifiers: PointModifier[] = [
+    bindOffsetPoint({ x: -canvasCenter.x, y: -canvasCenter.y }),
+    bindInvertY(),
+  ];
 
   const linearTransformationTabs: Record<string, FormTab> = {
     common: {
@@ -315,6 +321,7 @@ const App: FunctionComponent = () => {
   };
 
   useEffect(() => {
+    // We should enable projective transformation only on projective tab
     if (currentTabName === linearTransformationTabs.projective.title) {
       setAxesModifiers([
         bindAffinePoint(normalizedProjectiveForAxes),
@@ -328,10 +335,20 @@ const App: FunctionComponent = () => {
       setAxesModifiers(defaultAxesModifiers);
       setGridModifiers(defaultAxesModifiers);
     }
+    // Disable dragging on affine and projective tranformation
+    if (
+      linearTransformationTabs.affine.title === currentTabName ||
+      linearTransformationTabs.projective.title === currentTabName
+    ) {
+      setEnabledDragging(false);
+    } else {
+      setEnabledDragging(true);
+    }
   }, [
     defaultAxesModifiers,
     currentTabName,
     normalizedProjective,
+    linearTransformationTabs.affine.title,
     linearTransformationTabs.projective.title,
     normalizedProjectiveForAxes,
   ]);
@@ -344,7 +361,17 @@ const App: FunctionComponent = () => {
         modifiers={gridModifiers}
       />
       <Axes maxCoord={canvasCenter} modifiers={axesModifiers} />
-      <Pivot position={pivot} modifiers={gridModifiers} />
+      <Pivot
+        position={pivot}
+        modifiers={gridModifiers}
+        dndOptions={
+          new ModifiableDndOptions({
+            draggable: isEnableDragging,
+            onDragEnd: setPivot,
+            modifiers: dndModifiers,
+          })
+        }
+      />
     </>
   );
 
