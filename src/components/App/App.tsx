@@ -27,6 +27,8 @@ const canvasWidth = 800;
 const canvasHeight = 800;
 const canvasCenter: Coord = { x: canvasWidth / 2, y: canvasHeight / 2 };
 
+const defaultAxesModifiers = [bindInvertY(), bindOffsetPoint(canvasCenter)];
+
 const normalizeVectorValue = bindNormalizeVectorValueToAxesMaxCoord(
   canvasCenter
 );
@@ -75,14 +77,6 @@ const App: FunctionComponent = () => {
     [projective]
   );
 
-  const defaultAxesModifiers = useMemo<PointModifier[]>(
-    () => [
-      bindAffinePoint(normalizedAffine),
-      bindInvertY(),
-      bindOffsetPoint(canvasCenter),
-    ],
-    [normalizedAffine]
-  );
   const [axesModifiers, setAxesModifiers] = useState<PointModifier[]>(
     defaultAxesModifiers
   );
@@ -321,7 +315,8 @@ const App: FunctionComponent = () => {
   };
 
   useEffect(() => {
-    // We should enable projective transformation only on projective tab
+    // We should enable affine and projective transformation only on their own tab
+    // Also disable canvas objects dragging on this tabs
     if (currentTabName === linearTransformationTabs.projective.title) {
       setAxesModifiers([
         bindAffinePoint(normalizedProjectiveForAxes),
@@ -331,26 +326,29 @@ const App: FunctionComponent = () => {
         bindProjectivePoint(normalizedProjective),
         ...defaultAxesModifiers,
       ]);
+      setEnabledDragging(false);
+    } else if (currentTabName === linearTransformationTabs.affine.title) {
+      setAxesModifiers([
+        bindAffinePoint(normalizedAffine),
+        ...defaultAxesModifiers,
+      ]);
+      setGridModifiers([
+        bindAffinePoint(normalizedAffine),
+        ...defaultAxesModifiers,
+      ]);
+      setEnabledDragging(false);
     } else {
       setAxesModifiers(defaultAxesModifiers);
       setGridModifiers(defaultAxesModifiers);
-    }
-    // Disable dragging on affine and projective tranformation
-    if (
-      linearTransformationTabs.affine.title === currentTabName ||
-      linearTransformationTabs.projective.title === currentTabName
-    ) {
-      setEnabledDragging(false);
-    } else {
       setEnabledDragging(true);
     }
   }, [
-    defaultAxesModifiers,
     currentTabName,
     normalizedProjective,
     linearTransformationTabs.affine.title,
     linearTransformationTabs.projective.title,
     normalizedProjectiveForAxes,
+    normalizedAffine,
   ]);
 
   const defaultCanvasElements = (
