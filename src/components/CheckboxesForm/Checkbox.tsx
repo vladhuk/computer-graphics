@@ -11,6 +11,8 @@ export interface FormCheckbox {
   value: boolean;
   setValue(value: boolean): void;
   type?: CheckboxType;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
 const Input: FunctionComponent<FormCheckbox> = ({
@@ -18,6 +20,8 @@ const Input: FunctionComponent<FormCheckbox> = ({
   value,
   setValue,
   type,
+  disabled,
+  onClick,
 }) => (
   <Form.Group as={Row} key={title}>
     <Form.Label column>{title}</Form.Label>
@@ -27,10 +31,12 @@ const Input: FunctionComponent<FormCheckbox> = ({
         id={title}
         label=""
         type={type}
+        disabled={disabled}
         checked={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setValue(event.target.checked)
         }
+        onClick={onClick}
       />
     </Col>
   </Form.Group>
