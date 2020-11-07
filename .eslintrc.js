@@ -38,8 +38,10 @@ module.exports = {
       'always',
       { exceptAfterSingleLine: true },
     ],
+    'no-shadow': OFF,
 
     '@typescript-eslint/no-unused-expressions': 'error',
+    '@typescript-eslint/no-shadow': ['error'],
 
     'import/extensions': [
       'error',
