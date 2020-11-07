@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import Coord from '../../../../types/Coord';
 import PointModifier from '../../../../types/PointModifier';
 import { ModifiableBezier } from '../../../modifiableKonvaShapes';
@@ -21,6 +21,8 @@ const Picture: FunctionComponent<Props> = ({
   isEnabledSupportingLines,
 }) => {
   const [points, setPoints] = useState(picturePoints);
+
+  useEffect(() => setPoints(picturePoints), [picturePoints]);
 
   const from = points[points.length - 1][1];
 
