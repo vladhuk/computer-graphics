@@ -10,7 +10,7 @@ export interface FormCheckbox {
 const Input: FunctionComponent<FormCheckbox> = ({ title, value, setValue }) => (
   <Form.Group as={Row} key={title}>
     <Form.Label column>{title}</Form.Label>
-    <Col md={3}>
+    <Col md={3} className="d-flex align-items-center">
       <Form.Check
         type="checkbox"
         checked={value}
