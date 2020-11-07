@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import CustomCanvas from '../../CustomCanvas';
 import PageWrapper from '../../PageWraper';
 import PointModifier from '../../../types/PointModifier';
@@ -10,6 +10,7 @@ import CheckboxesForm from '../../CheckboxesForm';
 import { CheckboxType, FormCheckbox } from '../../CheckboxesForm/Checkbox';
 import Picture from './Picture';
 import { sharkPoints, swanPoints } from './picturesPoints';
+import { getFrames } from './Lab3.service';
 
 interface Props {
   tabs: FormTab[];
@@ -21,6 +22,10 @@ interface Props {
   dndModifiers?: PointModifier[];
   defaultCanvasElements?: JSX.Element;
 }
+
+const framesAmount = 15;
+const durationMillis = 500;
+const intervalMillis = durationMillis / framesAmount;
 
 const Lab3: FunctionComponent<Props> = ({
   tabs,
@@ -34,6 +39,47 @@ const Lab3: FunctionComponent<Props> = ({
 }) => {
   const [isEnabledSupportingLines, setEnabledSupportingLines] = useState(false);
   const [sharkOrSwan, setSharkOrSwan] = useState(false);
+  const [framesCounter, setFramesCounter] = useState(-1);
+  const [points, setPoints] = useState(sharkPoints);
+  const [currentInterval, setCurrentInterval] = useState<NodeJS.Timer>();
+  const [frames, setFrames] = useState(
+    getFrames(sharkPoints, swanPoints, framesAmount)
+  );
+
+  useEffect(() => {
+    if (sharkOrSwan) {
+      setFrames(getFrames(points, swanPoints, framesAmount));
+    } else {
+      setFrames(getFrames(points, sharkPoints, framesAmount));
+    }
+    // We need to calculate only with start points. If we will add 'points' according to eslint,
+    // it will recalculate frames with new value every time when we will change the frame.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sharkOrSwan]);
+
+  const enableAnimation = () => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setFramesCounter(i);
+      i += 1;
+    }, intervalMillis);
+    setCurrentInterval(interval);
+  };
+
+  useEffect(() => {
+    if (framesCounter < 0) {
+      return;
+    }
+
+    setPoints(frames[framesCounter]);
+
+    if (framesCounter + 1 === framesAmount + 2) {
+      setFramesCounter(-1);
+      if (currentInterval) {
+        clearInterval(currentInterval);
+      }
+    }
+  }, [currentInterval, frames, framesCounter]);
 
   const checkboxes: FormCheckbox[] = [
     {
@@ -46,6 +92,8 @@ const Lab3: FunctionComponent<Props> = ({
       value: sharkOrSwan,
       setValue: setSharkOrSwan,
       type: CheckboxType.SWITCH,
+      onClick: enableAnimation,
+      disabled: framesCounter !== -1,
     },
   ];
 
@@ -57,7 +105,8 @@ const Lab3: FunctionComponent<Props> = ({
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         <Picture
-          picturePoints={sharkOrSwan ? swanPoints : sharkPoints}
+          points={points}
+          setPoints={setPoints}
           modifiers={modifiers}
           dndModifiers={dndModifiers}
           isEnabledDragging={isEnabledDragging}

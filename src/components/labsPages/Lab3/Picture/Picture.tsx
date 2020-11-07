@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import Coord from '../../../../types/Coord';
 import PointModifier from '../../../../types/PointModifier';
 import { ModifiableBezier } from '../../../modifiableKonvaShapes';
@@ -6,7 +6,8 @@ import SupportingLines from './SupportingLines';
 import SupportingPoints from './SupportingPoints';
 
 interface Props {
-  picturePoints: Coord[][];
+  points: Coord[][];
+  setPoints(points: Coord[][]): void;
   modifiers?: PointModifier[];
   dndModifiers?: PointModifier[];
   isEnabledDragging?: boolean;
@@ -14,16 +15,13 @@ interface Props {
 }
 
 const Picture: FunctionComponent<Props> = ({
-  picturePoints,
+  points,
+  setPoints,
   modifiers,
   dndModifiers,
   isEnabledDragging,
   isEnabledSupportingLines,
 }) => {
-  const [points, setPoints] = useState(picturePoints);
-
-  useEffect(() => setPoints(picturePoints), [picturePoints]);
-
   const from = points[points.length - 1][1];
 
   return (
