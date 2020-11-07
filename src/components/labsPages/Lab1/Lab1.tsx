@@ -13,7 +13,7 @@ interface Props {
   canvasWidth: number;
   canvasHeight: number;
   step?: number;
-  shapeModifiers?: PointModifier[];
+  modifiers?: PointModifier[];
   defaultCanvasElements?: JSX.Element;
 }
 
@@ -23,7 +23,7 @@ const Lab1: FunctionComponent<Props> = ({
   canvasWidth,
   canvasHeight,
   step,
-  shapeModifiers,
+  modifiers,
   defaultCanvasElements,
 }) => {
   const [R, setR] = useState(75);
@@ -60,14 +60,7 @@ const Lab1: FunctionComponent<Props> = ({
         />
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
-        <Shape
-          R={R}
-          L1={L1}
-          L2={L2}
-          L3={L3}
-          L4={L4}
-          modifiers={shapeModifiers}
-        />
+        <Shape R={R} L1={L1} L2={L2} L3={L3} L4={L4} modifiers={modifiers} />
         {defaultCanvasElements}
       </CustomCanvas>
       <div>

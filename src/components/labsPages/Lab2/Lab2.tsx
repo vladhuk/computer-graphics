@@ -20,7 +20,7 @@ interface Props {
   canvasWidth: number;
   canvasHeight: number;
   step?: number;
-  shapeModifiers?: PointModifier[];
+  modifiers?: PointModifier[];
   defaultCanvasElements?: JSX.Element;
 }
 
@@ -31,7 +31,7 @@ const Lab2: FunctionComponent<Props> = ({
   canvasWidth,
   canvasHeight,
   step,
-  shapeModifiers,
+  modifiers,
   defaultCanvasElements,
 }) => {
   const [a, setA] = useState(150);
@@ -73,8 +73,8 @@ const Lab2: FunctionComponent<Props> = ({
   const defaultProps = {
     descartesFolium,
     maxCoord,
+    modifiers,
     phi: phi0,
-    modifiers: shapeModifiers,
   };
 
   return (

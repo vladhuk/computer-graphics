@@ -12,7 +12,7 @@ interface Props {
   onSelectTab(tabName: string | null): void;
   canvasWidth: number;
   canvasHeight: number;
-  shapeModifiers?: PointModifier[];
+  modifiers?: PointModifier[];
   defaultCanvasElements?: JSX.Element;
 }
 
@@ -21,7 +21,7 @@ const Lab3: FunctionComponent<Props> = ({
   onSelectTab,
   canvasWidth,
   canvasHeight,
-  shapeModifiers,
+  modifiers,
   defaultCanvasElements,
 }) => (
   <PageWrapper>
@@ -29,7 +29,7 @@ const Lab3: FunctionComponent<Props> = ({
       <DimensionsForm tabs={tabs} onSelect={onSelectTab} />
     </LeftSideWrapper>
     <CustomCanvas width={canvasWidth} height={canvasHeight}>
-      <Picture modifiers={shapeModifiers} />
+      <Picture modifiers={modifiers} />
       {defaultCanvasElements}
     </CustomCanvas>
     <div>

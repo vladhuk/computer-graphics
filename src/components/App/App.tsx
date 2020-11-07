@@ -35,7 +35,7 @@ const normalizeVectorValue = bindNormalizeVectorValueToAxesMaxCoord(
 
 const App: FunctionComponent = () => {
   const [currentTabName, setCurrentTabName] = useState<string | null>();
-  const [isEnableDragging, setEnabledDragging] = useState(true);
+  const [isEnabledDragging, setEnabledDragging] = useState(true);
   const [cellLength, setCellLength] = useState(25);
   const [step, setStep] = useState(5);
   const [offset, setOffset] = useState<Coord>({ x: 0, y: 0 });
@@ -91,9 +91,15 @@ const App: FunctionComponent = () => {
     ],
     [gridModifiers, offset, pivot, rotateDegrees]
   );
-  const dndModifiers: PointModifier[] = [
-    bindOffsetPoint({ x: -canvasCenter.x, y: -canvasCenter.y }),
+
+  const defaultDndModifiers: PointModifier[] = [
     bindInvertY(),
+    bindRotatePointByDegreesWithPivot(-rotateDegrees, pivot),
+  ];
+  const pivotDndModifiers: PointModifier[] = defaultDndModifiers;
+  const shapeDndModifiers: PointModifier[] = [
+    bindOffsetPoint({ x: -canvasCenter.x, y: -canvasCenter.y }),
+    ...defaultDndModifiers,
   ];
 
   const linearTransformationTabs: Record<string, FormTab> = {
@@ -364,9 +370,9 @@ const App: FunctionComponent = () => {
         modifiers={gridModifiers}
         dndOptions={
           new ModifiableDndOptions({
-            draggable: isEnableDragging,
+            draggable: isEnabledDragging,
             onDragMove: setPivot,
-            modifiers: dndModifiers,
+            modifiers: pivotDndModifiers,
           })
         }
       />
@@ -380,7 +386,9 @@ const App: FunctionComponent = () => {
     canvasWidth,
     canvasHeight,
     step,
-    shapeModifiers,
+    modifiers: shapeModifiers,
+    dndModifiers: shapeDndModifiers,
+    isEnabledDragging,
     defaultCanvasElements,
   };
 
