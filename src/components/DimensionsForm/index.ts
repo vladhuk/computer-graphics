@@ -1,2 +1,2 @@
 export { default } from './DimensionsForm';
-export * from './DimensionsForm';
+export type { FormTab } from './DimensionsForm';

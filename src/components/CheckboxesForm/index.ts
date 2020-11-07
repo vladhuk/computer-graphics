@@ -1,2 +1,2 @@
 export { default } from './CheckboxesForm';
-export * from './CheckboxesForm';
+export * from './Checkbox';

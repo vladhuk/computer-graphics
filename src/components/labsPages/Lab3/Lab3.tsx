@@ -6,8 +6,10 @@ import DimensionsForm, { FormTab } from '../../DimensionsForm';
 import exampleImage1 from '../../../assets/examples/example3-1.png';
 import exampleImage2 from '../../../assets/examples/example3-2.png';
 import LeftSideWrapper from '../../LeftSideWrapper';
-import CheckboxesForm from '../../CheckboxesForm';
-import { CheckboxType, FormCheckbox } from '../../CheckboxesForm/Checkbox';
+import CheckboxesForm, {
+  CheckboxType,
+  FormCheckbox,
+} from '../../CheckboxesForm';
 import Picture from './Picture';
 import { sharkPoints, swanPoints } from './picturesPoints';
 import { getFrames } from './Lab3.service';
