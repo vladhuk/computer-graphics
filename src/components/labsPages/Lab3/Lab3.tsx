@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import CustomCanvas from '../../CustomCanvas';
 import PageWrapper from '../../PageWraper';
 import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
 import exampleImage from '../../../assets/examples/example3.png';
 import LeftSideWrapper from '../../LeftSideWrapper';
+import CheckboxesForm from '../../CheckboxesForm';
+import { FormCheckbox } from '../../CheckboxesForm/Checkbox';
 import Picture from './Picture';
 import { sharkPoints } from './picturesPoints';
 
@@ -28,24 +30,38 @@ const Lab3: FunctionComponent<Props> = ({
   isEnabledDragging,
   dndModifiers,
   defaultCanvasElements,
-}) => (
-  <PageWrapper>
-    <LeftSideWrapper>
-      <DimensionsForm tabs={tabs} onSelect={onSelectTab} />
-    </LeftSideWrapper>
-    <CustomCanvas width={canvasWidth} height={canvasHeight}>
-      <Picture
-        picturePoints={sharkPoints}
-        modifiers={modifiers}
-        dndModifiers={dndModifiers}
-        isEnabledDragging={isEnabledDragging}
-      />
-      {defaultCanvasElements}
-    </CustomCanvas>
-    <div>
-      <img src={exampleImage} alt="example" style={{ width: '100%' }} />
-    </div>
-  </PageWrapper>
-);
+}) => {
+  const [isEnabledSupportingLines, setEnabledSupportingLines] = useState(false);
+
+  const checkboxes: FormCheckbox[] = [
+    {
+      title: 'Supporting lines',
+      value: isEnabledSupportingLines,
+      setValue: setEnabledSupportingLines,
+    },
+  ];
+
+  return (
+    <PageWrapper>
+      <LeftSideWrapper>
+        <DimensionsForm tabs={tabs} onSelect={onSelectTab} />
+        <CheckboxesForm checkboxes={checkboxes} />
+      </LeftSideWrapper>
+      <CustomCanvas width={canvasWidth} height={canvasHeight}>
+        <Picture
+          picturePoints={sharkPoints}
+          modifiers={modifiers}
+          dndModifiers={dndModifiers}
+          isEnabledDragging={isEnabledDragging}
+          isEnabledSupportingLines={isEnabledSupportingLines}
+        />
+        {defaultCanvasElements}
+      </CustomCanvas>
+      <div>
+        <img src={exampleImage} alt="example" style={{ width: '100%' }} />
+      </div>
+    </PageWrapper>
+  );
+};
 
 export default Lab3;

@@ -10,6 +10,7 @@ interface Props {
   modifiers?: PointModifier[];
   dndModifiers?: PointModifier[];
   isEnabledDragging?: boolean;
+  isEnabledSupportingLines?: boolean;
 }
 
 const Picture: FunctionComponent<Props> = ({
@@ -17,6 +18,7 @@ const Picture: FunctionComponent<Props> = ({
   modifiers,
   dndModifiers,
   isEnabledDragging,
+  isEnabledSupportingLines,
 }) => {
   const [points, setPoints] = useState(picturePoints);
 
@@ -30,19 +32,23 @@ const Picture: FunctionComponent<Props> = ({
         modifiers={modifiers}
         color="black"
       />
-      <SupportingLines
-        points={points}
-        strokeWidth={1.2}
-        modifiers={modifiers}
-      />
-      <SupportingPoints
-        pointsRadius={5}
-        points={points}
-        isEnabledDragging={isEnabledDragging}
-        dndModifiers={dndModifiers}
-        modifiers={modifiers}
-        setPoints={setPoints}
-      />
+      {isEnabledSupportingLines && (
+        <>
+          <SupportingLines
+            points={points}
+            strokeWidth={1.2}
+            modifiers={modifiers}
+          />
+          <SupportingPoints
+            pointsRadius={5}
+            points={points}
+            isEnabledDragging={isEnabledDragging}
+            dndModifiers={dndModifiers}
+            modifiers={modifiers}
+            setPoints={setPoints}
+          />
+        </>
+      )}
     </>
   );
 };
