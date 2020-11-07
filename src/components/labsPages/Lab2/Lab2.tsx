@@ -12,6 +12,7 @@ import Tangent from './Tangent';
 import Normal from './Normal';
 import InfoBlock, { InfoRecord } from '../../InfoBlock';
 import LeftSideWrapper from '../../LeftSideWrapper';
+import CheckboxesForm, { FormCheckbox } from '../../CheckboxesForm';
 
 interface Props {
   tabs: FormTab[];
@@ -36,6 +37,9 @@ const Lab2: FunctionComponent<Props> = ({
 }) => {
   const [a, setA] = useState(150);
   const [phi0, setPhi0] = useState(0);
+  const [isEnableAsymptote, setEnabledAsymptote] = useState(true);
+  const [isEnableTangent, setEnabledTangent] = useState(true);
+  const [isEnableNormale, setEnabledNormale] = useState(true);
 
   const descartesFolium = new DescartesFolium(a);
 
@@ -47,7 +51,15 @@ const Lab2: FunctionComponent<Props> = ({
       title: tabName,
       inputsGroups: [
         [{ title: 'a', value: a, step, setValue: setA }],
-        [{ title: 'phi0', value: phi0, step, unit: 'deg', setValue: setPhi0 }],
+        [
+          {
+            title: 'phi0',
+            value: phi0,
+            step: 1,
+            unit: 'deg',
+            setValue: setPhi0,
+          },
+        ],
       ],
     },
   ];
@@ -70,6 +82,24 @@ const Lab2: FunctionComponent<Props> = ({
     },
   ];
 
+  const checkboxes: FormCheckbox[] = [
+    {
+      title: 'Asymptote',
+      value: isEnableAsymptote,
+      setValue: setEnabledAsymptote,
+    },
+    {
+      title: 'Tangent',
+      value: isEnableTangent,
+      setValue: setEnabledTangent,
+    },
+    {
+      title: 'Normale',
+      value: isEnableNormale,
+      setValue: setEnabledNormale,
+    },
+  ];
+
   const defaultProps = {
     descartesFolium,
     maxCoord,
@@ -86,12 +116,13 @@ const Lab2: FunctionComponent<Props> = ({
           onSelect={onSelectTab}
         />
         <InfoBlock records={infoRecords} />
+        <CheckboxesForm checkboxes={checkboxes} />
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         <Curve {...defaultProps} />
-        <Asymptote color="red" {...defaultProps} />
-        <Tangent color="skyblue" {...defaultProps} />
-        <Normal color="hotpink" {...defaultProps} />
+        {isEnableAsymptote && <Asymptote color="red" {...defaultProps} />}
+        {isEnableTangent && <Tangent color="skyblue" {...defaultProps} />}
+        {isEnableNormale && <Normal color="hotpink" {...defaultProps} />}
         {defaultCanvasElements}
       </CustomCanvas>
       <div>
