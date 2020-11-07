@@ -31,6 +31,6 @@ function fixPointsAmountDifference(
   const diff = Math.abs(points1.length - points2.length);
 
   return points1.length < points2.length
-    ? [points1, points2.slice(diff)]
-    : [points1.slice(diff), points2];
+    ? [[...points1.slice(0, diff), ...points1], points2]
+    : [points1, [...points2.slice(0, diff), ...points2]];
 }
