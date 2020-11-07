@@ -8,7 +8,13 @@ import Coord from '../../../types/Coord';
  * and we don't need to specify it
  */
 
-// eslint-disable-next-line import/prefer-default-export
+function normalizePointsPair(pointsPair: Coord[]): Coord[] {
+  return pointsPair.map((point) => ({
+    x: point.x - 400,
+    y: -point.y + 400,
+  }));
+}
+
 export const sharkPoints: Coord[][] = [
   [
     { x: 179, y: 500 },
@@ -122,9 +128,107 @@ export const sharkPoints: Coord[][] = [
     { x: 480, y: 870 },
     { x: 298, y: 510 },
   ],
-].map((bezier) =>
-  bezier.map((point) => ({
-    x: point.x - 400,
-    y: -point.y + 400,
-  }))
-);
+].map(normalizePointsPair);
+
+export const swanPoints: Coord[][] = [
+  [
+    { x: 692, y: 596 },
+    { x: 664, y: 609 },
+  ],
+  [
+    { x: 654, y: 605 },
+    { x: 657, y: 593 },
+  ],
+  [
+    { x: 621, y: 629 },
+    { x: 609, y: 611 },
+  ],
+  [
+    { x: 546, y: 655 },
+    { x: 514, y: 629 },
+  ],
+  [
+    { x: 476, y: 670 },
+    { x: 429, y: 641 },
+  ],
+  [
+    { x: 408, y: 664 },
+    { x: 387, y: 641 },
+  ],
+  [
+    { x: 345, y: 664 },
+    { x: 312, y: 634 },
+  ],
+  [
+    { x: 281, y: 663 },
+    { x: 236, y: 617 },
+  ],
+  [
+    { x: 206, y: 626 },
+    { x: 183, y: 614 },
+  ],
+  [
+    { x: 160, y: 622 },
+    { x: 155, y: 602 },
+  ],
+  [
+    { x: 150, y: 590 },
+    { x: 132, y: 589 },
+  ],
+  [
+    { x: 95, y: 578 },
+    { x: 105, y: 549 },
+  ],
+  [
+    { x: 70, y: 530 },
+    { x: 76, y: 499 },
+  ],
+  [
+    { x: 64, y: 481 },
+    { x: 71, y: 461 },
+  ],
+  [
+    { x: 104, y: 490 },
+    { x: 146, y: 492 },
+  ],
+  [
+    { x: 139, y: 484 },
+    { x: 139, y: 484 },
+  ],
+  [
+    { x: 150, y: 495 },
+    { x: 279, y: 427 },
+  ],
+  [
+    { x: 432, y: 337 },
+    { x: 550, y: 391 },
+  ],
+  [
+    { x: 500, y: 325 },
+    { x: 529, y: 178 },
+  ],
+  [
+    { x: 555, y: 150 },
+    { x: 626, y: 186 },
+  ],
+  [
+    { x: 636, y: 174 },
+    { x: 640, y: 208 },
+  ],
+  [
+    { x: 700, y: 250 },
+    { x: 675, y: 250 },
+  ],
+  [
+    { x: 612, y: 230 },
+    { x: 575, y: 239 },
+  ],
+  [
+    { x: 550, y: 360 },
+    { x: 695, y: 438 },
+  ],
+  [
+    { x: 780, y: 520 },
+    { x: 692, y: 578 },
+  ],
+].map(normalizePointsPair);
