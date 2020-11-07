@@ -6,6 +6,7 @@ import DimensionsForm, { FormTab } from '../../DimensionsForm';
 import exampleImage from '../../../assets/examples/example3.png';
 import LeftSideWrapper from '../../LeftSideWrapper';
 import Picture from './Picture';
+import { sharkPoints } from './picturesPoints';
 
 interface Props {
   tabs: FormTab[];
@@ -13,6 +14,8 @@ interface Props {
   canvasWidth: number;
   canvasHeight: number;
   modifiers?: PointModifier[];
+  isEnabledDragging?: boolean;
+  dndModifiers?: PointModifier[];
   defaultCanvasElements?: JSX.Element;
 }
 
@@ -22,6 +25,8 @@ const Lab3: FunctionComponent<Props> = ({
   canvasWidth,
   canvasHeight,
   modifiers,
+  isEnabledDragging,
+  dndModifiers,
   defaultCanvasElements,
 }) => (
   <PageWrapper>
@@ -29,7 +34,12 @@ const Lab3: FunctionComponent<Props> = ({
       <DimensionsForm tabs={tabs} onSelect={onSelectTab} />
     </LeftSideWrapper>
     <CustomCanvas width={canvasWidth} height={canvasHeight}>
-      <Picture modifiers={modifiers} />
+      <Picture
+        picturePoints={sharkPoints}
+        modifiers={modifiers}
+        dndModifiers={dndModifiers}
+        isEnabledDragging={isEnabledDragging}
+      />
       {defaultCanvasElements}
     </CustomCanvas>
     <div>
