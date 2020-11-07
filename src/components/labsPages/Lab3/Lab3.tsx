@@ -7,9 +7,9 @@ import exampleImage1 from '../../../assets/examples/example3-1.png';
 import exampleImage2 from '../../../assets/examples/example3-2.png';
 import LeftSideWrapper from '../../LeftSideWrapper';
 import CheckboxesForm from '../../CheckboxesForm';
-import { FormCheckbox } from '../../CheckboxesForm/Checkbox';
+import { CheckboxType, FormCheckbox } from '../../CheckboxesForm/Checkbox';
 import Picture from './Picture';
-import { sharkPoints } from './picturesPoints';
+import { sharkPoints, swanPoints } from './picturesPoints';
 
 interface Props {
   tabs: FormTab[];
@@ -33,12 +33,19 @@ const Lab3: FunctionComponent<Props> = ({
   defaultCanvasElements,
 }) => {
   const [isEnabledSupportingLines, setEnabledSupportingLines] = useState(false);
+  const [sharkOrSwan, setSharkOrSwan] = useState(false);
 
   const checkboxes: FormCheckbox[] = [
     {
       title: 'Supporting lines',
       value: isEnabledSupportingLines,
       setValue: setEnabledSupportingLines,
+    },
+    {
+      title: 'Shark/Swan',
+      value: sharkOrSwan,
+      setValue: setSharkOrSwan,
+      type: CheckboxType.SWITCH,
     },
   ];
 
@@ -50,7 +57,7 @@ const Lab3: FunctionComponent<Props> = ({
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         <Picture
-          picturePoints={sharkPoints}
+          picturePoints={sharkOrSwan ? swanPoints : sharkPoints}
           modifiers={modifiers}
           dndModifiers={dndModifiers}
           isEnabledDragging={isEnabledDragging}
