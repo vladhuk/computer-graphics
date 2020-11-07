@@ -3,7 +3,8 @@ import CustomCanvas from '../../CustomCanvas';
 import PageWrapper from '../../PageWraper';
 import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
-import exampleImage from '../../../assets/examples/example3.png';
+import exampleImage1 from '../../../assets/examples/example3-1.png';
+import exampleImage2 from '../../../assets/examples/example3-2.png';
 import LeftSideWrapper from '../../LeftSideWrapper';
 import CheckboxesForm from '../../CheckboxesForm';
 import { FormCheckbox } from '../../CheckboxesForm/Checkbox';
@@ -58,7 +59,8 @@ const Lab3: FunctionComponent<Props> = ({
         {defaultCanvasElements}
       </CustomCanvas>
       <div>
-        <img src={exampleImage} alt="example" style={{ width: '100%' }} />
+        <img src={exampleImage1} alt="example" style={{ width: '100%' }} />
+        <img src={exampleImage2} alt="example" style={{ width: '100%' }} />
       </div>
     </PageWrapper>
   );
