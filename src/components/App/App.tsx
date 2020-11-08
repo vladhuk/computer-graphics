@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { BrowserRouter, HashRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';
@@ -399,7 +399,7 @@ const App: FunctionComponent = () => {
   return (
     <>
       <Header />
-      <HashRouter>
+      <HashRouter basename="/">
         <Switch>
           <Route exact path="/lab1">
             {lab1}
