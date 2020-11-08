@@ -1,6 +1,6 @@
 # computer-graphics
 
-See on GitHub pages: https://vladhuk.github.io/computer-graphics/
+See on GitHub Pages: https://vladhuk.github.io/computer-graphics/
 
 ## Available Scripts
 
