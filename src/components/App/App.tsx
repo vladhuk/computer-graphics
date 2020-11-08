@@ -100,6 +100,7 @@ const App: FunctionComponent = () => {
   const shapeDndModifiers: PointModifier[] = [
     ...defaultDndModifiers,
     bindRotatePointByDegreesWithPivot(-rotateDegrees, pivot),
+    bindOffsetPoint({ x: -offset.x, y: -offset.y }),
   ];
 
   const linearTransformationTabs: Record<string, FormTab> = {
