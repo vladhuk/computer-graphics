@@ -410,7 +410,6 @@ const App: FunctionComponent = () => {
           <Route exact path="/lab3">
             {lab3}
           </Route>
-          <Redirect exact from="/" to="/lab1" />
         </Switch>
       </HashRouter>
     </>
