@@ -399,7 +399,7 @@ const App: FunctionComponent = () => {
   return (
     <>
       <Header />
-      <HashRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter>
         <Switch>
           <Route exact path="/lab1">
             {lab1}
