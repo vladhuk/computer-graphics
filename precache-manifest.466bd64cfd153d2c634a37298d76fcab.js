@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "930a4e8d089b859414d3370d6bc74e79",
+    "revision": "34486aa6d63116b963ce5f92b39bf36a",
     "url": "/computer-graphics/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/computer-graphics/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "24b885fa98181944f1f8",
+    "revision": "8b1c78f6fc7946f772cd",
     "url": "/computer-graphics/static/css/main.edd85f03.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/computer-graphics/static/js/2.54196f5a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "24b885fa98181944f1f8",
-    "url": "/computer-graphics/static/js/main.6b5ec281.chunk.js"
+    "revision": "8b1c78f6fc7946f772cd",
+    "url": "/computer-graphics/static/js/main.a6936e1a.chunk.js"
   },
   {
     "revision": "e856e5674b78516c3ce2",

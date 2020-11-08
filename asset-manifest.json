@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/computer-graphics/static/css/main.edd85f03.chunk.css",
-    "main.js": "/computer-graphics/static/js/main.6b5ec281.chunk.js",
-    "main.js.map": "/computer-graphics/static/js/main.6b5ec281.chunk.js.map",
+    "main.js": "/computer-graphics/static/js/main.a6936e1a.chunk.js",
+    "main.js.map": "/computer-graphics/static/js/main.a6936e1a.chunk.js.map",
     "runtime-main.js": "/computer-graphics/static/js/runtime-main.44b343f1.js",
     "runtime-main.js.map": "/computer-graphics/static/js/runtime-main.44b343f1.js.map",
     "static/css/2.11829350.chunk.css": "/computer-graphics/static/css/2.11829350.chunk.css",
     "static/js/2.54196f5a.chunk.js": "/computer-graphics/static/js/2.54196f5a.chunk.js",
     "static/js/2.54196f5a.chunk.js.map": "/computer-graphics/static/js/2.54196f5a.chunk.js.map",
     "index.html": "/computer-graphics/index.html",
-    "precache-manifest.8a1054e7d43eed552f5a52d7ae894977.js": "/computer-graphics/precache-manifest.8a1054e7d43eed552f5a52d7ae894977.js",
+    "precache-manifest.466bd64cfd153d2c634a37298d76fcab.js": "/computer-graphics/precache-manifest.466bd64cfd153d2c634a37298d76fcab.js",
     "service-worker.js": "/computer-graphics/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "/computer-graphics/static/css/2.11829350.chunk.css.map",
     "static/css/main.edd85f03.chunk.css.map": "/computer-graphics/static/css/main.edd85f03.chunk.css.map",
@@ -24,6 +24,6 @@
     "static/css/2.11829350.chunk.css",
     "static/js/2.54196f5a.chunk.js",
     "static/css/main.edd85f03.chunk.css",
-    "static/js/main.6b5ec281.chunk.js"
+    "static/js/main.a6936e1a.chunk.js"
   ]
 }
