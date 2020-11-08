@@ -399,7 +399,7 @@ const App: FunctionComponent = () => {
   return (
     <>
       <Header />
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/lab1">
             {lab1}
