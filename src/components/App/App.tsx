@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Grid from '../Grid';
 import './App.css';
 import Axes from '../Axes';
@@ -399,7 +399,7 @@ const App: FunctionComponent = () => {
   return (
     <>
       <Header />
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter>
         <Switch>
           <Route exact path="/lab1">
             {lab1}
@@ -412,7 +412,7 @@ const App: FunctionComponent = () => {
           </Route>
           <Redirect exact from="/" to="/lab1" />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };
