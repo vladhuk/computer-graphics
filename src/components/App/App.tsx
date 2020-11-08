@@ -399,7 +399,7 @@ const App: FunctionComponent = () => {
   return (
     <>
       <Header />
-      <HashRouter>
+      <HashRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/lab1">
             {lab1}
@@ -410,6 +410,7 @@ const App: FunctionComponent = () => {
           <Route exact path="/lab3">
             {lab3}
           </Route>
+          <Redirect exact from="/" to="/lab1" />
         </Switch>
       </HashRouter>
     </>
