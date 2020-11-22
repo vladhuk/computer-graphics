@@ -1,6 +1,6 @@
 import Coord from '../../../types/Coord';
 import { getMultiplePoints } from '../modifiableKonvaShapes.service';
-import IBezierLine from './IBezierLine';
+import BezierLine from './BezierLine';
 
 function fixBezierOrder(endPoints: number[]): number[] {
   return endPoints.length <= 4
@@ -12,7 +12,7 @@ function fixBezierOrder(endPoints: number[]): number[] {
 export function buildBezierLine(
   startPoint: Coord,
   bezierTailPoints: Coord[]
-): IBezierLine {
+): BezierLine {
   return {
     start: startPoint,
     tail: [
