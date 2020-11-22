@@ -13,6 +13,7 @@ import CheckboxesForm, {
 import Picture from './Picture';
 import { sharkPoints, swanPoints } from './picturesPoints';
 import { getFrames } from './Lab3.service';
+import Coord from '../../../types/Coord';
 
 interface Props {
   tabs: FormTab[];
@@ -42,11 +43,9 @@ const Lab3: FunctionComponent<Props> = ({
   const [isEnabledSupportingLines, setEnabledSupportingLines] = useState(false);
   const [sharkOrSwan, setSharkOrSwan] = useState(false);
   const [framesCounter, setFramesCounter] = useState(-1);
-  const [points, setPoints] = useState(sharkPoints);
+  const [points, setPoints] = useState(sharkOrSwan ? swanPoints : sharkPoints);
   const [currentInterval, setCurrentInterval] = useState<NodeJS.Timer>();
-  const [frames, setFrames] = useState(
-    getFrames(sharkPoints, swanPoints, framesAmount)
-  );
+  const [frames, setFrames] = useState<Coord[][][]>([]);
 
   useEffect(() => {
     if (sharkOrSwan) {
