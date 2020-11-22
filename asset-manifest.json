@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/computer-graphics/static/css/main.edd85f03.chunk.css",
-    "main.js": "/computer-graphics/static/js/main.66cc2af3.chunk.js",
-    "main.js.map": "/computer-graphics/static/js/main.66cc2af3.chunk.js.map",
+    "main.js": "/computer-graphics/static/js/main.ea6f84fa.chunk.js",
+    "main.js.map": "/computer-graphics/static/js/main.ea6f84fa.chunk.js.map",
     "runtime-main.js": "/computer-graphics/static/js/runtime-main.44b343f1.js",
     "runtime-main.js.map": "/computer-graphics/static/js/runtime-main.44b343f1.js.map",
     "static/css/2.11829350.chunk.css": "/computer-graphics/static/css/2.11829350.chunk.css",
-    "static/js/2.54196f5a.chunk.js": "/computer-graphics/static/js/2.54196f5a.chunk.js",
-    "static/js/2.54196f5a.chunk.js.map": "/computer-graphics/static/js/2.54196f5a.chunk.js.map",
+    "static/js/2.a0bca53b.chunk.js": "/computer-graphics/static/js/2.a0bca53b.chunk.js",
+    "static/js/2.a0bca53b.chunk.js.map": "/computer-graphics/static/js/2.a0bca53b.chunk.js.map",
     "index.html": "/computer-graphics/index.html",
-    "precache-manifest.4e6156a183e1a659498912b3399e69d7.js": "/computer-graphics/precache-manifest.4e6156a183e1a659498912b3399e69d7.js",
+    "precache-manifest.b763e2a4385e1baa7ed786ebad4b95f1.js": "/computer-graphics/precache-manifest.b763e2a4385e1baa7ed786ebad4b95f1.js",
     "service-worker.js": "/computer-graphics/service-worker.js",
     "static/css/2.11829350.chunk.css.map": "/computer-graphics/static/css/2.11829350.chunk.css.map",
     "static/css/main.edd85f03.chunk.css.map": "/computer-graphics/static/css/main.edd85f03.chunk.css.map",
-    "static/js/2.54196f5a.chunk.js.LICENSE.txt": "/computer-graphics/static/js/2.54196f5a.chunk.js.LICENSE.txt",
+    "static/js/2.a0bca53b.chunk.js.LICENSE.txt": "/computer-graphics/static/js/2.a0bca53b.chunk.js.LICENSE.txt",
     "static/media/example1.png": "/computer-graphics/static/media/example1.77bc0699.png",
     "static/media/example2.png": "/computer-graphics/static/media/example2.05d06b9f.png",
     "static/media/example3-1.png": "/computer-graphics/static/media/example3-1.522d1858.png",
@@ -22,8 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.44b343f1.js",
     "static/css/2.11829350.chunk.css",
-    "static/js/2.54196f5a.chunk.js",
+    "static/js/2.a0bca53b.chunk.js",
     "static/css/main.edd85f03.chunk.css",
-    "static/js/main.66cc2af3.chunk.js"
+    "static/js/main.ea6f84fa.chunk.js"
   ]
 }
