@@ -1,6 +1,6 @@
 import Coord from '../../../types/Coord';
 
-export default interface BesierLine {
+export default interface IBezierLine {
   start: Coord;
   tail: number[];
 }

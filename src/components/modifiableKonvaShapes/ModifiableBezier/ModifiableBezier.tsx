@@ -3,7 +3,7 @@ import { Line } from 'react-konva';
 import Coord from '../../../types/Coord';
 import { ModifiableLinearShape } from '../../../types/ModifiableShape';
 import { applyModifiers } from '../modifiableKonvaShapes.service';
-import BezierLine from './BezierLine';
+import IBezierLine from './IBezierLine';
 import { buildBezierLine } from './ModifiableBezier.service';
 
 interface Props extends ModifiableLinearShape {
@@ -27,7 +27,7 @@ const ModifiableBezier: FunctionComponent<Props> = ({
       )
     : to;
 
-  const bezierLines: BezierLine[] = [];
+  const bezierLines: IBezierLine[] = [];
 
   const firstLine = buildBezierLine(startPoint, modifiedBezierTailsPoints[0]);
 
