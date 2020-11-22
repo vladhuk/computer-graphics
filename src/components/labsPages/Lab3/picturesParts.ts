@@ -1,21 +1,24 @@
 import Coord from '../../../types/Coord';
+import PicturePart from './PicturePart';
 
-/**
- * First point in the pair is a bezier point for curve constructing.
- * Second point in the pair is a end point of line.
- *
- * So the first point of every next line is an end point of previous pair
- * and we don't need to specify it
- */
+type PicturePartTuple = [Coord, Coord, boolean?];
 
-function normalizePointsPair(pointsPair: Coord[]): Coord[] {
+function normalizePicturePart(picturePart: PicturePartTuple): PicturePart {
+  const points = normalizeCoords([picturePart[0], picturePart[1]]);
+  return {
+    points: [points[0], points[1]],
+    isContinuous: picturePart[2],
+  };
+}
+
+function normalizeCoords(pointsPair: Coord[]): Coord[] {
   return pointsPair.map((point) => ({
     x: point.x - 400,
     y: -point.y + 400,
   }));
 }
 
-export const sharkPoints: Coord[][] = [
+const sharkPointsTuples: PicturePartTuple[] = [
   [
     { x: 179, y: 500 },
     { x: 113, y: 470 },
@@ -92,14 +95,8 @@ export const sharkPoints: Coord[][] = [
     { x: 747, y: 207 },
     { x: 751, y: 222 },
   ],
-  [
-    { x: 745, y: 316 },
-    { x: 665, y: 420 },
-  ],
-  [
-    { x: 610, y: 509 },
-    { x: 709, y: 563 },
-  ],
+  [{ x: 745, y: 316 }, { x: 665, y: 420 }, true],
+  [{ x: 610, y: 509 }, { x: 709, y: 563 }, true],
   [
     { x: 726, y: 577 },
     { x: 702, y: 581 },
@@ -128,9 +125,9 @@ export const sharkPoints: Coord[][] = [
     { x: 480, y: 870 },
     { x: 298, y: 510 },
   ],
-].map(normalizePointsPair);
+];
 
-export const swanPoints: Coord[][] = [
+const swanPointsTuples: PicturePartTuple[] = [
   [
     { x: 95, y: 578 },
     { x: 105, y: 549 },
@@ -151,14 +148,8 @@ export const swanPoints: Coord[][] = [
     { x: 139, y: 484 },
     { x: 139, y: 484 },
   ],
-  [
-    { x: 150, y: 495 },
-    { x: 279, y: 427 },
-  ],
-  [
-    { x: 432, y: 337 },
-    { x: 550, y: 391 },
-  ],
+  [{ x: 150, y: 495 }, { x: 279, y: 427 }, true],
+  [{ x: 432, y: 337 }, { x: 550, y: 391 }, true],
   [
     { x: 500, y: 325 },
     { x: 529, y: 178 },
@@ -231,4 +222,9 @@ export const swanPoints: Coord[][] = [
     { x: 150, y: 590 },
     { x: 132, y: 589 },
   ],
-].map(normalizePointsPair);
+];
+
+export const [sharkParts, swanParts] = [
+  sharkPointsTuples,
+  swanPointsTuples,
+].map((tuples) => tuples.map(normalizePicturePart));

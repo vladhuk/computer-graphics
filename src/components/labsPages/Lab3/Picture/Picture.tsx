@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
-import Coord from '../../../../types/Coord';
 import PointModifier from '../../../../types/PointModifier';
 import { ModifiableBezier } from '../../../modifiableKonvaShapes';
+import PicturePart from '../PicturePart';
 import SupportingLines from './SupportingLines';
 import SupportingPoints from './SupportingPoints';
 
 interface Props {
-  points: Coord[][];
-  setPoints(points: Coord[][]): void;
+  parts: PicturePart[];
+  setParts(parts: PicturePart[]): void;
   modifiers?: PointModifier[];
   dndModifiers?: PointModifier[];
   isEnabledDragging?: boolean;
@@ -15,14 +15,15 @@ interface Props {
 }
 
 const Picture: FunctionComponent<Props> = ({
-  points,
-  setPoints,
+  parts,
+  setParts,
   modifiers,
   dndModifiers,
   isEnabledDragging,
   isEnabledSupportingLines,
 }) => {
-  const from = points[points.length - 1][1];
+  const points = parts.map((part) => part.points);
+  const from = points[parts.length - 1][1];
 
   return (
     <>
@@ -41,11 +42,11 @@ const Picture: FunctionComponent<Props> = ({
           />
           <SupportingPoints
             pointsRadius={5}
-            points={points}
+            parts={parts}
             isEnabledDragging={isEnabledDragging}
             dndModifiers={dndModifiers}
             modifiers={modifiers}
-            setPoints={setPoints}
+            setParts={setParts}
           />
         </>
       )}

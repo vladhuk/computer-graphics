@@ -1,30 +1,30 @@
 import React, { FunctionComponent } from 'react';
-import Coord from '../../../../../types/Coord';
 import PointModifier from '../../../../../types/PointModifier';
 import { ModifiableCircle } from '../../../../modifiableKonvaShapes';
 import ModifiableDndOptions from '../../../../modifiableKonvaShapes/ModifiableDndOptions';
-import { onPointMove } from './SupportingPoints.service';
+import PicturePart from '../../PicturePart';
+import { getPointColor, onPointMove } from './SupportingPoints.service';
 
 interface Props {
-  points: Coord[][];
+  parts: PicturePart[];
   pointsRadius: number;
   isEnabledDragging?: boolean;
   dndModifiers?: PointModifier[];
   modifiers?: PointModifier[];
-  setPoints?: (points: Coord[][]) => void;
+  setParts?: (parts: PicturePart[]) => void;
 }
 
 const SupportingPoints: FunctionComponent<Props> = ({
-  points,
+  parts,
   pointsRadius,
   isEnabledDragging,
   dndModifiers,
   modifiers,
-  setPoints,
+  setParts,
 }) => {
   const buildDndOptions = (
-    pointsPair: Coord[],
-    pairIndex: number,
+    part: PicturePart,
+    partIndex: number,
     pointIndex: number
   ): ModifiableDndOptions =>
     new ModifiableDndOptions({
@@ -32,25 +32,25 @@ const SupportingPoints: FunctionComponent<Props> = ({
       draggable: isEnabledDragging,
       onDragMove: (draggedPoint) =>
         onPointMove({
-          points,
-          setPoints,
+          parts,
+          setParts,
           draggedPoint,
           pointIndex,
-          pointsPair,
-          pairIndex,
+          part,
+          partIndex,
         }),
     });
 
   return (
     <>
-      {points.map((pointsPair, pairIndex) =>
-        pointsPair.map((point, pointIndex) => (
+      {parts.map((part, partIndex) =>
+        part.points.map((point, pointIndex) => (
           <ModifiableCircle
             position={point}
             radius={pointsRadius}
-            color={pointIndex === 0 ? 'hotpink' : 'skyblue'}
+            color={getPointColor(pointIndex, !!part.isContinuous)}
             modifiers={modifiers}
-            dndOptions={buildDndOptions(pointsPair, pairIndex, pointIndex)}
+            dndOptions={buildDndOptions(part, partIndex, pointIndex)}
           />
         ))
       )}

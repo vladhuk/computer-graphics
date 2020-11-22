@@ -11,9 +11,9 @@ import CheckboxesForm, {
   FormCheckbox,
 } from '../../CheckboxesForm';
 import Picture from './Picture';
-import { sharkPoints, swanPoints } from './picturesPoints';
+import { sharkParts, swanParts } from './picturesParts';
 import { getFrames } from './Lab3.service';
-import Coord from '../../../types/Coord';
+import PicturePart from './PicturePart';
 
 interface Props {
   tabs: FormTab[];
@@ -43,15 +43,15 @@ const Lab3: FunctionComponent<Props> = ({
   const [isEnabledSupportingLines, setEnabledSupportingLines] = useState(false);
   const [sharkOrSwan, setSharkOrSwan] = useState(false);
   const [framesCounter, setFramesCounter] = useState(-1);
-  const [points, setPoints] = useState(sharkOrSwan ? swanPoints : sharkPoints);
+  const [parts, setParts] = useState(sharkOrSwan ? swanParts : sharkParts);
   const [currentInterval, setCurrentInterval] = useState<NodeJS.Timer>();
-  const [frames, setFrames] = useState<Coord[][][]>([]);
+  const [frames, setFrames] = useState<PicturePart[][]>([]);
 
   useEffect(() => {
     if (sharkOrSwan) {
-      setFrames(getFrames(points, swanPoints, framesAmount));
+      setFrames(getFrames(parts, swanParts, framesAmount));
     } else {
-      setFrames(getFrames(points, sharkPoints, framesAmount));
+      setFrames(getFrames(parts, sharkParts, framesAmount));
     }
     // We need to calculate only with start points. If we will add 'points' according to eslint,
     // it will recalculate frames with new value every time when we will change the frame.
@@ -72,7 +72,7 @@ const Lab3: FunctionComponent<Props> = ({
       return;
     }
 
-    setPoints(frames[framesCounter]);
+    setParts(frames[framesCounter]);
 
     if (framesCounter + 1 === framesAmount + 2) {
       setFramesCounter(-1);
@@ -106,8 +106,8 @@ const Lab3: FunctionComponent<Props> = ({
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
         <Picture
-          points={points}
-          setPoints={setPoints}
+          parts={parts}
+          setParts={setParts}
           modifiers={modifiers}
           dndModifiers={dndModifiers}
           isEnabledDragging={isEnabledDragging}

@@ -1,27 +1,32 @@
 import { range } from 'lodash';
 import Coord from '../../../types/Coord';
+import PicturePart from './PicturePart';
 
 // eslint-disable-next-line import/prefer-default-export
 export function getFrames(
-  picturePoints1: Coord[][],
-  picturePoints2: Coord[][],
+  pictureParts1: PicturePart[],
+  pictureParts2: PicturePart[],
   framesAmount: number
-): Coord[][][] {
+): PicturePart[][] {
   const [points1, points2] = fixPointsAmountDifference(
-    picturePoints1,
-    picturePoints2
+    pictureParts1.map((part) => part.points),
+    pictureParts2.map((part) => part.points)
   );
 
-  const frames = range(1, framesAmount + 1).map((frameCount) =>
-    points1.map((pointsPair, i) =>
-      pointsPair.map((point, j) => ({
-        x: point.x - ((point.x - points2[i][j].x) / framesAmount) * frameCount,
-        y: point.y - ((point.y - points2[i][j].y) / framesAmount) * frameCount,
-      }))
-    )
+  const frames: PicturePart[][] = range(1, framesAmount + 1).map((frameCount) =>
+    points1
+      .map((pointsPair, i) =>
+        pointsPair.map((point, j) => ({
+          x:
+            point.x - ((point.x - points2[i][j].x) / framesAmount) * frameCount,
+          y:
+            point.y - ((point.y - points2[i][j].y) / framesAmount) * frameCount,
+        }))
+      )
+      .map((pointsPair) => ({ points: [pointsPair[0], pointsPair[1]] }))
   );
 
-  return [picturePoints1, ...frames, picturePoints2];
+  return [pictureParts1, ...frames, pictureParts2];
 }
 
 function fixPointsAmountDifference(
