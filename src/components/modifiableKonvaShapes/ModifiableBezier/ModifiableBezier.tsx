@@ -11,6 +11,11 @@ interface Props extends ModifiableLinearShape {
   to: Coord[][];
 }
 
+/**
+ * @param to One part of array is a bezier points and an end point. You don't
+ *   need to specify a start point of the next part of curve, it will be taken
+ *   from end point of previous part of curve.
+ */
 const ModifiableBezier: FunctionComponent<Props> = ({
   from,
   to,
