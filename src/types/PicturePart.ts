@@ -1,6 +1,5 @@
-import PointsPair from './PointsPair';
-
+import Coord from './Coord';
 export default interface PicturePart {
-  points: PointsPair;
+  points: [Coord, Coord];
   isContinuous?: boolean;
 }
