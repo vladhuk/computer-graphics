@@ -1,6 +1,6 @@
 import { clone, cloneDeep } from 'lodash';
 import Coord from '../../../../../types/Coord';
-import PicturePart from '../../PicturePart';
+import PicturePart from '../../../../../types/PicturePart';
 
 interface OnPointMoveArgs {
   parts: PicturePart[];

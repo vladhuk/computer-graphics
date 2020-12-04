@@ -1,4 +1,4 @@
-import Coord from '../../../types/Coord';
+import Coord from './Coord';
 
 type PointsPair = [Coord, Coord];
 

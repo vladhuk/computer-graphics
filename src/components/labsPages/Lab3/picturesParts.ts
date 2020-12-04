@@ -1,5 +1,5 @@
 import Coord from '../../../types/Coord';
-import PicturePart from './PicturePart';
+import PicturePart from '../../../types/PicturePart';
 
 type PicturePartTuple = [Coord, Coord, boolean?];
 
@@ -18,6 +18,13 @@ function normalizeCoords(pointsPair: Coord[]): Coord[] {
   }));
 }
 
+/**
+ * First point in the points pair is a bezier point for curve constructing.
+ * Second point in the pair is a end point of curve.
+ *
+ * So the first point of every next line is an end point of previous pair
+ * and we don't need to specify it.
+ */
 const sharkPointsTuples: PicturePartTuple[] = [
   [
     { x: 179, y: 500 },

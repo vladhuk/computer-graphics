@@ -13,7 +13,7 @@ import CheckboxesForm, {
 import Picture from './Picture';
 import { sharkParts, swanParts } from './picturesParts';
 import { getFrames } from './Lab3.service';
-import PicturePart from './PicturePart';
+import PicturePart from '../../../types/PicturePart';
 
 interface Props {
   tabs: FormTab[];

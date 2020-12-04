@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import PicturePart from '../../../../types/PicturePart';
 import PointModifier from '../../../../types/PointModifier';
 import { ModifiableBezier } from '../../../modifiableKonvaShapes';
-import PicturePart from '../PicturePart';
 import SupportingLines from './SupportingLines';
 import SupportingPoints from './SupportingPoints';
 

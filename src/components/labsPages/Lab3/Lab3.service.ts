@@ -1,6 +1,6 @@
 import { range } from 'lodash';
 import Coord from '../../../types/Coord';
-import PicturePart from './PicturePart';
+import PicturePart from '../../../types/PicturePart';
 
 // eslint-disable-next-line import/prefer-default-export
 export function getFrames(

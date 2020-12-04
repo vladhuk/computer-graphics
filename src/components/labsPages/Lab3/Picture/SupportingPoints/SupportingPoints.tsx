@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
+import PicturePart from '../../../../../types/PicturePart';
 import PointModifier from '../../../../../types/PointModifier';
 import { ModifiableCircle } from '../../../../modifiableKonvaShapes';
 import ModifiableDndOptions from '../../../../modifiableKonvaShapes/ModifiableDndOptions';
-import PicturePart from '../../PicturePart';
 import { getPointColor, onPointMove } from './SupportingPoints.service';
 
 interface Props {
