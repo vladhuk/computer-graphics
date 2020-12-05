@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
-import { ModifiableCircle } from '../modifiableKonvaShapes';
+import ModifiableCircle from '../modifiableKonvaShapes/ModifiableCircle';
 import ModifiableDndOptions from '../modifiableKonvaShapes/ModifiableDndOptions';
 
 interface Props {

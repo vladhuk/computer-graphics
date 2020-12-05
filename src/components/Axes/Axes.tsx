@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import Coord from '../../types/Coord';
 import PointModifier from '../../types/PointModifier';
-import { ModifiableArrow, ModifiableText } from '../modifiableKonvaShapes';
+import ModifiableArrow from '../modifiableKonvaShapes/ModifiableArrow';
+import ModifiableText from '../modifiableKonvaShapes/ModifiableText';
 
 interface Props {
   maxCoord: Coord;

@@ -1,7 +1,7 @@
 import { KonvaEventObject } from 'konva/types/Node';
-import Coord from '../../../types/Coord';
-import PointModifier from '../../../types/PointModifier';
-import { applyModifiers } from '../modifiableKonvaShapes.service';
+import Coord from '../../types/Coord';
+import PointModifier from '../../types/PointModifier';
+import { applyModifiers } from './modifiableKonvaShapes.service';
 
 export type DragAction = (point: Coord) => void;
 
