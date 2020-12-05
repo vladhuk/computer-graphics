@@ -22,6 +22,7 @@ import Lab2 from '../labsPages/Lab2';
 import Pivot from '../Pivot';
 import Lab3 from '../labsPages/Lab3/Lab3';
 import ModifiableDndOptions from '../modifiableKonvaShapes/ModifiableDndOptions';
+import Lab5 from '../labsPages/Lab5';
 
 const canvasWidth = 800;
 const canvasHeight = 800;
@@ -83,13 +84,15 @@ const App: FunctionComponent = () => {
   const [gridModifiers, setGridModifiers] = useState<PointModifier[]>(
     defaultAxesModifiers
   );
+  const [customModifiers, setCustomModifiers] = useState<PointModifier[]>([]);
   const shapeModifiers = useMemo<PointModifier[]>(
     () => [
       bindOffsetPoint(offset),
       bindRotatePointByDegreesWithPivot(rotateDegrees, pivot),
+      ...customModifiers,
       ...gridModifiers,
     ],
-    [gridModifiers, offset, pivot, rotateDegrees]
+    [customModifiers, gridModifiers, offset, pivot, rotateDegrees]
   );
 
   const defaultDndModifiers: PointModifier[] = [
@@ -391,11 +394,13 @@ const App: FunctionComponent = () => {
     dndModifiers: shapeDndModifiers,
     isEnabledDragging,
     defaultCanvasElements,
+    setCustomModifiers,
   };
 
   const lab1 = <Lab1 {...defaultLabProps} />;
   const lab2 = <Lab2 {...defaultLabProps} />;
   const lab3 = <Lab3 {...defaultLabProps} />;
+  const lab5 = <Lab5 {...defaultLabProps} />;
 
   return (
     <>
@@ -410,6 +415,9 @@ const App: FunctionComponent = () => {
           </Route>
           <Route exact path="/lab3">
             {lab3}
+          </Route>
+          <Route exact path="/lab5">
+            {lab5}
           </Route>
           <Redirect exact from="/" to="/lab1" />
         </Switch>
