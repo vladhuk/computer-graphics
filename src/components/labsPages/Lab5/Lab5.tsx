@@ -8,6 +8,8 @@ import { getHouseLines } from './picturesLines';
 import Picture from './Picture';
 import { bindCreateOnePointPerspective } from './Lab5.service';
 
+import exampleImage from '../../../assets/examples/example5.png';
+
 interface Props {
   tabs: FormTab[];
   onSelectTab(tabName: string | null): void;
@@ -81,6 +83,9 @@ const Lab5: FunctionComponent<Props> = ({
         <Picture pictureLines={houseLines} modifiers={modifiers} />
         {defaultCanvasElements}
       </CustomCanvas>
+      <div>
+        <img src={exampleImage} alt="example" style={{ width: '100%' }} />
+      </div>
     </PageWrapper>
   );
 };
