@@ -5,17 +5,17 @@ import './App.css';
 import Axes from '../Axes';
 import { FormTab } from '../DimensionsForm';
 import Coord from '../../types/Coord';
+import PointModifier from '../../types/PointModifier';
+import Affine from '../../types/Affine';
+import Projective from '../../types/Projective';
 import {
+  bindNormalizeVectorValueToAxesMaxCoord,
   bindOffsetPoint,
   bindRotatePointByDegreesWithPivot,
   bindInvertY,
   bindAffinePoint,
   bindProjectivePoint,
-} from '../../util/grapchicFunctions';
-import PointModifier from '../../types/PointModifier';
-import Affine from '../../types/Affine';
-import Projective from '../../types/Projective';
-import { bindNormalizeVectorValueToAxesMaxCoord } from './App.service';
+} from './App.service';
 import Lab1 from '../labsPages/Lab1';
 import Header from '../Header';
 import Lab2 from '../labsPages/Lab2';

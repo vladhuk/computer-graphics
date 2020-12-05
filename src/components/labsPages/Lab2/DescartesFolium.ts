@@ -1,5 +1,5 @@
 import Coord from '../../../types/Coord';
-import { degreesToRad } from '../../../util/grapchicFunctions';
+import { degreesToRad } from '../../../util/math';
 
 export default class DescartesFolium {
   private a: number;
