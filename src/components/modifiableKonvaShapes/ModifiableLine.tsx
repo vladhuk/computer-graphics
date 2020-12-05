@@ -7,10 +7,12 @@ import {
   getMultiplePoints,
 } from './modifiableKonvaShapes.service';
 
-interface Props extends ModifiableLinearShape {
+export interface Line {
   from: Coord;
   to: Coord[];
 }
+
+type Props = Line & ModifiableLinearShape;
 
 const ModifiableLine: FunctionComponent<Props> = ({
   from,
