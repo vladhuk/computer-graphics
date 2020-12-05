@@ -13,5 +13,11 @@ export function applyModifiers(
   point: Coord,
   modifiers: PointModifier[]
 ): Coord {
-  return modifiers.reduce((result, modifier) => modifier(result), point);
+  return modifiers.reduce((result, modifier) => {
+    const value = modifier(result);
+    return {
+      ...value,
+      z: value.z === undefined ? result.z : value.z,
+    };
+  }, point);
 }
