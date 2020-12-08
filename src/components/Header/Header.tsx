@@ -8,6 +8,7 @@ const Header: FunctionComponent = () => (
       <Nav.Link href={`${process.env.PUBLIC_URL}/#/lab2`}>Lab 2</Nav.Link>
       <Nav.Link href={`${process.env.PUBLIC_URL}/#/lab3`}>Lab 3-4</Nav.Link>
       <Nav.Link href={`${process.env.PUBLIC_URL}/#/lab5`}>Lab 5</Nav.Link>
+      <Nav.Link href={`${process.env.PUBLIC_URL}/#/lab6`}>Lab 6</Nav.Link>
     </Nav>
   </Navbar>
 );

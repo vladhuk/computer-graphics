@@ -23,6 +23,7 @@ import Pivot from '../Pivot';
 import Lab3 from '../labsPages/Lab3/Lab3';
 import ModifiableDndOptions from '../modifiableKonvaShapes/ModifiableDndOptions';
 import Lab5 from '../labsPages/Lab5';
+import Lab6 from '../labsPages/Lab6';
 
 const canvasWidth = 800;
 const canvasHeight = 800;
@@ -399,6 +400,7 @@ const App: FunctionComponent = () => {
   const lab2 = <Lab2 {...defaultLabProps} />;
   const lab3 = <Lab3 {...defaultLabProps} />;
   const lab5 = <Lab5 {...defaultLabProps} />;
+  const lab6 = <Lab6 {...defaultLabProps} />;
 
   return (
     <>
@@ -416,6 +418,9 @@ const App: FunctionComponent = () => {
           </Route>
           <Route exact path="/lab5">
             {lab5}
+          </Route>
+          <Route exact path="/lab6">
+            {lab6}
           </Route>
           <Redirect exact from="/" to="/lab1" />
         </Switch>
