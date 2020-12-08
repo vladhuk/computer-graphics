@@ -6,6 +6,7 @@ import Shape from './Shape';
 import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
 import LeftSideWrapper from '../../LeftSideWrapper';
+import Picture from './Picture';
 
 interface Props {
   tabs: FormTab[];
@@ -50,6 +51,8 @@ const Lab1: FunctionComponent<Props> = ({
     },
   ];
 
+  const shape = new Shape({ R, L1, L2, L3, L4 });
+
   return (
     <PageWrapper>
       <LeftSideWrapper>
@@ -60,7 +63,7 @@ const Lab1: FunctionComponent<Props> = ({
         />
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
-        <Shape R={R} L1={L1} L2={L2} L3={L3} L4={L4} modifiers={modifiers} />
+        <Picture shape={shape} modifiers={modifiers} />
         {defaultCanvasElements}
       </CustomCanvas>
       <div>
