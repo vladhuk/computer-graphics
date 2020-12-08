@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a694b3a00620fd33981fbe36b1e6cd4b",
+    "revision": "4edc7581b72311c17f9d7363a0f78b84",
     "url": "/computer-graphics/index.html"
   },
   {
-    "revision": "c10813f025c03413bb2f",
+    "revision": "6c8c5da9b648320a6e1f",
     "url": "/computer-graphics/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "c4dfea0ea85b658cc58e",
+    "revision": "7f0199ec852ccf73748a",
     "url": "/computer-graphics/static/css/main.edd85f03.chunk.css"
   },
   {
-    "revision": "c10813f025c03413bb2f",
-    "url": "/computer-graphics/static/js/2.c8a81056.chunk.js"
+    "revision": "6c8c5da9b648320a6e1f",
+    "url": "/computer-graphics/static/js/2.71da768f.chunk.js"
   },
   {
     "revision": "58c18343c9e5f44ee472d2f7ddb0c8ab",
-    "url": "/computer-graphics/static/js/2.c8a81056.chunk.js.LICENSE.txt"
+    "url": "/computer-graphics/static/js/2.71da768f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c4dfea0ea85b658cc58e",
-    "url": "/computer-graphics/static/js/main.33c84e18.chunk.js"
+    "revision": "7f0199ec852ccf73748a",
+    "url": "/computer-graphics/static/js/main.3abc110c.chunk.js"
   },
   {
     "revision": "e856e5674b78516c3ce2",
