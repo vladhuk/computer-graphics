@@ -17,7 +17,7 @@ export function applyModifiers(
     const value = modifier(result);
     return {
       ...value,
-      z: value.z === undefined ? result.z : value.z,
+      z: value.z ?? result.z,
     };
   }, point);
 }
