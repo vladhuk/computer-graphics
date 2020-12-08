@@ -5,10 +5,10 @@ import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
 import LeftSideWrapper from '../../LeftSideWrapper';
 import { getHouseLines } from './picturesLines';
-import Picture from './Picture';
-import { bindCreateOnePointPerspective } from './Lab5.service';
 
 import exampleImage from '../../../assets/examples/example5.png';
+import { bindCreateOnePointPerspective } from '../../../util/math';
+import ModifiableLinePicture from '../../modifiableKonvaShapes/ModifiableLinePicture';
 
 interface Props {
   tabs: FormTab[];
@@ -76,7 +76,7 @@ const Lab5: FunctionComponent<Props> = ({
         />
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
-        <Picture pictureLines={houseLines} modifiers={modifiers} />
+        <ModifiableLinePicture lines={houseLines} modifiers={modifiers} />
         {defaultCanvasElements}
       </CustomCanvas>
       <div>
