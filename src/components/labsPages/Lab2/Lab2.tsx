@@ -5,7 +5,6 @@ import Coord from '../../../types/Coord';
 import PointModifier from '../../../types/PointModifier';
 import DimensionsForm, { FormTab } from '../../DimensionsForm';
 import exampleImage from '../../../assets/examples/example2.png';
-import Curve from './Curve';
 import Asymptote from './Asymptote';
 import DescartesFolium from './DescartesFolium';
 import Tangent from './Tangent';
@@ -13,6 +12,8 @@ import Normal from './Normal';
 import InfoBlock, { InfoRecord } from '../../InfoBlock';
 import LeftSideWrapper from '../../LeftSideWrapper';
 import CheckboxesForm, { FormCheckbox } from '../../CheckboxesForm';
+import { getCurveLines } from './Lab2.service';
+import ModifiableLinePicture from '../../modifiableKonvaShapes/ModifiableLinePicture';
 
 interface Props {
   tabs: FormTab[];
@@ -107,6 +108,8 @@ const Lab2: FunctionComponent<Props> = ({
     phi: phi0,
   };
 
+  const curveLines = getCurveLines(descartesFolium, maxCoord);
+
   return (
     <PageWrapper>
       <LeftSideWrapper>
@@ -119,7 +122,7 @@ const Lab2: FunctionComponent<Props> = ({
         <CheckboxesForm checkboxes={checkboxes} />
       </LeftSideWrapper>
       <CustomCanvas width={canvasWidth} height={canvasHeight}>
-        <Curve {...defaultProps} />
+        <ModifiableLinePicture lines={curveLines} modifiers={modifiers} />
         {isEnableAsymptote && <Asymptote color="red" {...defaultProps} />}
         {isEnableTangent && <Tangent color="skyblue" {...defaultProps} />}
         {isEnableNormale && <Normal color="hotpink" {...defaultProps} />}
