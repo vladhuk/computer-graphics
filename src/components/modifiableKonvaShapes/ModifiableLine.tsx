@@ -8,31 +8,29 @@ import {
 } from './modifiableKonvaShapes.service';
 
 export interface Line {
-  from: Coord;
-  to: Coord[];
+  points: Coord[];
 }
 
 type Props = Line & ModifiableLinearShape;
 
 const ModifiableLine: FunctionComponent<Props> = ({
-  from,
-  to,
+  points,
   modifiers,
   color,
   ...rest
 }) => {
-  const startPoint = modifiers ? applyModifiers(from, modifiers) : from;
+  const modifiedPoints = modifiers
+    ? points.map((point) => applyModifiers(point, modifiers))
+    : points;
 
-  const modifiedEndPoints = modifiers
-    ? to.map((point) => applyModifiers(point, modifiers))
-    : to;
-  const points = getMultiplePoints(startPoint, modifiedEndPoints);
+  const startPoint = modifiedPoints[0];
+  const endPoints = getMultiplePoints(startPoint, modifiedPoints.slice(1));
 
   return (
     <Line
       x={startPoint.x}
       y={startPoint.y}
-      points={[0, 0, ...points]}
+      points={[0, 0, ...endPoints]}
       stroke={color || 'black'}
       {...rest}
     />

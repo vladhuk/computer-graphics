@@ -23,8 +23,8 @@ const InnerShape: FunctionComponent<Props> = ({ R, L1, L2, modifiers }) => {
 
   const getCircleLine = (x: number, scale: number) => (
     <ModifiableLine
-      from={{ x, y: getCircleY(x, scale) }}
-      to={[
+      points={[
+        { x, y: getCircleY(x, scale) },
         {
           x: x + circleLineLength,
           y: getCircleY(x + circleLineLength, scale),
@@ -50,8 +50,8 @@ const InnerShape: FunctionComponent<Props> = ({ R, L1, L2, modifiers }) => {
   return (
     <>
       <ModifiableLine
-        from={{ x: xStart, y: yStart }}
-        to={[
+        points={[
+          { x: xStart, y: yStart },
           { x: xStart, y: yStart + L1 - L1ExcludeCircle + R / 2 },
           { x: xStart + L2, y: yStart + L1 - L1ExcludeCircle + R / 2 },
           { x: xStart + L2, y: yStart },

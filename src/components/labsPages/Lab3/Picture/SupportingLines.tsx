@@ -15,20 +15,18 @@ const SupportingLines: FunctionComponent<Props> = ({
   strokeWidth,
   modifiers,
 }) => {
-  const from = points[points.length - 1][1];
+  const startPoint = points[points.length - 1][1];
 
   return (
     <>
       <ModifiableLine
-        from={from}
-        to={flatten(points)}
+        points={[startPoint, ...flatten(points)]}
         modifiers={modifiers}
         color="hotpink"
         strokeWidth={strokeWidth}
       />
       <ModifiableLine
-        from={from}
-        to={[...points.map((pointsPair) => pointsPair[1])]}
+        points={[startPoint, ...points.map((pointsPair) => pointsPair[1])]}
         modifiers={modifiers}
         color="skyblue"
         strokeWidth={strokeWidth}

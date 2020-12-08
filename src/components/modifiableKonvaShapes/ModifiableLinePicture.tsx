@@ -11,8 +11,8 @@ const ModifiableLinePicture: FunctionComponent<Props> = ({
   ...rest
 }) => (
   <>
-    {lines.map(({ from, to }) => (
-      <ModifiableLine {...rest} from={from} to={to} />
+    {lines.map(({ points }) => (
+      <ModifiableLine {...rest} points={points} />
     ))}
   </>
 );

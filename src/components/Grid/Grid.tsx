@@ -23,8 +23,7 @@ const Grid: FunctionComponent<Props> = ({
     return (
       <ModifiableLine
         key={`${start.x}_${start.y}`}
-        from={start}
-        to={[end]}
+        points={[start, end]}
         modifiers={modifiers}
         strokeWidth={0.3}
       />

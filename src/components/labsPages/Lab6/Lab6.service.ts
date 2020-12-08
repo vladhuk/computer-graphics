@@ -32,8 +32,7 @@ export function getEllipticParaboloidLines({
   );
 
   return [...points1, ...points2].map((pointsLine) => ({
-    from: pointsLine[0],
-    to: pointsLine.slice(1),
+    points: pointsLine,
   }));
 }
 

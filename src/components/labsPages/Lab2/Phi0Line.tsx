@@ -22,11 +22,11 @@ const Phi0Line: FunctionComponent<Props> = ({
 
   return (
     <ModifiableLine
-      from={{
-        x: -maxCoord.x,
-        y: f(-maxCoord.x) * scale,
-      }}
-      to={[
+      points={[
+        {
+          x: -maxCoord.x,
+          y: f(-maxCoord.x) * scale,
+        },
         {
           x: maxCoord.x,
           y: f(maxCoord.x) * scale,

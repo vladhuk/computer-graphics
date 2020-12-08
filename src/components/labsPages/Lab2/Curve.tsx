@@ -34,16 +34,8 @@ const Curve: FunctionComponent<Props> = ({
 
   return (
     <>
-      <ModifiableLine
-        from={firstBranchPoints[0]}
-        to={firstBranchPoints.slice(1)}
-        modifiers={modifiers}
-      />
-      <ModifiableLine
-        from={secondBranchPoints[0]}
-        to={secondBranchPoints.slice(1)}
-        modifiers={modifiers}
-      />
+      <ModifiableLine points={firstBranchPoints} modifiers={modifiers} />
+      <ModifiableLine points={secondBranchPoints} modifiers={modifiers} />
     </>
   );
 };

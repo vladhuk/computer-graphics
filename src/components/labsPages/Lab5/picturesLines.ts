@@ -30,94 +30,123 @@ export function getHouseLines({
   const w = W / 2;
   const Wl = W + l;
 
-  const coordSets: [CoordSet, CoordSet[]][] = [
+  const coordSets: CoordSet[][] = [
     // Floor 1
     [
       [-l, -h, -l],
-      [
-        [l, -h, -l],
-        [l, -h, l],
-        [-l, -h, l],
-        [-l, -h, -l],
-      ],
+      [l, -h, -l],
+      [l, -h, l],
+      [-l, -h, l],
+      [-l, -h, -l],
     ],
     // Floor 2
     [
       [-l, h, -l],
-      [
-        [-w, h * 2 - W, -l],
-        [w, h * 2 - W, -l],
-        [l, h, -l],
-        [l, h, -rl1],
-        [Wl, h, -rl1],
-        [Wl, h, rl1],
-        [l, h, rl1],
-        [l, h, l],
-        [w, h * 2 - W, l],
-        [-w, h * 2 - W, l],
-        [-l, h, l],
-        [-l, h, rl1],
-        [-Wl, h, rl1],
-        [-Wl, h, -rl1],
-        [-l, h, -rl1],
-        [-l, h, -l],
-      ],
+      [-w, h * 2 - W, -l],
+      [w, h * 2 - W, -l],
+      [l, h, -l],
+      [l, h, -rl1],
+      [Wl, h, -rl1],
+      [Wl, h, rl1],
+      [l, h, rl1],
+      [l, h, l],
+      [w, h * 2 - W, l],
+      [-w, h * 2 - W, l],
+      [-l, h, l],
+      [-l, h, rl1],
+      [-Wl, h, rl1],
+      [-Wl, h, -rl1],
+      [-l, h, -rl1],
+      [-l, h, -l],
     ],
-    [[-l, h, -l], [[-l, h, l]]],
-    [[l, h, -l], [[l, h, l]]],
+    [
+      [-l, h, -l],
+      [-l, h, l],
+    ],
+    [
+      [l, h, -l],
+      [l, h, l],
+    ],
     // Floor 3
     [
       [-w, h * 2, -rl2],
-      [
-        [w, h * 2, -rl2],
-        [w, h * 2, rl2],
-        [-w, h * 2, rl2],
-        [-w, h * 2, -rl2],
-      ],
+      [w, h * 2, -rl2],
+      [w, h * 2, rl2],
+      [-w, h * 2, rl2],
+      [-w, h * 2, -rl2],
     ],
     // Between floors 1 and 2
-    [[-l, -h, -l], [[-l, h, -l]]],
-    [[l, -h, -l], [[l, h, -l]]],
-    [[l, -h, l], [[l, h, l]]],
-    [[-l, -h, l], [[-l, h, l]]],
+    [
+      [-l, -h, -l],
+      [-l, h, -l],
+    ],
+    [
+      [l, -h, -l],
+      [l, h, -l],
+    ],
+    [
+      [l, -h, l],
+      [l, h, l],
+    ],
+    [
+      [-l, -h, l],
+      [-l, h, l],
+    ],
     // Between floors 2 and 3
-    [[-Wl, h, rl1], [[-w, h * 2, rl2]]],
-    [[Wl, h, rl1], [[w, h * 2, rl2]]],
-    [[-Wl, h, -rl1], [[-w, h * 2, -rl2]]],
-    [[Wl, h, -rl1], [[w, h * 2, -rl2]]],
+    [
+      [-Wl, h, rl1],
+      [-w, h * 2, rl2],
+    ],
+    [
+      [Wl, h, rl1],
+      [w, h * 2, rl2],
+    ],
+    [
+      [-Wl, h, -rl1],
+      [-w, h * 2, -rl2],
+    ],
+    [
+      [Wl, h, -rl1],
+      [w, h * 2, -rl2],
+    ],
     [
       [-l, h, rl1],
-      [
-        [-w, h * 2 - W, rl2],
-        [w, h * 2 - W, rl2],
-        [l, h, rl1],
-      ],
+      [-w, h * 2 - W, rl2],
+      [w, h * 2 - W, rl2],
+      [l, h, rl1],
     ],
     [
       [-l, h, -rl1],
-      [
-        [-w, h * 2 - W, -rl2],
-        [w, h * 2 - W, -rl2],
-        [l, h, -rl1],
-      ],
+      [-w, h * 2 - W, -rl2],
+      [w, h * 2 - W, -rl2],
+      [l, h, -rl1],
     ],
-    [[-w, h * 2 - W, l], [[-w, h * 2 - W, rl2]]],
-    [[-w, h * 2 - W, -l], [[-w, h * 2 - W, -rl2]]],
-    [[w, h * 2 - W, l], [[w, h * 2 - W, rl2]]],
-    [[w, h * 2 - W, -l], [[w, h * 2 - W, -rl2]]],
+    [
+      [-w, h * 2 - W, l],
+      [-w, h * 2 - W, rl2],
+    ],
+    [
+      [-w, h * 2 - W, -l],
+      [-w, h * 2 - W, -rl2],
+    ],
+    [
+      [w, h * 2 - W, l],
+      [w, h * 2 - W, rl2],
+    ],
+    [
+      [w, h * 2 - W, -l],
+      [w, h * 2 - W, -rl2],
+    ],
     // Door
     [
       [-l / 3, -h, l],
-      [
-        [-l / 3, 0, l],
-        [l / 3, 0, l],
-        [l / 3, -h, l],
-      ],
+      [-l / 3, 0, l],
+      [l / 3, 0, l],
+      [l / 3, -h, l],
     ],
   ];
 
-  return coordSets.map(([from, to]) => ({
-    from: mapArrayToCoord(<number[]>from),
-    to: (<number[][]>to).map(mapArrayToCoord),
+  return coordSets.map((points) => ({
+    points: (<number[][]>points).map(mapArrayToCoord),
   }));
 }

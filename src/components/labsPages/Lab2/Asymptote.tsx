@@ -21,11 +21,11 @@ const Asymptote: FunctionComponent<Props> = ({
 
   return (
     <ModifiableLine
-      from={{
-        x: -maxCoord.x * scale,
-        y: descartesFolium.getAsymtoteSecondCoordParam(-maxCoord.x * scale),
-      }}
-      to={[
+      points={[
+        {
+          x: -maxCoord.x * scale,
+          y: descartesFolium.getAsymtoteSecondCoordParam(-maxCoord.x * scale),
+        },
         {
           x: descartesFolium.getAsymtoteSecondCoordParam(-maxCoord.y * scale),
           y: -maxCoord.y * scale,

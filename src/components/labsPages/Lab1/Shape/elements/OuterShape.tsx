@@ -19,8 +19,8 @@ const OuterShape: FunctionComponent<Props> = ({ R, L1, L3, L4, modifiers }) => {
 
   return (
     <ModifiableLine
-      from={start}
-      to={[
+      points={[
+        start,
         { x: start.x, y: start.y + L1 },
         { x: start.x - (L4 - L3) / 2, y: start.y + L1 },
         { x: start.x - (L4 - L3) / 2, y: start.y + L1 + R },
