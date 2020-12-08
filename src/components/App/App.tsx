@@ -84,16 +84,14 @@ const App: FunctionComponent = () => {
   const [gridModifiers, setGridModifiers] = useState<PointModifier[]>(
     defaultAxesModifiers
   );
-  const [customModifiers, setCustomModifiers] = useState<PointModifier[]>([]);
-  const shapeModifiers = useMemo<PointModifier[]>(
-    () => [
-      bindOffsetPoint(offset),
-      bindRotatePointByDegreesWithPivot(rotateDegrees, pivot),
-      ...customModifiers,
-      ...gridModifiers,
-    ],
-    [customModifiers, gridModifiers, offset, pivot, rotateDegrees]
-  );
+  const getShapeModifiers = (
+    customModifiers?: PointModifier[]
+  ): PointModifier[] => [
+    bindOffsetPoint(offset),
+    bindRotatePointByDegreesWithPivot(rotateDegrees, pivot),
+    ...(customModifiers || []),
+    ...gridModifiers,
+  ];
 
   const defaultDndModifiers: PointModifier[] = [
     bindOffsetPoint({ x: -canvasCenter.x, y: -canvasCenter.y }),
@@ -390,11 +388,11 @@ const App: FunctionComponent = () => {
     canvasWidth,
     canvasHeight,
     step,
-    modifiers: shapeModifiers,
+    modifiers: getShapeModifiers(),
+    getModifiers: getShapeModifiers,
     dndModifiers: shapeDndModifiers,
     isEnabledDragging,
     defaultCanvasElements,
-    setCustomModifiers,
   };
 
   const lab1 = <Lab1 {...defaultLabProps} />;

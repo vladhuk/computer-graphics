@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import CustomCanvas from '../../CustomCanvas';
 import PageWrapper from '../../PageWraper';
 import PointModifier from '../../../types/PointModifier';
@@ -16,9 +16,8 @@ interface Props {
   canvasWidth: number;
   canvasHeight: number;
   step?: number;
-  modifiers?: PointModifier[];
   defaultCanvasElements?: JSX.Element;
-  setCustomModifiers(modifiers: PointModifier[]): void;
+  getModifiers?(modifiers: PointModifier[]): PointModifier[];
 }
 
 const Lab5: FunctionComponent<Props> = ({
@@ -27,9 +26,8 @@ const Lab5: FunctionComponent<Props> = ({
   canvasWidth,
   canvasHeight,
   step,
-  modifiers,
+  getModifiers,
   defaultCanvasElements,
-  setCustomModifiers,
 }) => {
   const [viewPoint, setViewPoint] = useState(1000);
   const [L, setL] = useState(150);
@@ -38,9 +36,7 @@ const Lab5: FunctionComponent<Props> = ({
   const [R2, setR2] = useState(180);
   const [W, setW] = useState(30);
 
-  useEffect(() => {
-    setCustomModifiers([bindCreateOnePointPerspective(viewPoint)]);
-  }, [setCustomModifiers, viewPoint]);
+  const modifiers = getModifiers?.([bindCreateOnePointPerspective(viewPoint)]);
 
   const tabName = 'Picture';
 
