@@ -4,11 +4,8 @@ import { degreesToRad } from '../../../util/math';
 export default class DescartesFolium {
   private a: number;
 
-  private l: number;
-
   constructor(a: number) {
     this.a = a;
-    this.l = DescartesFolium.getL(a);
   }
 
   private static getL(a: number): number {
