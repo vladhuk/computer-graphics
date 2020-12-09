@@ -1,5 +1,5 @@
 import Coord from '../../../types/Coord';
-import { Line } from '../../modifiableKonvaShapes/ModifiableLine';
+import Line from '../../../types/Line';
 
 interface ConstructorArgs {
   R: number;
@@ -41,17 +41,15 @@ export default class Shape {
     const yStart = this.getCircleY(xStart, 1);
     const L1ExcludeCircle = L1 / 2 + yStart;
 
-    const innerLine: Line = {
-      points: [
-        { x: xStart, y: yStart },
-        { x: xStart, y: yStart + L1 - L1ExcludeCircle + R / 2 },
-        {
-          x: xStart + L2,
-          y: yStart + L1 - L1ExcludeCircle + R / 2,
-        },
-        { x: xStart + L2, y: yStart },
-      ],
-    };
+    const innerLine: Line = [
+      { x: xStart, y: yStart },
+      { x: xStart, y: yStart + L1 - L1ExcludeCircle + R / 2 },
+      {
+        x: xStart + L2,
+        y: yStart + L1 - L1ExcludeCircle + R / 2,
+      },
+      { x: xStart + L2, y: yStart },
+    ];
 
     return [innerLine, ...circleLines];
   }
@@ -61,15 +59,13 @@ export default class Shape {
     scale: number,
     circleLineLength: number
   ): Line {
-    return {
-      points: [
-        { x, y: this.getCircleY(x, scale) },
-        {
-          x: x + circleLineLength,
-          y: this.getCircleY(x + circleLineLength, scale),
-        },
-      ],
-    };
+    return [
+      { x, y: this.getCircleY(x, scale) },
+      {
+        x: x + circleLineLength,
+        y: this.getCircleY(x + circleLineLength, scale),
+      },
+    ];
   }
 
   private getCircleY(x: number, scale: number): number {

@@ -1,17 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { Line } from 'react-konva';
-import Coord from '../../types/Coord';
+import ILine from '../../types/Line';
 import { ModifiableLinearShape } from '../../types/ModifiableShape';
 import {
   applyModifiers,
   getMultiplePoints,
 } from './modifiableKonvaShapes.service';
 
-export interface Line {
-  points: Coord[];
+interface Props extends ModifiableLinearShape {
+  points: ILine;
 }
-
-type Props = Line & ModifiableLinearShape;
 
 const ModifiableLine: FunctionComponent<Props> = ({
   points,

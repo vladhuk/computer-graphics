@@ -1,5 +1,5 @@
 import Coord from '../../../types/Coord';
-import { Line } from '../../modifiableKonvaShapes/ModifiableLine';
+import Line from '../../../types/Line';
 
 type CoordSet = [number, number, number];
 
@@ -146,7 +146,5 @@ export function getHouseLines({
     ],
   ];
 
-  return coordSets.map((points) => ({
-    points: (<number[][]>points).map(mapArrayToCoord),
-  }));
+  return coordSets.map((points) => points.map(mapArrayToCoord));
 }

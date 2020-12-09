@@ -59,7 +59,7 @@ const Lab6: FunctionComponent<Props> = ({
           },
         ],
         [
-          { title: 'l', value: l, step, setValue: setL },
+          { title: 'l', value: l, min: 1, step, setValue: setL },
           { title: 'a', value: a, unit: ' ', setValue: setA },
           { title: 'b', value: b, unit: ' ', setValue: setB },
         ],

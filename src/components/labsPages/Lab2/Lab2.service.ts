@@ -1,5 +1,5 @@
 import Coord from '../../../types/Coord';
-import { Line } from '../../modifiableKonvaShapes/ModifiableLine';
+import Line from '../../../types/Line';
 import DescartesFolium from './DescartesFolium';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -24,5 +24,5 @@ export function getCurveLines(
     }
   }
 
-  return [firstBranchPoints, secondBranchPoints].map((points) => ({ points }));
+  return [firstBranchPoints, secondBranchPoints];
 }

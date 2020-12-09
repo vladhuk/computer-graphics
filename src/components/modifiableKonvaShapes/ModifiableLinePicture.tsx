@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import Line from '../../types/Line';
 import { ModifiableLinearShape } from '../../types/ModifiableShape';
-import ModifiableLine, { Line } from './ModifiableLine';
+import ModifiableLine from './ModifiableLine';
 
 interface Props extends ModifiableLinearShape {
   lines: Line[];
@@ -11,8 +12,8 @@ const ModifiableLinePicture: FunctionComponent<Props> = ({
   ...rest
 }) => (
   <>
-    {lines.map(({ points }) => (
-      <ModifiableLine {...rest} points={points} />
+    {lines.map((line) => (
+      <ModifiableLine {...rest} points={line} />
     ))}
   </>
 );

@@ -1,6 +1,6 @@
 import { range } from 'lodash';
 import Coord from '../../../types/Coord';
-import { Line } from '../../modifiableKonvaShapes/ModifiableLine';
+import Line from '../../../types/Line';
 
 // eslint-disable-next-line import/prefer-default-export
 export function getEllipticParaboloidLines({
@@ -31,9 +31,7 @@ export function getEllipticParaboloidLines({
     }))
   );
 
-  return [...points1, ...points2].map((pointsLine) => ({
-    points: pointsLine,
-  }));
+  return [...points1, ...points2];
 }
 
 function getY(z: number, x: number, a: number, b: number): number {
