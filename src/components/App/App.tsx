@@ -24,6 +24,7 @@ import Lab3 from '../labsPages/Lab3/Lab3';
 import ModifiableDndOptions from '../modifiableKonvaShapes/ModifiableDndOptions';
 import Lab5 from '../labsPages/Lab5';
 import Lab6 from '../labsPages/Lab6';
+import Lab7 from '../labsPages/Lab7';
 
 const canvasWidth = 800;
 const canvasHeight = 800;
@@ -401,6 +402,7 @@ const App: FunctionComponent = () => {
   const lab3 = <Lab3 {...defaultLabProps} />;
   const lab5 = <Lab5 {...defaultLabProps} />;
   const lab6 = <Lab6 {...defaultLabProps} />;
+  const lab7 = <Lab7 {...defaultLabProps} />;
 
   return (
     <>
@@ -421,6 +423,9 @@ const App: FunctionComponent = () => {
           </Route>
           <Route exact path="/lab6">
             {lab6}
+          </Route>
+          <Route exact path="/lab7">
+            {lab7}
           </Route>
           <Redirect exact from="/" to="/lab1" />
         </Switch>
